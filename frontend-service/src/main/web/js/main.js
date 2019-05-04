@@ -1,4 +1,5 @@
 var token = "";
+var myMap;
 
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
@@ -29,8 +30,22 @@ function req() {
         	var obj = JSON.parse(req.responseText);
         	setTextBox("response", "Status: " + req.status + " " + req.statusText + "\n"
         			+ req.getAllResponseHeaders(), JSON.stringify(obj,null,2));
-        	token = obj["access_token"];
-          
+        	for(var i = 0; i < obj.length;i++) {
+        		var myPlacemark = new ymaps.Placemark([obj[i]["latitude"], obj[i]["longitude"]], {
+        			balloonContentBody: [
+        				'<address>',
+        				'<strong>' + obj[i]["name"] + '</strong>',
+        				'<br/>',
+        				'Загруженность: ' + obj[i]["workload"] + "%",
+        				'<br/>',
+        				'</address>'
+        				].join('')
+        		}, {
+        			preset: 'islands#redDotIcon'
+        		});
+        		myMap.geoObjects.add(myPlacemark);
+        		document.getElementById("mapspoiler").open = true;
+        	};
         }
 
         var req = new XMLHttpRequest();
@@ -38,6 +53,27 @@ function req() {
         req.open("GET", uri, true);
         req.setRequestHeader("Authorization", 'Bearer ' + token);
         req.send();
+}
+
+function check() {
+    var uri = "/authservice/user";
+    
+    headerstr = "URL: " + uri + "\n" + "Method: GET\n Headers:\n" 
+			+ "Authorization: Bearer " + token;
+    
+    setTextBox("request", headerstr, "Empty body for GET");
+    
+    function reqCallback () {
+    	var obj = JSON.parse(req.responseText);
+    	setTextBox("response", "Status: " + req.status + " " + req.statusText + "\n"
+    			+ req.getAllResponseHeaders(), JSON.stringify(obj,null,2));
+    }
+
+    var req = new XMLHttpRequest();
+    req.onload = reqCallback;
+    req.open("GET", uri, true);
+    req.setRequestHeader("Authorization", 'Bearer ' + token);
+    req.send();
 }
 
 function auth() {
@@ -53,10 +89,10 @@ function auth() {
         var uri = "/authservice/oauth/token";
 
         var headerstr = "URL: " + uri + "\n" + "Method: POST\n Headers:\n" 
-            + "Authorization: Basic " + btoa("netcracker" + ":" + "ncpassword");
+        + "Authorization: Basic " + btoa("netcracker" + ":" + "ncpassword");
         var object = {};
         formData.forEach(function(value, key){
-            object[key] = value;
+        	object[key] = value;
         });
         var bodystr = JSON.stringify(object,null, 2);
         setTextBox("request", headerstr, bodystr);
@@ -66,7 +102,7 @@ function auth() {
         	setTextBox("response", "Status: " + req.status + " " + req.statusText + "\n"
         			+ req.getAllResponseHeaders(), JSON.stringify(obj,null,2));
         	token = obj["access_token"];
-          
+        	document.getElementById("token").textContent = "Token: Bearer " + token;
         }
 
         var req = new XMLHttpRequest();
@@ -98,39 +134,24 @@ function auth() {
 }
 
 function setTextBox(type, header, body) {
-  switch(type) {
-    case "request":
-        document.getElementById("req-headers").textContent = header;
-        document.getElementById("req-body").textContent = body;
-        break;
-    case "response":
-        document.getElementById("resp-headers").textContent = header;
-        document.getElementById("resp-body").textContent = body;
-        break;
-  }
-
-  var myMap;
-
-//Дождёмся загрузки API и готовности DOM.
-ymaps.ready(init);
-
-function init () {
-   // Создание экземпляра карты и его привязка к контейнеру с
-   // заданным id ("map").
-	alert("Loaded");
-   myMap = new ymaps.Map('map', {
-       // При инициализации карты обязательно нужно указать
-       // её центр и коэффициент масштабирования.
-       center: [55.76, 37.64], // Москва
-       zoom: 10
-   }, {
-       searchControlProvider: 'yandex#search'
-   });
-
-   document.getElementById('destroyButton').onclick = function () {
-       // Для уничтожения используется метод destroy.
-       myMap.destroy();
-   };
-
+	switch(type) {
+	case "request":
+		document.getElementById("req-headers").textContent = header;
+		document.getElementById("req-body").textContent = body;
+		break;
+	case "response":
+		document.getElementById("resp-headers").textContent = header;
+		document.getElementById("resp-body").textContent = body;
+		break;
+	}
 }
-}
+
+ymaps.ready(function () {
+	 myMap = new ymaps.Map('map', {
+		center: [55.44, 37.36],
+		zoom: 12,
+		// Обратите внимание, что в API 2.1 по умолчанию карта создается с элементами управления.
+		// Если вам не нужно их добавлять на карту, в ее параметрах передайте пустой массив в поле controls.
+		controls: []
+	});
+});

@@ -79,7 +79,7 @@
     * password : userpass
 ```
 
-### Отправить GET к transport service
+### Отправить GET к transport service через postman
 ```
     На http://localhost:8085/api/v1/transport. 
     При этом выбрать авторизацию Bearer и вставить полученный access_token.

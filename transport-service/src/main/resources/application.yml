@@ -1,0 +1,27 @@
+          
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://authenticationservice:8901/user
+
+spring:
+  datasource:
+    url: jdbc:postgresql://database:5432/postgres
+    username: postgres
+    password: p0stgr@s
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: none
+        temp:
+          use_jdbc_metadata_defaults: false
+
+logging: 
+  level: 
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.ncstudy: DEBUG

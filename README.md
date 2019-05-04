@@ -67,13 +67,13 @@
 
 ### Через Апи тестер
 
-```
-    [localhost на порту 80](http://localhost)
-```
+[localhost (порт 80)](http://localhost)
 
 ### Получить токен на доступ через postman
 ```
-    У http://localhost:8901/oauth/token. При этом выбрать авторизацию Basic Auth c логином netcracker и паролем ncpassword. Метод POST и тип body установить как form-data, поля:
+    У http://localhost:8901/oauth/token. 
+    При этом выбрать авторизацию Basic Auth c логином netcracker и паролем ncpassword. 
+    Метод POST и тип body установить как form-data, поля:
     * grant_type : password
     * username : john.doe
     * password : userpass
@@ -81,7 +81,8 @@
 
 ### Отправить GET к transport service
 ```
-    На http://localhost:8085/api/v1/transport. При этом выбрать авторизацию Bearer и вставить полученный access_token
+    На http://localhost:8085/api/v1/transport. 
+    При этом выбрать авторизацию Bearer и вставить полученный access_token.
 ```
 
 ## Описание структуры

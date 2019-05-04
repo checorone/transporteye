@@ -6,7 +6,7 @@
 * База данных (Postgres)
 * API тестер (Frontend service)
 
-## Интсрукции
+## Инструкции
 
 Внимательно прочитайте все что описано ниже, это поможет избежать лишних вопросов.
 
@@ -26,6 +26,11 @@
 * [Postman](https://www.getpostman.com/) - Тестить апи
 * [DBeaver](https://dbeaver.io/) - Тестить базу
 
+### Установка необходимых пакетов в Ubuntu
+
+```
+    WORK IN PROGRESS
+```
 
 ### Запуск
 
@@ -50,6 +55,12 @@
 
 ```
     docker-compose -f docker/common/docker-compose.yml up
+```
+
+Останавливаем сервисы:
+
+```
+    Ctrl + C
 ```
 
 ## Описание структуры

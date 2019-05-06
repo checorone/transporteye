@@ -1,8 +1,8 @@
 var token = "";
 var myMap;
-var authtokenuri = "authservice/oauth/token";
-var checktokenuri = "authservice/user";
-var gettransporturi = "transportservice/api/v1/transport";
+var authtokenuri = "http://localhost:8901/oauth/token";
+var checktokenuri = "http://localhost:8901/user";
+var gettransporturi = "http://localhost:8085/api/v1/transport";
 
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";

@@ -96,6 +96,13 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8085 \
     Ctrl + C
 ```
 
+Полностью перезапустить сервисы:
+
+```
+    docker-compose -f docker/common/docker-compose.yml rm
+    docker-compose -f docker/common/docker-compose.yml up
+```
+
 ## Использование
 
 ### Через Апи тестер

@@ -34,9 +34,9 @@
     WORK IN PROGRESS
 ```
 
-### Сборка и запуск
+## Сборка и запуск
 
-## Сборка
+### Сборка
 
 + Клонируем репо:
 ```
@@ -52,7 +52,7 @@
 ```
     mvn clean package docker:build
 ```
-## Запуск вручную
+### Запуск вручную
 
 + Устанавливаем, настраиваем и запускаем PostgreSQL (Зависит от дистрибутива)
 + Запускаем сервис Аутентификации
@@ -75,7 +75,7 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8085 \
     frontend-service/src/main/web/indexman.html
 ```
 
-## Запуск через Docker-compose
+### Запуск через Docker-compose
 
 Запускаем сервисы:
 

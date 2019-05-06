@@ -7,7 +7,6 @@ echo "******** Database Server has started "
 echo "********************************************************"
 echo "Starting Authentication Service                           "
 echo "********************************************************"
-java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8901  \
-     -Dspring.datasource.url=jdbc:postgresql://localhost:5432/postgres \
-     -Dspring.profiles.active=default                            \
-     -jar authentication-service-0.0.1-SNAPSHOT.jar
+java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
+     -Dspring.profiles.active=$PROFILE                                   \
+     -jar /usr/local/authenticationservice/@project.build.finalName@.jar

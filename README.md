@@ -55,9 +55,7 @@
 ### Запуск вручную
 
 + Устанавливаем, настраиваем и запускаем PostgreSQL (Зависит от дистрибутива)
-{::nomarkdown}
-<p style="border-left: 6px solid red; background-color: lightgrey;">Заметка: С помощью docker-compose вы можете запустить только одну базу, следующим образом:<\p>
-{:/}
+    Заметка: С помощью docker-compose вы можете запустить только одну базу, следующим образом:
     
 ```
     docker-compose -f docker/common/docker-compose.yml up database

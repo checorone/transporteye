@@ -1,7 +1,7 @@
 package org.ncstudy.authentication.service;
 
-import org.ncstudy.authentication.model.RoleDao;
-import org.ncstudy.authentication.model.UserDao;
+import org.ncstudy.authentication.model.Role;
+import org.ncstudy.authentication.model.UserData;
 import org.ncstudy.authentication.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,55 +32,55 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserDao userDao = userRepository.findByUsername(s);
-        if (userDao == null)
+        UserData userData = userRepository.findByUsername(s);
+        if (userData == null)
             throw new UsernameNotFoundException(String.format("The username %s does not exist", s));
         List<GrantedAuthority> authorities = new ArrayList<>();
-        userDao.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
-        return new User(userDao.getUsername(), userDao.getPassword(), authorities);
+        userData.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+        return new User(userData.getUsername(), userData.getPassword(), authorities);
     }
 
-    public void addUser(UserDao userDao) throws Exception {
-        if (userRepository.existsByEmail(userDao.getEmail()))
+    public void addUser(UserData userData) throws Exception {
+        if (userRepository.existsByEmail(userData.getEmail()))
             throw new Exception("User with this email already exist");
-        if (userRepository.existsByUsername(userDao.getUsername()))
+        if (userRepository.existsByUsername(userData.getUsername()))
             throw new Exception("User with this name already exist");
-        userDao.setRoles(Collections.singletonList(RoleDao.USER));
-        userDao.setPassword(passwordEncoder.encode(userDao.getPassword()));
-        userRepository.save(userDao);
+        userData.setRoles(Collections.singletonList(Role.USER));
+        userData.setPassword(passwordEncoder.encode(userData.getPassword()));
+        userRepository.save(userData);
     }
 
     public void activateUser(UUID uuid) throws UserPrincipalNotFoundException {
-        UserDao userDao = userRepository.findByActivationCode(uuid);
-        if (userDao == null)
+        UserData userData = userRepository.findByActivationCode(uuid);
+        if (userData == null)
             throw new UserPrincipalNotFoundException("User by activation code not found");
-        userDao.setActive(true);
-        userDao.setActivationCode(null);
-        userRepository.save(userDao);
+        userData.setActive(true);
+        userData.setActivationCode(null);
+        userRepository.save(userData);
     }
 
-    public void setRoles(String username, List<RoleDao> roles) {
-        UserDao userDao = userRepository.findByUsername(username);
-        if (userDao == null)
+    public void setRoles(String username, List<Role> roles) {
+        UserData userData = userRepository.findByUsername(username);
+        if (userData == null)
             throw new UsernameNotFoundException(String.format("The username %s doesn't exist", username));
-        userDao.setRoles(roles);
-        userRepository.save(userDao);
+        userData.setRoles(roles);
+        userRepository.save(userData);
     }
 
     @PostConstruct
     private void setupDefaultUsers() {
         if (userRepository.count() == 0) {
-            userRepository.save(new UserDao(
+            userRepository.save(new UserData(
                     "john.doe",
                     passwordEncoder.encode("userpass"),
-                    Collections.singletonList(RoleDao.USER),
+                    Collections.singletonList(Role.USER),
                     true,
                     null));
-            userRepository.save(new UserDao(
+            userRepository.save(new UserData(
                     "john.admindoe",
                     passwordEncoder.encode("adminpass"),
                     // todo: check is java > 9 in docker
-                    List.of(RoleDao.USER, RoleDao.ADMIN),
+                    List.of(Role.USER, Role.ADMIN),
                     true,
                     null));
         }

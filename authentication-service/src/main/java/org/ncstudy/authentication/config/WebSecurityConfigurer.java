@@ -46,10 +46,10 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //@formatter:off
         http
-                .csrf().disable()//todo: delete after debugging
+//                .csrf().disable()//todo: delete after debugging
                     .authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS).permitAll()
-                    .antMatchers("/users/*").permitAll()
+                    .antMatchers("/users/**").permitAll()
                     .antMatchers("/admin/**").hasAuthority("ADMIN")
                     .antMatchers("/oauth/token/revoke").permitAll()
                     .anyRequest().authenticated()
@@ -85,6 +85,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     public DefaultTokenServices tokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setRefreshTokenValiditySeconds(60 * 60 * 24 * 7);
+        defaultTokenServices.setAccessTokenValiditySeconds(60 * 10);
         defaultTokenServices.setSupportRefreshToken(true);
         return defaultTokenServices;
     }

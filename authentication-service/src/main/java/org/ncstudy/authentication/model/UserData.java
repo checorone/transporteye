@@ -1,6 +1,7 @@
 package org.ncstudy.authentication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.ncstudy.authentication.validation.ValidPassword;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "app_user")
-public class UserDao {
+public class UserData {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -22,6 +23,7 @@ public class UserDao {
 
     @Column(name = "password")
     @JsonIgnore
+    @ValidPassword
     private String password;
 
     @Column(name = "active")
@@ -30,15 +32,14 @@ public class UserDao {
     @Column(name = "activation_code")
     private UUID activationCode;
 
-    @ElementCollection(targetClass = RoleDao.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "app_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private List<RoleDao> roles;
+    private List<Role> roles;
 
-    public UserDao() {
-    }
+    public UserData() {}
 
-    public UserDao(String username, String password, List<RoleDao> roles, boolean active, String email) {
+    public UserData(String username, String password, List<Role> roles, boolean active, String email) {
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -70,11 +71,11 @@ public class UserDao {
         this.password = password;
     }
 
-    public List<RoleDao> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleDao> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

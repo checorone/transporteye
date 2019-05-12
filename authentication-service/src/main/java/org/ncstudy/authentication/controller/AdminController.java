@@ -1,6 +1,6 @@
 package org.ncstudy.authentication.controller;
 
-import org.ncstudy.authentication.model.RoleDao;
+import org.ncstudy.authentication.model.Role;
 import org.ncstudy.authentication.service.UserDetailsServiceImpl;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ public class AdminController {
     }
 
     @PostMapping("/modify/roles")
-    public void changeRoles(@RequestParam String username, @RequestParam List<RoleDao> roles) {
+    public void changeRoles(@RequestParam String username, @RequestParam List<Role> roles) {
         service.setRoles(username, roles);
     }
 }

@@ -69,19 +69,11 @@
             <artifactId>jaxb-api</artifactId>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/javax.activation/activation &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>javax.activation</groupId>-->
-<!--            <artifactId>activation</artifactId>-->
-<!--        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/javax.activation/javax.activation-api -->
-<!--        <dependency>-->
-<!--            <groupId>javax.activation</groupId>-->
-<!--            <artifactId>javax.activation-api</artifactId>-->
-<!--&lt;!&ndash;            <version>1.2.0</version>&ndash;&gt;-->
-<!--        </dependency>-->
-
+        <dependency>
+            <groupId>org.passay</groupId>
+            <artifactId>passay</artifactId>
+            <version>1.4.0</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
         <dependency>

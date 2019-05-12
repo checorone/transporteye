@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://database:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: p0stgr@s
     driver-class-name: org.postgresql.Driver
@@ -11,6 +11,14 @@ spring:
         ddl-auto: none
         temp:
           use_jdbc_metadata_defaults: false
+    generate-ddl: true
+  mail:
+    host: smtp.mail.ru
+    username: transport_eye_fake@mail.ru
+    password: itiswatching
+    port: 465
+    protocol: smtps
+
 
 logging:
   level:
@@ -19,3 +27,11 @@ logging:
     org.springframework.web: WARN
     org.springframework.security: DEBUG
     org.ncstudy: DEBUG
+
+server:
+  port: 8901  # for testing without docker
+
+
+config:
+  signing-key: MaYzkSjmkzPC57L
+  security-realm: Transport Eye is watching

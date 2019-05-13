@@ -1,7 +1,7 @@
 var token = "";
 var myMap;
 var authtokenuri = "authservice/oauth/token";
-var checktokenuri = "authservice/user";
+var checktokenuri = "authservice/oauth/check_token";
 var gettransporturi = "transportservice/api/v1/transport";
 
 function w3_open() {

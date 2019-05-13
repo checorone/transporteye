@@ -1,8 +1,8 @@
-          
 security:
   oauth2:
     resource:
-      userInfoUri: http://authenticationservice:8901/user
+      jwt:
+          key-value: MaYzkSjmkzPC57L
 
 spring:
   datasource:
@@ -18,10 +18,13 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
 
-logging: 
-  level: 
+logging:
+  level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     org.ncstudy: DEBUG
+
+server:
+  port: 8085

@@ -109,7 +109,8 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8085 \
 
 [localhost (порт 80)](http://localhost)
 
-### Получить токен на доступ через postman
+### Работа с токенами через postman
+Получить токен на доступ
 ```
     У http://localhost:8901/oauth/token. 
     При этом выбрать авторизацию Basic Auth c логином netcracker и паролем ncpassword. 
@@ -119,10 +120,47 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8085 \
     * password : userpass
 ```
 
-### Отправить GET к transport service через postman
+Отправить GET к transport service
 ```
     На http://localhost:8085/api/v1/transport. 
     При этом выбрать авторизацию Bearer и вставить полученный access_token.
+```
+
+Проверка access токена
+```
+    GET http://localhost:8901/oauth/check_token?token=токен
+```
+
+Обновить access по refresh токену
+```
+    POST http://localhost:8901/oauth/token
+    * grant_type : refresh_token
+    * refresh_token : токен
+```
+
+ Удалить токены из базы (альтернатива logout при stateless)
+```
+    POST http://localhost:8901/oauth/token/revoke
+    * access_token : токен (опционально)
+    * refresh_token : токен (опционально, также удаляет access токен)
+```
+
+### Работа с пользоваелями через postman
+Регистрация нового пользователя. Для завершения регистрации нужно перейти по ссылке на почте. По умолчанию права USER.
+```
+    POST http://localhost:8901/register
+    * username (логин для входа)
+    * password 
+    * email
+```
+Изменение прав пользователя. Требуются права ADMIN.
+```
+    POST http://localhost:8901/admin/modify/roles
+    Authorization: Bearer токен
+    * username: изменяемый юзер
+    * roles: права юзера 
+    * ...
+    * roles: (произвольное количество, но пока только USER И ADMIN)
 ```
 
 ## Описание структуры

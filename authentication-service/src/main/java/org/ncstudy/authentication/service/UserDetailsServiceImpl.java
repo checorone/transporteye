@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -79,8 +80,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             userRepository.save(new UserData(
                     "john.admindoe",
                     passwordEncoder.encode("adminpass"),
-                    // todo: check is java > 9 in docker
-                    List.of(Role.USER, Role.ADMIN),
+                    // todo: check is java > 9 in docker //\\ Changed to Java 8 Arrays.asList
+                    Arrays.asList(Role.USER, Role.ADMIN),
                     true,
                     null));
         }

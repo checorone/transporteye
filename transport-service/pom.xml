@@ -54,6 +54,7 @@
       <dependency>
           <groupId>javax.activation</groupId>
           <artifactId>activation</artifactId>
+          <version>1.1.1</version>
       </dependency>
 
       <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
@@ -130,10 +131,6 @@
          <plugin>
              <groupId>org.apache.maven.plugins</groupId>
              <artifactId>maven-compiler-plugin</artifactId>
-             <configuration>
-                 <source>9</source>
-                 <target>9</target>
-             </configuration>
          </plugin>
      </plugins>
  </build>

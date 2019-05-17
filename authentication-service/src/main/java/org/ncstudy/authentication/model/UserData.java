@@ -1,7 +1,6 @@
 package org.ncstudy.authentication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.ncstudy.authentication.validation.ValidPassword;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,14 +22,18 @@ public class UserData {
 
     @Column(name = "password")
     @JsonIgnore
-    @ValidPassword
     private String password;
 
     @Column(name = "active")
     private boolean active;
 
     @Column(name = "activation_code")
+    @JsonIgnore
     private UUID activationCode;
+
+    @Column(name = "reset_code")
+    @JsonIgnore
+    private UUID resetPasswordCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "app_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -101,5 +104,13 @@ public class UserData {
 
     public void setActivationCode(UUID activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public UUID getResetPasswordCode() {
+        return resetPasswordCode;
+    }
+
+    public void setResetPasswordCode(UUID resetPasswordCode) {
+        this.resetPasswordCode = resetPasswordCode;
     }
 }

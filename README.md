@@ -140,7 +140,7 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8085 \
 
  Удалить токены из базы (альтернатива logout при stateless)
 ```
-    POST http://localhost:8901/oauth/token/revoke
+    DELETE http://localhost:8901/token/revoke
     * access_token : токен (опционально)
     * refresh_token : токен (опционально, также удаляет access токен)
 ```
@@ -148,19 +148,31 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8085 \
 ### Работа с пользоваелями через postman
 Регистрация нового пользователя. Для завершения регистрации нужно перейти по ссылке на почте. По умолчанию права USER.
 ```
-    POST http://localhost:8901/register
+    POST http://localhost:8901/users/register
     * username (логин для входа)
     * password 
     * email
 ```
 Изменение прав пользователя. Требуются права ADMIN.
 ```
-    POST http://localhost:8901/admin/modify/roles
+    PUT http://localhost:8901/admin/modify/roles
     Authorization: Bearer токен
     * username: изменяемый юзер
     * roles: права юзера 
     * ...
     * roles: (произвольное количество, но пока только USER И ADMIN)
+```
+Изменение пароля. На почту пользователя будет отправлена ссылка на страницу(в процессе)
+```
+    PUT http://localhost:8901/users/password/recovery
+    * username: изменяемый юзер
+```
+Изменение пароля. 
+```
+    PUT http://localhost:8901/users/password/change
+    * new_password: новый пароль
+    * repeat_password: еще раз
+    * uuid: последняя часть ссылки с почты (обрабатывается страницей)
 ```
 
 ## Описание структуры

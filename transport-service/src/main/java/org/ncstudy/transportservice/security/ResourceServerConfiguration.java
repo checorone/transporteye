@@ -18,6 +18,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers(HttpMethod.DELETE, "api/v1/transport/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST, "api/v1/transport/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "api/v1/transport/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "api/v1/card/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "api/v1/card/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "api/v1/card/**").authenticated()
                 .anyRequest().permitAll();
     }
 }

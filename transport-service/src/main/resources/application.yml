@@ -18,6 +18,7 @@ spring:
         ddl-auto: none
         temp:
           use_jdbc_metadata_defaults: false
+    generate-ddl: false
 
 logging:
   level:

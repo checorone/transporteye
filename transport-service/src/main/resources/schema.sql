@@ -1,14 +1,28 @@
-CREATE TABLE if not exists transport
-(
-    id        UUID PRIMARY KEY NOT NULL,
-    name      VARCHAR(100)     NOT NULL,
-    longitude REAL             NOT NULL,
-    latitude  REAL             NOT NULL,
-    workload  INT              NOT NULL
+DROP TABLE IF EXISTS transport;
+CREATE TABLE transport (
+	id 			UUID 			PRIMARY KEY NOT NULL,
+ 	name		VARCHAR(155) 	NOT NULL,
+ 	latitude	FLOAT 			NOT NULL,
+ 	longitude	FLOAT 			NOT NULL,
+ 	workload	INT				NOT NULL
 );
 
-INSERT INTO transport (id, name, longitude, latitude, workload)
-values ('9928698d-5eff-4ce7-9b25-40d41b6a64ed', 'LIAZ4450', 37.5880909, 55.7550373, 50),
-       ('5fa0d0ae-462b-4e88-895a-7f78b344e93f', 'LIAZ4230', 37.62482643, 55.74296051, 40),
-       ('d4d747c1-a2c3-40d2-95ba-ffc021bcbf13', 'LIAZ7250', 37.63941765, 55.75107653, 30)
-on conflict (id) do nothing;
+DROP TABLE IF EXISTS card;
+CREATE TABLE card (
+	card_id 	VARCHAR(155) 	PRIMARY KEY NOT NULL,
+ 	password	VARCHAR(155) 	NOT NULL
+);
+
+DROP TABLE IF EXISTS bus_stop;
+CREATE TABLE bus_stop (
+	bus_stop_id 	VARCHAR(155) 	PRIMARY KEY NOT NULL,
+ 	bus_stop_name	VARCHAR(155) 	NOT NULL,
+ 	latitude		VARCHAR(20)		NOT NULL,
+ 	longitude		VARCHAR(20)		NOT NULL
+);
+
+DROP TABLE IF EXISTS validation;
+CREATE TABLE validation (
+	bus_stop_id 	VARCHAR(155) 	PRIMARY KEY NOT NULL,
+ 	card_id 		VARCHAR(155) 	NOT NULL
+);

@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "validation")
 public class Validation {
+	@Id
     @Column(name = "bus_stop_id", nullable = false)
     private String bus_stop_id;
 

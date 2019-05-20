@@ -24,9 +24,8 @@ import java.util.UUID;
 @RequestMapping(value="api/v1")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TransportServiceController {
+	//TRANSPORT
 	@Autowired
-
-    //TRANSPORT
     private TransportService transportService;
     private static final Logger logger = LoggerFactory.getLogger(TransportServiceController.class);
 
@@ -40,19 +39,19 @@ public class TransportServiceController {
     }
 
     @RequestMapping(value="/transport",method = RequestMethod.POST)
-    public void saveOrganization(@RequestBody Transport transport) {
+    public void saveTransport(@RequestBody Transport transport) {
        transportService.saveTransport(transport);
     }
     
     @RequestMapping(value="/transport",method = RequestMethod.PUT)
-    public void updateOrganization(@RequestBody Transport transport) {
+    public void updateTransport(@RequestBody Transport transport) {
         transportService.saveTransport(transport);
 
     }
 
     @RequestMapping(value="/transport/{transportId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrganization( @PathVariable("transportId") UUID transportId) {
+    public void deleteTransport( @PathVariable("transportId") UUID transportId) {
         transportService.deleteTransport( transportId );
     }
 

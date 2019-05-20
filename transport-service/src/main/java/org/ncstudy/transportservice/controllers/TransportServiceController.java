@@ -22,7 +22,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value="api/v1")
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TransportServiceController {
 	//TRANSPORT
 	@Autowired

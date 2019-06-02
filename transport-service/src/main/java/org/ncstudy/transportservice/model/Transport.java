@@ -11,29 +11,25 @@ public class Transport {
     @Id
     @Column(name = "id", nullable = false)
 	private
-    String id;
+    int id;
 
     @Column(name = "name", nullable = false)
-	private
-    String name;
+	private String name;
 
     @Column(name = "latitude", nullable = false)
-	private
-    float latitude;
+	private String latitude;
 
     @Column(name = "longitude", nullable = false)
-	private
-    float longitude;
+	private String longitude;
     
     @Column(name = "workload", nullable = false)
-	private
-    int workload;
+	private int workload;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -45,19 +41,19 @@ public class Transport {
 		this.name = name;
 	}
 
-	public float getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
-	public float getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(float longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 

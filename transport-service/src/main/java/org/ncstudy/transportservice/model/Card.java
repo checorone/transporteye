@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Card {
     @Id
     @Column(name = "card_id", nullable = false)
-    private String card_id;
+    private int card_id;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -19,16 +19,16 @@ public class Card {
     public Card() {
     }
 
-    public Card(String card_id, String password) {
+    public Card(int card_id, String password) {
         this.card_id = card_id;
         this.password = password;
     }
 
-    public String  getCard_id() {
+    public int  getCard_id() {
         return card_id;
     }
 
-    public void setCard_id(String  card_id) {
+    public void setCard_id(int  card_id) {
         this.card_id = card_id;
     }
 

@@ -3,6 +3,7 @@ package org.ncstudy.authentication.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,14 +11,15 @@ import java.util.UUID;
 @Table(name = "app_user")
 public class UserData {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
+    @Email
     private String email;
 
     @Column(name = "password")

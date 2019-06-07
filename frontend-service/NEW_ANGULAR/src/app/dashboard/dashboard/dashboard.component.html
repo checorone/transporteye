@@ -1,0 +1,35 @@
+<mat-sidenav-container style="min-height: 100%;" fxFlex>
+  <mat-sidenav [opened]="true" mode="side">
+    <mat-button-toggle-group color="primary" #group="matButtonToggleGroup" multiple="true">
+        <mat-list>
+          <mat-list-item>
+            <mat-button-toggle class="sml-button" checked="true" (change)="toggleSml()" matTooltip="Маленькие плитки" [matTooltipPosition]="'right'"
+            [matTooltipClass]="'dash-tooltip-class'">
+              <mat-icon style="font-size: 10px">featured_video</mat-icon>
+            </mat-button-toggle>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-button-toggle class="mid-button" checked="true" (change)="toggleMid()" matTooltip="Средние плитки" [matTooltipPosition]="'right'"
+            [matTooltipClass]="'dash-tooltip-class'">
+              <mat-icon style="font-size: 14px">featured_video</mat-icon>
+            </mat-button-toggle>
+          </mat-list-item>
+          <mat-list-item>
+              <mat-button-toggle  class="big-button" checked="true" (change)="toggleBig()" matTooltip="Большие плитки" [matTooltipPosition]="'right'"
+              [matTooltipClass]="'dash-tooltip-class'">
+                <mat-icon style="font-size: 18px">featured_video</mat-icon>
+              </mat-button-toggle>
+          </mat-list-item>
+        </mat-list>
+      </mat-button-toggle-group>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-grid-list [cols]="cols | async">
+      <mat-grid-tile *ngFor="let card of cards"
+                     [colspan]="card.input.cols.value | async"
+                     [rowspan]="card.input.rows.value | async">
+        <app-dashboard-cards-spawner [card]="card"></app-dashboard-cards-spawner>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-sidenav-content>
+</mat-sidenav-container>

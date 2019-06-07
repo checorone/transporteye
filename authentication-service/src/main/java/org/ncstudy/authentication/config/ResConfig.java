@@ -12,8 +12,8 @@ public class ResConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/token/revoke", "/users/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/api/v1/**").permitAll()
+                .antMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
     }
 }

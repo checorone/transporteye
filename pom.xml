@@ -21,7 +21,7 @@
 	<modules>
 		<module>transport-service</module>
 		<module>authentication-service</module>
-		<module>frontend-service</module>
+		<!-- <module>frontend-service</module> -->
 	</modules>
 	<build>
 		<plugins>

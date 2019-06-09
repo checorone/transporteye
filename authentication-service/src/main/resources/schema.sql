@@ -36,26 +36,27 @@ create table if not exists oauth_refresh_token
 
 create table if not exists app_user
 (
-    id              serial not null
+    card_id         varchar(16) not null
         constraint app_user_pkey
             primary key,
+    activation_code uuid,
     active          boolean,
+    email           varchar(255)
+        constraint uk_1j9d9a06i600gd43uu3km82jw
+            unique,
     password        varchar(255),
-    username        varchar(255),
-    activation_code uuid unique,
-    email           varchar(255),
-    reset_code      uuid unique
+    reset_code      uuid
 );
 
 create table if not exists app_role
 (
-    user_id serial not null
-        constraint fkmwcmr97mj4e6fu8vdxnx9vonj
+    card_id varchar(16) not null
+        constraint fkpudms5ttsusiw6dqha8167y73
             references app_user
-            on UPDATE cascade
-            on DELETE cascade,
+            on update cascade on delete cascade,
     roles   varchar(255)
 );
+
 
 
 INSERT INTO oauth_client_details

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,12 +12,9 @@ import java.util.UUID;
 @Table(name = "app_user")
 public class UserData {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "username", unique = true)
-    private String username;
+    @Column(name = "card_id")
+    @Pattern(regexp = "^\\d{16}$", message = "Неверный формат номера карты")
+    private String cardId;
 
     @Column(name = "email", unique = true)
     @Email
@@ -38,35 +36,20 @@ public class UserData {
     private UUID resetPasswordCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "app_role", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "app_role", joinColumns = @JoinColumn(name = "card_id"))
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
 
     public UserData() {}
 
-    public UserData(String username, String password, List<Role> roles, boolean active, String email) {
-        this.username = username;
+    public UserData(String cardId, String password, List<Role> roles, boolean active, String email) {
+        this.cardId = cardId;
         this.password = password;
         this.roles = roles;
         this.active = active;
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;
@@ -114,5 +97,13 @@ public class UserData {
 
     public void setResetPasswordCode(UUID resetPasswordCode) {
         this.resetPasswordCode = resetPasswordCode;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
 }

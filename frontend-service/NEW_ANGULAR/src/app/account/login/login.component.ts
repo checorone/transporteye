@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit {
               private formBuilder: FormBuilder,
               private authService: AuthService,
               private comp: ProfileComponent,
-              private service: ComponentsEventsService
+              private eventsService: ComponentsEventsService
   ) {
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      cardId: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -46,30 +46,30 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.f.username.value, this.f.password.value)
-      .pipe(catchError((error) => {
-          if (error.status === 0) {
-            this.message = 'Ошибка подключения';
-          } else if (error.error instanceof ErrorEvent) {
-            this.message = error.error.message;
-          } else {
-            this.message = error.error.error_description;
-          }
-          return throwError(this.message);
-        })
-      ).subscribe(resp => {
+    this.authService.login(this.f.cardId.value, this.f.password.value)
+        .pipe(catchError((error) => {
+              if (error.status === 0) {
+                this.message = 'Ошибка подключения';
+              } else if (error.error instanceof ErrorEvent) {
+                this.message = error.error.message;
+              } else {
+                this.message = error.error.error_description;
+              }
+              return throwError(this.message);
+            })
+        ).subscribe(resp => {
       this.authService.setCookies(resp);
-      this.service.onLoginEvent.emit(this.f.username.value);
+      this.eventsService.onLoginEvent.emit(this.f.cardId.value);
       this.router.navigate(['']);
     });
   }
 
   recoverPassword() {
-    if (this.f.username.value === '') {
+    if (this.f.cardId.value === '') {
       this.message = 'Укажите логин для восстановления';
       return;
     }
-    this.authService.recovery(this.f.username.value).pipe(catchError(error => {
+    this.authService.recovery(this.f.cardId.value).pipe(catchError(error => {
       if (error.status === 0) {
         this.message = 'Ошибка подключения';
       } else if (error.status === 400) {

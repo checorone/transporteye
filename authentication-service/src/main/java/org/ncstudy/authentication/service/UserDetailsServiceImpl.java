@@ -30,19 +30,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) {
-        UserData userData = userRepository.findByUsername(s);
+        UserData userData = userRepository.findByCardId(s);
         if (userData == null)
-            throw new UsernameNotFoundException("Пользователь с таким именем не существует");
+            throw new UsernameNotFoundException(AuthChangesException.CARD_NOT_EXIST);
         List<GrantedAuthority> authorities = new ArrayList<>();
         userData.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
-        return new User(userData.getUsername(), userData.getPassword(), authorities);
+        return new User(userData.getCardId(), userData.getPassword(), authorities);
     }
 
     public void addUser(UserData userData) throws AuthChangesException {
         if (userRepository.existsByEmail(userData.getEmail()))
-            throw new AuthChangesException("Пользователь с таким адресом уже существует");
-        if (userRepository.existsByUsername(userData.getUsername()))
-            throw new AuthChangesException("Пользователь с таким именем уже существует");
+            throw new AuthChangesException(AuthChangesException.CARD_ALREADY_EXIST);
+        if (userRepository.existsByCardId(userData.getCardId()))
+            throw new AuthChangesException(AuthChangesException.CARD_ALREADY_EXIST);
         userData.setRoles(Collections.singletonList(Role.USER));
         userData.setPassword(passwordEncoder.encode(userData.getPassword()));
         userRepository.save(userData);
@@ -51,24 +51,24 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void activateUser(UUID uuid) throws AuthChangesException {
         UserData userData = userRepository.findByActivationCode(uuid);
         if (userData == null)
-            throw new AuthChangesException("Ссылка недействительна");
+            throw new AuthChangesException(AuthChangesException.BAD_LINK);
         userData.setActive(true);
         userData.setActivationCode(null);
         userRepository.save(userData);
     }
 
-    public void setRoles(String username, List<Role> roles) throws AuthChangesException {
-        UserData userData = userRepository.findByUsername(username);
+    public void setRoles(String cardId, List<Role> roles) throws AuthChangesException {
+        UserData userData = userRepository.findByCardId(cardId);
         if (userData == null)
-            throw new AuthChangesException("Пользователь с таким именем не существует");
+            throw new AuthChangesException(AuthChangesException.CARD_NOT_EXIST);
         userData.setRoles(roles);
         userRepository.save(userData);
     }
 
-    public UserData prepareForRecovery(String username) throws AuthChangesException {
-        UserData userData = userRepository.findByUsername(username);
+    public UserData prepareForRecovery(String cardId) throws AuthChangesException {
+        UserData userData = userRepository.findByCardId(cardId);
         if (userData == null)
-            throw new AuthChangesException("Пользователь с таким именем не существует");
+            throw new AuthChangesException(AuthChangesException.CARD_NOT_EXIST);
         userData.setResetPasswordCode(UUID.randomUUID());
         userRepository.save(userData);
         return userData;
@@ -78,13 +78,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private void setupDefaultUsers() {
         if (userRepository.count() == 0) {
             userRepository.save(new UserData(
-                    "john.doe",
+                    "0000000000000000",
                     passwordEncoder.encode("userpass"),
                     Collections.singletonList(Role.USER),
                     true,
                     null));
             userRepository.save(new UserData(
-                    "john.admindoe",
+                    "0000000000000001",
                     passwordEncoder.encode("adminpass"),
                     Arrays.asList(Role.USER, Role.ADMIN),
                     true,
@@ -96,8 +96,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void savePassword(UUID uuid, String password) throws AuthChangesException {
         UserData userData = userRepository.findByResetPasswordCode(uuid);
         if (userData == null)
-            throw new AuthChangesException("Ссылка не действительна");
-        PasswordCustomValidation.checkError(password, userData.getUsername());
+            throw new AuthChangesException(AuthChangesException.BAD_LINK);
+        PasswordCustomValidation.checkError(password, userData.getCardId());
         userData.setResetPasswordCode(null);
         userData.setPassword(passwordEncoder.encode(password));
         userRepository.save(userData);

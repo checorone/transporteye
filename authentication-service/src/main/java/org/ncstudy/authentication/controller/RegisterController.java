@@ -27,7 +27,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public void register(@Valid UserData userData, @RequestParam(name = "client_link") String clientLink) throws AuthChangesException {
-        PasswordCustomValidation.checkError(userData.getPassword(), userData.getUsername());
+        PasswordCustomValidation.checkError(userData.getPassword(), userData.getCardId());
         userData.setActivationCode(UUID.randomUUID());
         service.addUser(userData);
         try {

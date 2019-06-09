@@ -9,15 +9,15 @@ import {Router} from '@angular/router';
   styleUrls: ['./profile.component.less']
 })
 export class ProfileComponent implements OnInit {
-  username = '';
+  cardId = '';
 
   constructor(private authService: AuthService,
               sharedService: ComponentsEventsService,
               private router: Router
   ) {
     sharedService.onLoginEvent.subscribe(
-      (username) => {
-        this.username = username;
+      (cardId) => {
+        this.cardId = cardId;
       }
     );
   }
@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.username = '';
+    this.cardId = '';
     this.router.navigate(['']);
   }
 }

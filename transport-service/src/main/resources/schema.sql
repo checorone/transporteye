@@ -7,11 +7,11 @@ CREATE TABLE transport (
  	workload	INT				NOT NULL
 );
 
-DROP TABLE IF EXISTS card;
-CREATE TABLE card (
-	card_id 	VARCHAR(155) 	PRIMARY KEY NOT NULL,
- 	password	VARCHAR(155) 	NOT NULL
-);
+-- DROP TABLE IF EXISTS card;
+-- CREATE TABLE card (
+-- 	card_id 	VARCHAR(155) 	PRIMARY KEY NOT NULL,
+--  	password	VARCHAR(155) 	NOT NULL
+-- );
 
 DROP TABLE IF EXISTS bus_stop;
 CREATE TABLE bus_stop (

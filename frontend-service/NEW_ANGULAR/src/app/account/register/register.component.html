@@ -1,12 +1,10 @@
-<mat-card>
-  <mat-card-title>Регистрация</mat-card-title>
-  <mat-card-content>
     <form class="example-form" [formGroup]="regForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Логин" formControlName="username">
-        <mat-error *ngIf="f.username.errors">
-          Логин обязателен
+        <input matInput #input placeholder="ID карты" formControlName="cardId">
+        <mat-error *ngIf="f.cardId.errors && submitted">
+          ID должен состоять из 16 цифр
         </mat-error>
+        <mat-hint align="end">{{input.value.length}} / 16</mat-hint>
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Пароль" formControlName="password" [type]="hide ? 'password' : 'text'">
@@ -22,10 +20,9 @@
         <input matInput placeholder="Email" formControlName="email">
         <mat-error *ngIf="f.email.errors">{{getMailError()}}</mat-error>
       </mat-form-field>
+      <div class="info" [innerHTML]="message"></div>
       <div class="reg-btn">
         <button mat-raised-button color="primary" type="submit">Готово</button>
       </div>
-      <mat-label [innerHTML]="message"></mat-label>
     </form>
-  </mat-card-content>
-</mat-card>
+

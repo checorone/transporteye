@@ -7,9 +7,9 @@ import java.util.UUID;
 
 
 public interface UserRepository extends JpaRepository<UserData, Long> {
-    UserData findByUsername(String username);
+    UserData findByCardId(String cardId);
     UserData findByActivationCode(UUID uuid);
     UserData findByResetPasswordCode(UUID uuid);
-    boolean existsByUsername(String username);
+    boolean existsByCardId(String cardId);
     boolean existsByEmail(String email);
 }

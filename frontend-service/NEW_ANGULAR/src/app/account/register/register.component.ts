@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.regForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      cardId: ['',  Validators.pattern(/^\d{16}$/)],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
     if (this.regForm.invalid) {
       return;
     }
-    this.authService.register(this.f.username.value, this.f.password.value, this.f.email.value)
+    this.authService.register(this.f.cardId.value, this.f.password.value, this.f.email.value)
       .pipe(catchError((error) => {
           if (error.status === 0) {
             this.message = 'Ошибка подключения';

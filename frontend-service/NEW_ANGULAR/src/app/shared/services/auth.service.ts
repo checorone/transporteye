@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import {ComponentsEventsService} from './components-events.service';
 
 
 const httpOptions = {
@@ -17,6 +18,7 @@ const httpOptions = {
 
 export class AuthService {
   private authServerUrl = 'http://localhost:8901/';
+  // private authServerUrl = 'http://authenticationservice:8901/';
   private authUrl = this.authServerUrl + 'oauth/token';
   private registerUrl = this.authServerUrl + 'api/v1/users/register';
   private activateUrl = this.authServerUrl + 'api/v1/users/activation/';
@@ -29,22 +31,23 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private eventsService: ComponentsEventsService
   ) {
   }
 
-  public login(username: any, password: any) {
+  public login(cardId: any, password: any) {
     const body = new FormData();
     body.set('grant_type', 'password');
-    body.set('username', username);
+    body.set('username', cardId);
     body.set('password', password);
     return this.http.post<any>(this.authUrl, body, httpOptions);
   }
 
-  public register(username: any, password: any, email: any) {
+  public register(cardId: any, password: any, email: any) {
     const body = new FormData();
     body.set('email', email);
-    body.set('username', username);
+    body.set('cardId', cardId);
     body.set('password', password);
     body.set('client_link', this.activateClientUrl);
     return this.http.post(this.registerUrl, body, {responseType: 'text'});
@@ -54,9 +57,9 @@ export class AuthService {
     return this.http.put(this.activateUrl + uuid, {});
   }
 
-  public recovery(username: string) {
+  public recovery(cardId: string) {
     const body = new FormData();
-    body.set('username', username);
+    body.set('cardId', cardId);
     body.set('client_link', this.recoverClientUrl);
     return this.http.put(this.recoverUrl, body);
   }
@@ -90,12 +93,15 @@ export class AuthService {
           .pipe(catchError(err => {
             if (err.status === 400 || err.status === 401) {
               this.cookieService.delete('refresh_token');
+              this.eventsService.onLoginEvent.emit('');
               return throwError('Token expired');
             }
           })).subscribe(resp => {
           this.setCookies(resp);
         });
-      } else { throwError('Token expired'); }
+      } else {
+        this.eventsService.onLoginEvent.emit('');
+        throwError('Token expired'); }
     }
   }
 

@@ -9,9 +9,8 @@ import javax.persistence.Table;
 @Table(name = "transport")
 public class Transport {
     @Id
-    @Column(name = "id", nullable = false)
-	private
-    int id;
+    @Column(name = "transport_id", nullable = false)
+	private int transport_id;
 
     @Column(name = "name", nullable = false)
 	private String name;
@@ -25,12 +24,12 @@ public class Transport {
     @Column(name = "workload", nullable = false)
 	private int workload;
 
-	public int getId() {
-		return id;
+	public int getTransport_id() {
+		return transport_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setTransport_id(int transport_id) {
+		this.transport_id = transport_id;
 	}
 
 	public String getName() {

@@ -15,20 +15,20 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/users")
-public class RegisterController {
+public class UserAuthController {
 
     private final UserDetailsServiceImpl service;
     private final MailSender sender;
 
-    public RegisterController(UserDetailsServiceImpl service, MailSender sender) {
+    public UserAuthController(UserDetailsServiceImpl service, MailSender sender) {
         this.service = service;
         this.sender = sender;
     }
 
     @PostMapping("/register")
-    public void register(@Valid UserData userData, @RequestParam(name = "client_link") String clientLink) throws AuthChangesException {
+    public void register(@Valid UserData userData,
+                         @RequestParam String clientLink) throws AuthChangesException {
         PasswordCustomValidation.checkError(userData.getPassword(), userData.getCardId());
-        userData.setActivationCode(UUID.randomUUID());
         service.addUser(userData);
         try {
             sender.send(userData.getEmail(),
@@ -46,11 +46,11 @@ public class RegisterController {
     }
 
     @PutMapping("/password/recovery")
-    public void recovery(@RequestParam String username, @RequestParam String client_link) throws AuthChangesException {
-        UserData data = service.prepareForRecovery(username);
+    public void recovery(@RequestParam String cardId, @RequestParam String clientLink) throws AuthChangesException {
+        UserData data = service.prepareForRecovery(cardId);
         sender.send(data.getEmail(),
                 "TransportEye Сброс пароля",
-                "Ссылка для изменения пороля: " + client_link + "/" + data.getResetPasswordCode());
+                "Ссылка для изменения пороля: " + clientLink + "/" + data.getResetPasswordCode());
     }
 
     @PutMapping("/password/change")

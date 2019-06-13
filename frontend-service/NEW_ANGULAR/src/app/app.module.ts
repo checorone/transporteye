@@ -24,10 +24,15 @@ import {ProfileComponent} from './account/profile/profile.component';
 import {RegisterComponent} from './account/register/register.component';
 import {ResetPasswordComponent} from './account/reset-password/reset-password.component';
 import {CookieService} from 'ngx-cookie-service';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component';
+import {UsersTableComponent} from './admin/tables/users-table.component';
+import {UserModifyComponent} from './admin/user-modify/user-modify.component';
+import {ConfirmDialogComponent} from './admin/confirm-dialog/confirm-dialog.component';
+import {MatSnackBarModule} from '@angular/material';
+import {CommonInterceptor} from './common-interceptor';
 import {ComponentsEventsService} from './shared/services/components-events.service';
-import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
-import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component'
 
 @NgModule({
   declarations: [
@@ -49,7 +54,10 @@ import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component'
     NotFoundComponent,
     ServerErrorComponent,
     MapsComponent,
-    AuthTabsComponent
+    AuthTabsComponent,
+    UsersTableComponent,
+    UserModifyComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -57,12 +65,28 @@ import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component'
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
+    MatSnackBarModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'
-    })
+    }),
+    FormsModule,
+    // LocalStorageModule.forRoot({
+    //   prefix: 'eye',
+    //   storageType: 'localStorage'
+    // })
   ],
-  providers: [DashboardCardsService, CookieService, ComponentsEventsService],
-  bootstrap: [MainComponent]
+  providers: [
+    DashboardCardsService,
+    CookieService,
+    ComponentsEventsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CommonInterceptor,
+      multi: true
+    }],
+  bootstrap: [MainComponent],
+  entryComponents: [ConfirmDialogComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

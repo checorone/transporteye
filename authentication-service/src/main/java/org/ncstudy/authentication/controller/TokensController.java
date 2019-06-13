@@ -16,8 +16,7 @@ public class TokensController {
         this.tokenStore = tokenStore;
     }
 
-    // Logout alternative
-    @DeleteMapping("api/v1/token/revoke")
+    @DeleteMapping("api/v1/logout")
     public void revokeTokens(@RequestParam(required = false) String access_token, @RequestParam(required = false) String refresh_token) {
         JdbcTokenStore store = (JdbcTokenStore) tokenStore;
         if (!StringUtils.isEmpty(access_token))

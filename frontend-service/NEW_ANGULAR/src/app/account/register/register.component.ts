@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {EMPTY} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
@@ -18,10 +18,8 @@ export class RegisterComponent implements OnInit {
   hide = true;
 
   constructor(
-    // private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    // private comp: SidebarComponent
   ) {
   }
 
@@ -44,18 +42,24 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.register(this.f.cardId.value, this.f.password.value, this.f.email.value)
       .pipe(catchError((error) => {
-          if (error.status === 0) {
-            this.message = 'Ошибка подключения';
-          } else if (error.status === 400) {
-            this.message = '<ul>';
-            error.error.split(',').forEach(el => {
-              this.message += '<li>' + el + '</li>';
-            });
-            this.message += '</ul>';
-          } else {
-            this.message = 'Неизвестная ошибка';
-          }
-          return throwError(this.message);
+          // if (error.status === 0) {
+          //   this.message = 'Ошибка подключения';
+          // } else if (error.status === 400) {
+        if (error.toString().includes(',')) {
+          this.message = '<ul>';
+          error.split(',').forEach(el => {
+            this.message += '<li>' + el + '</li>';
+          });
+          this.message += '</ul>';
+        } else {
+          this.message = error;
+        }
+        console.log(error);
+        return EMPTY;
+          // } else {
+          //   this.message = 'Неизвестная ошибка';
+          // }
+          // return throwError(this.message);
         })
       ).subscribe(() => {
       this.message = 'Письмо было отправлено на почту';

@@ -1,8 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {DashboardComponent} from './dashboard/dashboard/dashboard.component'
+import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
 import {NotFoundComponent} from './error-pages/not-found/not-found.component';
 import {ServerErrorComponent} from './error-pages/server-error/server-error.component';
 import {EntityModule} from './entity/entity.module';
@@ -13,9 +12,15 @@ import {ActivationComponent} from './account/activation/activation.component';
 import {ResetPasswordComponent} from './account/reset-password/reset-password.component';
 import {ProfileComponent} from './account/profile/profile.component';
 import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component';
+import {UsersTableComponent} from './admin/tables/users-table.component';
+import {UserModifyComponent} from './admin/user-modify/user-modify.component';
+import {HomeComponent} from './home/home.component';
 
 const ownerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  // { path: 'home', component: UsersTableComponent },
+  { path: 'admin/cards', component: UsersTableComponent },
+  { path: 'admin/card/modify', component: UserModifyComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'entity', component: TransportListComponent },
   { path: 'map', component: MapsComponent },

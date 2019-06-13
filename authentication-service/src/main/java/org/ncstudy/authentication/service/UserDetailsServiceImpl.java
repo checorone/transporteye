@@ -40,9 +40,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public void addUser(UserData userData) throws AuthChangesException {
         if (userRepository.existsByEmail(userData.getEmail()))
-            throw new AuthChangesException(AuthChangesException.CARD_ALREADY_EXIST);
+            throw new AuthChangesException(AuthChangesException.EMAIL_ALREADY_USED);
         if (userRepository.existsByCardId(userData.getCardId()))
             throw new AuthChangesException(AuthChangesException.CARD_ALREADY_EXIST);
+        userData.setActivationCode(UUID.randomUUID());
         userData.setRoles(Collections.singletonList(Role.USER));
         userData.setPassword(passwordEncoder.encode(userData.getPassword()));
         userRepository.save(userData);
@@ -78,17 +79,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private void setupDefaultUsers() {
         if (userRepository.count() == 0) {
             userRepository.save(new UserData(
-                    "0000000000000000",
+                    "0000000000000002",
                     passwordEncoder.encode("userpass"),
                     Collections.singletonList(Role.USER),
                     true,
-                    null));
+                    "transport_eye_fake@mail.ru"));
             userRepository.save(new UserData(
                     "0000000000000001",
                     passwordEncoder.encode("adminpass"),
                     Arrays.asList(Role.USER, Role.ADMIN),
                     true,
-                    null));
+                    "test@mail.ru"));
         }
     }
 
@@ -105,5 +106,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public void delete(UserData userData) {
         userRepository.delete(userData);
+    }
+    public void delete(String cardId) {
+        userRepository.deleteByCardId(cardId);
+    }
+    public List<UserData> getAll(){
+        return userRepository.findAll();
+    }
+
+    public void updateUser(UserData userData, boolean resetPassword) throws AuthChangesException {
+        if (userRepository.existsByEmailAndCardIdNot(userData.getEmail(), userData.getCardId()))
+            throw new AuthChangesException(AuthChangesException.EMAIL_ALREADY_USED);
+        if (!resetPassword){
+            UserData oldData = userRepository.findByCardId(userData.getCardId());
+            if (oldData == null)
+                throw new AuthChangesException(AuthChangesException.CARD_NOT_EXIST);
+            userData.setPassword(oldData.getPassword());
+        }
+        userRepository.save(userData);
     }
 }

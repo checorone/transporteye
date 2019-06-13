@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  Уверены, что хотите удалить пользователя {{data.cardId}}?
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+  <button mat-button (click)="onNoClick()">Отмена</button>
+</div>

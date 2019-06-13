@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title>Изменение пользователя карты {{userInfo.cardId}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="f.email.errors">{{getMailError()}}</mat-error>
+      </mat-form-field>
+      <mat-checkbox formControlName="active">Активен</mat-checkbox>
+      <mat-checkbox formControlName="resetPassword">Сбросить пароль</mat-checkbox>
+      <mat-button-toggle-group value="{{userInfo.roles.includes('ADMIN') ? 'A':'U'}}" aria-label="Права">
+        <mat-button-toggle value="U" (click)="setRoles(['USER'])">Пользователь</mat-button-toggle>
+        <mat-button-toggle value="A" (click)="setRoles(['USER', 'ADMIN'])">Администратор</mat-button-toggle>
+      </mat-button-toggle-group>
+      <div>{{message}}</div>
+      <div>
+        <button mat-raised-button color="primary">Готово</button>
+        <button mat-button color="warn" type="button" (click)="deleteUser()">
+          <mat-icon>delete_outline</mat-icon>
+          Удалить пользователя
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

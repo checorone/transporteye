@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<UserData, Long> {
     UserData findByResetPasswordCode(UUID uuid);
     boolean existsByCardId(String cardId);
     boolean existsByEmail(String email);
+    boolean existsByEmailAndCardIdNot(String email, String cardId);
+    void deleteByCardId(String cardId);
 }

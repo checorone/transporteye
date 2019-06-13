@@ -52,7 +52,6 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .realmName(securityRealm)
         ;
-
         //@formatter:on
     }
 

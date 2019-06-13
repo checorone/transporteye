@@ -16,20 +16,20 @@ public class Bus_stop {
     @Column(name = "bus_stop_name", nullable = false)
     private String bus_stop_name;
 
-    @Column(name = "latitude", nullable = false)
-    private String latitude;
+    @Column(name = "bus_stop_latitude", nullable = false)
+    private String bus_stop_latitude;
 
-    @Column(name = "longitude", nullable = false)
-    private String longitude;
+    @Column(name = "bus_stop_longitude", nullable = false)
+    private String bus_stop_longitude;
 
     public Bus_stop() {
     }
 
-    public Bus_stop(int  bus_stop_id, String bus_stop_name, String latitude, String longitude) {
+    public Bus_stop(int  bus_stop_id, String bus_stop_name, String bus_stop_latitude, String bus_stop_longitude) {
         this.bus_stop_id = bus_stop_id;
         this.bus_stop_name = bus_stop_name;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.bus_stop_latitude = bus_stop_latitude;
+        this.bus_stop_longitude = bus_stop_longitude;
     }
 
     public int  getBus_stop_id() {
@@ -48,19 +48,19 @@ public class Bus_stop {
         this.bus_stop_name = bus_stop_name;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public String getBus_stop_latitude() {
+        return bus_stop_latitude;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setBus_stop_latitude(String bus_stop_latitude) {
+        this.bus_stop_latitude = bus_stop_latitude;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public String getBus_stop_longitude() {
+        return bus_stop_longitude;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setBus_stop_longitude(String bus_stop_longitude) {
+        this.bus_stop_longitude = bus_stop_longitude;
     }
 }

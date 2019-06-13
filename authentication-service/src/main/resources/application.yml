@@ -1,9 +1,10 @@
 spring:
   datasource:
-    url: jdbc:postgresql://database:5432/postgres
-#    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/transport_eye_v1?currentSchema=transporteye_v1
+    #url: jdbc:postgresql://database:5432/postgres
     username: postgres
-    password: p0stgr@s
+    #password: p0stgr@s
+    password: 1002199Ti
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
   jpa:

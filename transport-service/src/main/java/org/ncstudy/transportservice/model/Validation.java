@@ -17,11 +17,6 @@ public class Validation {
     @JoinColumn(name = "card_id", nullable = false)
     private Card card;
 
-    /*@Column(name = "bus_stop_id", nullable = false)
-    private String bus_stop_id;
-
-    @Column(name = "card_id", nullable = false)
-    private String card_id;*/
 
     public Validation() {
     }

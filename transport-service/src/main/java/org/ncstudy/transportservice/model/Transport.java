@@ -12,17 +12,20 @@ public class Transport {
     @Column(name = "transport_id", nullable = false)
 	private int transport_id;
 
-    @Column(name = "name", nullable = false)
-	private String name;
+    @Column(name = "transport_number", nullable = false)
+	private String transport_number;
 
-    @Column(name = "latitude", nullable = false)
-	private String latitude;
+	@Column(name = "transport_type", nullable = false)
+	private String transport_type;
 
-    @Column(name = "longitude", nullable = false)
-	private String longitude;
+    @Column(name = "transport_latitude", nullable = false)
+	private String transport_latitude;
+
+    @Column(name = "transport_longitude", nullable = false)
+	private String transport_longitude;
     
-    @Column(name = "workload", nullable = false)
-	private int workload;
+    @Column(name = "transport_capacity", nullable = false)
+	private String transport_capacity;
 
 	public int getTransport_id() {
 		return transport_id;
@@ -32,35 +35,43 @@ public class Transport {
 		this.transport_id = transport_id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTransport_number() {
+		return transport_number;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTransport_number(String transport_number) {
+		this.transport_number = transport_number;
 	}
 
-	public String getLatitude() {
-		return latitude;
+	public String getTransport_type() {
+		return transport_type;
 	}
 
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
+	public void setTransport_type(String transport_type) {
+		this.transport_type = transport_type;
 	}
 
-	public String getLongitude() {
-		return longitude;
+	public String getTransport_latitude() {
+		return transport_latitude;
 	}
 
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	public void setTransport_latitude(String transport_latitude) {
+		this.transport_latitude = transport_latitude;
 	}
 
-	public int getWorkload() {
-		return workload;
+	public String getTransport_longitude() {
+		return transport_longitude;
 	}
 
-	public void setWorkload(int workload) {
-		this.workload = workload;
+	public void setTransport_longitude(String transport_longitude) {
+		this.transport_longitude = transport_longitude;
+	}
+
+	public String getTransport_capacity() {
+		return transport_capacity;
+	}
+
+	public void setTransport_capacity(String transport_capacity) {
+		this.transport_capacity = transport_capacity;
 	}
 }

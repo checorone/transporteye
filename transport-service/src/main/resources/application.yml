@@ -6,19 +6,22 @@ security:
 
 spring:
   datasource:
-    #url: jdbc:postgresql://localhost:5432/transport_eye_v1?currentSchema=transporteye_v1
-    url: jdbc:postgresql://database:5432/postgres
+    url: jdbc:postgresql://localhost:5432/transport_eye_v1?currentSchema=transporteye_v1
+    #url: jdbc:postgresql://database:5432/postgres
     username: postgres
     password: 1002199Ti
     driver-class-name: org.postgresql.Driver
-    initialization-mode: never
+    initialization-mode: always
+    schema: classpath:/schema.sql
+    data: classpath:/data.sql
+    continue-on-error: true
   jpa:
-    properties:
-      hibernate:
-        ddl-auto: none
-        temp:
-          use_jdbc_metadata_defaults: false
     generate-ddl: false
+    show-sql: true
+    database: postgresql
+    hibernate:
+      ddl-auto: validate
+
 
 logging:
   level:

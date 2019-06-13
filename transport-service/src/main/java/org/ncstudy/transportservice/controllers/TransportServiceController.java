@@ -37,7 +37,7 @@ public class TransportServiceController {
 
     @RequestMapping(value="/transport",method = RequestMethod.PUT)
     public void updateTransport(@RequestBody Transport transport) {
-        transportService.saveTransport(transport);
+        transportService.updateTransport(transport);
 
     }
 
@@ -66,7 +66,7 @@ public class TransportServiceController {
 
     @RequestMapping(value="/card",method = RequestMethod.PUT)
     public void updateCard(@RequestBody Card card) {
-        cardService.saveCard(card);
+        cardService.updateCard(card);
 
     }
 
@@ -77,7 +77,7 @@ public class TransportServiceController {
     }
 
 
-    //BUS
+    //BUS_STOP
     @Autowired
     private Bus_stopService bus_stopService;
 
@@ -95,7 +95,7 @@ public class TransportServiceController {
 
     @RequestMapping(value="/bus_stop",method = RequestMethod.PUT)
     public void updateBus_stop(@RequestBody Bus_stop bus_stop) {
-        bus_stopService.saveBus_stop(bus_stop);
+        bus_stopService.updateBus_stop(bus_stop);
 
     }
 
@@ -123,14 +123,14 @@ public class TransportServiceController {
 
     @RequestMapping(value="/validation",method = RequestMethod.PUT)
     public void updateValidation(@RequestBody Validation validation) {
-        validationService.saveValidation(validation);
+        validationService.updateValidation(validation);
 
     }
 
     @RequestMapping(value="/validation/{validation_id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteValidation( @PathVariable("validation_id") UUID bus_stop_id) {
-        bus_stopService.deleteBus_stop( bus_stop_id );
+    public void deleteValidation( @PathVariable("validation_id") UUID validation_id) {
+        validationService.deleteValidation( validation_id );
     }
 
 
@@ -153,7 +153,7 @@ public class TransportServiceController {
 
     @RequestMapping(value="/route",method = RequestMethod.PUT)
     public void updateRoute(@RequestBody Route route) {
-        routeService.saveRoute(route);
+        routeService.updateRoute(route);
     }
 
     @RequestMapping(value="/route/{route_id}",method = RequestMethod.DELETE)
@@ -162,5 +162,60 @@ public class TransportServiceController {
         routeService.deleteRoute( route_id );
     }
 
+
+    //Bus_stops_routes
+    @Autowired
+    private Bus_stops_routesService bus_stops_routesService;
+
+    @RequestMapping(value="/bus_stops_routes",method = RequestMethod.GET)
+    public List<Bus_stops_routes> getAllBus_stops_routes() {
+        List<Bus_stops_routes> list = bus_stops_routesService.getAllBus_stops_routes();
+        return list;
+    }
+
+    @RequestMapping(value="/bus_stops_routes",method = RequestMethod.POST)
+    public void saveBus_stops_routes(@RequestBody Bus_stops_routes bus_stops_routes) {
+        bus_stops_routesService.saveBus_stops_routes(bus_stops_routes);
+    }
+
+    @RequestMapping(value="/bus_stops_routes",method = RequestMethod.PUT)
+    public void updateBus_stops_routes(@RequestBody Bus_stops_routes bus_stops_routes) {
+        bus_stops_routesService.updateBus_stops_routes(bus_stops_routes);
+
+    }
+
+    @RequestMapping(value="/bus_stops_routes/{bus_stops_routes_id}",method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBus_stops_routes( @PathVariable("bus_stops_routes_id") UUID bus_stops_routes_id) {
+        bus_stops_routesService.deleteBus_stops_routes(bus_stops_routes_id);
+    }
+
+
+    //TRIP
+    @Autowired
+    private TripService tripService;
+
+    @RequestMapping(value="/trip",method = RequestMethod.GET)
+    public List<Trip> getAllTrips() {
+        List<Trip> list = tripService.getAllTrips();
+        return list;
+    }
+
+    @RequestMapping(value="/trip",method = RequestMethod.POST)
+    public void saveTrip(@RequestBody Trip trip) {
+        tripService.saveTrip(trip);
+    }
+
+    @RequestMapping(value="/trip",method = RequestMethod.PUT)
+    public void updateTrip(@RequestBody Trip trip) {
+        tripService.updateTrip(trip);
+
+    }
+
+    @RequestMapping(value="/trip/{trip_id}",method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTrip( @PathVariable("trip_id") UUID trip_id) {
+        tripService.deleteTrip(trip_id);
+    }
 
 }

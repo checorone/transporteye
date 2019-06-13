@@ -2,9 +2,13 @@ package org.ncstudy.transportservice.controllers;
 
 
 import org.ncstudy.transportservice.model.Bus_stop;
+import org.ncstudy.transportservice.model.Route;
 import org.ncstudy.transportservice.model.Transport;
+import org.ncstudy.transportservice.model.Validation;
 import org.ncstudy.transportservice.services.Bus_stopService;
+import org.ncstudy.transportservice.services.RouteService;
 import org.ncstudy.transportservice.services.TransportService;
+import org.ncstudy.transportservice.services.ValidationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +39,7 @@ public class TransportServiceController {
     public void saveTransport(@RequestBody Transport transport) {
        transportService.saveTransport(transport);
     }
-    
+
     @RequestMapping(value="/transport",method = RequestMethod.PUT)
     public void updateTransport(@RequestBody Transport transport) {
         transportService.saveTransport(transport);
@@ -47,36 +51,6 @@ public class TransportServiceController {
     public void deleteTransport( @PathVariable("transportId") UUID transportId) {
         transportService.deleteTransport( transportId );
     }
-
-
-//    //CARD
-//    @Autowired
-//    private CardService cardService;
-
-//    @RequestMapping(value="/card",method = RequestMethod.GET)
-//    public List<Card> getAllCards() {
-//        List<Card> list = cardService.getAllCards();
-//        return list;
-//    }
-//
-//
-//    @RequestMapping(value="/card",method = RequestMethod.POST)
-//    public void saveCard(@RequestBody Card card) {
-//        cardService.saveCard(card);
-//    }
-//
-//    @RequestMapping(value="/card",method = RequestMethod.PUT)
-//    public void updateCard(@RequestBody Card card) {
-//        cardService.saveCard(card);
-//
-//    }
-
-//    @RequestMapping(value="/card/{card_id}",method = RequestMethod.DELETE)
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void deleteCard( @PathVariable("card_id") UUID card_id) {
-//        cardService.deleteCard( card_id );
-//    }
-
 
     //BUS
     @Autowired
@@ -105,4 +79,63 @@ public class TransportServiceController {
     public void deleteBus_stop( @PathVariable("bus_stop_id") UUID bus_stop_id) {
         bus_stopService.deleteBus_stop( bus_stop_id );
     }
+
+
+    //VALIDATION
+    @Autowired
+    private ValidationService validationService;
+
+    @RequestMapping(value="/validation",method = RequestMethod.GET)
+    public List<Validation> getAllValidations() {
+        List<Validation> list = validationService.getAllValidations();
+        return list;
+    }
+
+    @RequestMapping(value="/validation",method = RequestMethod.POST)
+    public void saveValidation(@RequestBody Validation validation) {
+        validationService.saveValidation(validation);
+    }
+
+    @RequestMapping(value="/validation",method = RequestMethod.PUT)
+    public void updateValidation(@RequestBody Validation validation) {
+        validationService.saveValidation(validation);
+
+    }
+
+    @RequestMapping(value="/validation/{validation_id}",method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteValidation( @PathVariable("validation_id") UUID bus_stop_id) {
+        bus_stopService.deleteBus_stop( bus_stop_id );
+    }
+
+
+
+    //ROUTE
+    @Autowired
+    private RouteService routeService;
+
+    @RequestMapping(value="/route",method = RequestMethod.GET)
+    public List<Route> getAllRoutes() {
+        List<Route> list = routeService.getAllRoutes();
+        return list;
+    }
+
+
+    @RequestMapping(value="/route",method = RequestMethod.POST)
+    public void saveRoute(@RequestBody Route route) {
+        routeService.saveRoute(route);
+    }
+
+    @RequestMapping(value="/route",method = RequestMethod.PUT)
+    public void updateRoute(@RequestBody Route route) {
+        routeService.saveRoute(route);
+    }
+
+    @RequestMapping(value="/route/{route_id}",method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRoute( @PathVariable("route_id") UUID route_id) {
+        routeService.deleteRoute( route_id );
+    }
+
+
 }

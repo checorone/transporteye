@@ -1,9 +1,7 @@
 package org.ncstudy.transportservice.services;
 
 import org.ncstudy.transportservice.model.Bus_stop;
-import org.ncstudy.transportservice.model.Card;
 import org.ncstudy.transportservice.repository.Bus_stopRepository;
-import org.ncstudy.transportservice.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

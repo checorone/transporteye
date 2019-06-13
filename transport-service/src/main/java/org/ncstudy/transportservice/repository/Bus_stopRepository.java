@@ -2,7 +2,6 @@ package org.ncstudy.transportservice.repository;
 
 
 import org.ncstudy.transportservice.model.Bus_stop;
-import org.ncstudy.transportservice.model.Card;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

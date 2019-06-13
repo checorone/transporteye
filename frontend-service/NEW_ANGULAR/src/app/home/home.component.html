@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="ncracker img-fluid rounded"></span>
+    </div>
+    <div class="col-md-9">
+        <h1 class="display-4">Привет, пользователь!</h1>
+        <p class="lead">Это главная страница</p>
+
+        <div [ngSwitch]="isAuthenticated()">
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span>Возможно вы хотите </span>&nbsp;
+                <a class="alert-link" (click)="login()">Войти</a>
+            </div>
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span>Нет аккаунта?</span>&nbsp;
+                <a class="alert-link" routerLink="register">Зарегистрироваться</a>
+            </div>
+        </div>
+
+        <p>
+            Если у вас есть вопросы по проекту:
+        </p>
+
+        <ul>
+            <li><a href="https://github.com/checorone/transporteye" target="_blank" rel="noopener">Гитхаб</a></li>
+            <li><a href="https://vk.com/fedor_vk" target="_blank" rel="noopener">Куратор</a></li>
+        </ul>
+
+    </div>
+</div>

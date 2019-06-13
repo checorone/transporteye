@@ -1,27 +1,24 @@
 package org.ncstudy.authentication.controller;
 
+import org.ncstudy.authentication.exceptions.AuthChangesException;
 import org.ncstudy.authentication.model.UserData;
-import org.ncstudy.authentication.repository.UserRepository;
 import org.ncstudy.authentication.service.MailSender;
 import org.ncstudy.authentication.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.ncstudy.authentication.validation.PasswordCustomValidation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.UUID;
 
-
-@Controller("/users")
+@RestController
+@RequestMapping("api/v1/users")
 public class RegisterController {
 
     private final UserDetailsServiceImpl service;
     private final MailSender sender;
-    @Autowired
-    private UserRepository userRepository;
 
     public RegisterController(UserDetailsServiceImpl service, MailSender sender) {
         this.service = service;
@@ -29,26 +26,42 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid UserData userData) throws Exception {
+    public void register(@Valid UserData userData, @RequestParam(name = "client_link") String clientLink) throws AuthChangesException {
+        PasswordCustomValidation.checkError(userData.getPassword(), userData.getUsername());
         userData.setActivationCode(UUID.randomUUID());
         service.addUser(userData);
-        sender.send(userData.getEmail(), "TransportEye Activation", "Link for activation: http://localhost:8901/users/activation/" + userData.getActivationCode());
-        return "Register message was sent";
+        try {
+            sender.send(userData.getEmail(),
+                    "TransportEye Активация аккаунта",
+                    "Ссылка для активации: " + clientLink + "/" + userData.getActivationCode());
+        } catch (Exception e) {
+            service.delete(userData);
+            throw new AuthChangesException("Сообщение не было отправлено. Проверьте правильность почты");
+        }
     }
 
-    @GetMapping("/activation/{uuid}")
-    public String activation(@PathVariable UUID uuid) throws UserPrincipalNotFoundException {
+    @PutMapping("/activation/{uuid}")
+    public void activation(@PathVariable UUID uuid) throws AuthChangesException {
         service.activateUser(uuid);
-        return "/login";
     }
 
-    // in process
-//    @RequestMapping("/password/recovery")
-//    public void recovery(@RequestParam String username){
-//        UserData userData = userRepository.findByUsername(username);
-//        userData.setActivationCode(UUID.randomUUID());
-//        userRepository.save(userData);
-//        sender.send(userData.getEmail(), "TransportEye Change Password", "Link to change password: http://localhost:8901/users/password/change/" + userData.getActivationCode());
-//    }
+    @PutMapping("/password/recovery")
+    public void recovery(@RequestParam String username, @RequestParam String client_link) throws AuthChangesException {
+        UserData data = service.prepareForRecovery(username);
+        sender.send(data.getEmail(),
+                "TransportEye Сброс пароля",
+                "Ссылка для изменения пороля: " + client_link + "/" + data.getResetPasswordCode());
+    }
 
+    @PutMapping("/password/change")
+    public void savePassword(
+            @RequestParam UUID uuid,
+            @RequestParam String password) throws AuthChangesException {
+        service.savePassword(uuid, password);
+    }
+
+    @ExceptionHandler({AuthChangesException.class, UsernameNotFoundException.class})
+    public ResponseEntity<String> handle(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

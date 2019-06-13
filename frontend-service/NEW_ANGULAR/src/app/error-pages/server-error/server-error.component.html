@@ -1,0 +1,13 @@
+<section fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="30px">
+  <div fxFlex>
+    <p>500 Внутренняя ошибка сервера</p>
+    <p>Пожалуйста обратитесь в техническую поддержку.</p>
+  </div>
+  <div fxFlex>
+    <mat-checkbox (change)="checkChanged($event)" color="primary">Я хочу обратиться!</mat-checkbox>
+  </div>
+  <div fxFlex *ngIf="reportedError">
+      <mat-progress-spinner mode="determinate" [value]="errorPercentage"></mat-progress-spinner>
+      <h1>{{errorPercentage}}%</h1>
+  </div>
+</section>

@@ -13,14 +13,6 @@ create table if not exists oauth_client_details
     autoapprove             VARCHAR(256)
 );
 
--- create table oauth_client_token (
--- token_id VARCHAR(255),
--- token bytea ,
--- authentication_id VARCHAR(255),
--- user_name VARCHAR(255),
--- client_id VARCHAR(255)
--- );
-
 create table if not exists oauth_access_token
 (
     token_id          VARCHAR(255),
@@ -41,32 +33,30 @@ create table if not exists oauth_refresh_token
     token          bytea,
     authentication bytea
 );
--- create table oauth_code (
--- code VARCHAR(255), authentication bytea
--- );
 
--- create table oauth_approvals (
--- userId VARCHAR(255),
--- clientId VARCHAR(255),
--- scope VARCHAR(255),
--- status VARCHAR(10),
--- expiresAt TIMESTAMP,
--- lastModifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
+create table if not exists app_user
+(
+    id              serial not null
+        constraint app_user_pkey
+            primary key,
+    active          boolean,
+    password        varchar(255),
+    username        varchar(255),
+    activation_code uuid unique,
+    email           varchar(255),
+    reset_code      uuid unique
+);
 
--- create table ClientDetails (
--- appId VARCHAR(255) PRIMARY KEY,
--- resourceIds VARCHAR(255),
--- appSecret VARCHAR(255),
--- scope VARCHAR(255),
--- grantTypes VARCHAR(255),
--- redirectUrl VARCHAR(255),
--- authorities VARCHAR(255),
--- access_token_validity INTEGER,
--- refresh_token_validity INTEGER,
--- additionalInformation VARCHAR(4096),
--- autoApproveScopes VARCHAR(255)
--- );
+create table if not exists app_role
+(
+    user_id serial not null
+        constraint fkmwcmr97mj4e6fu8vdxnx9vonj
+            references app_user
+            on UPDATE cascade
+            on DELETE cascade,
+    roles   varchar(255)
+);
+
 
 INSERT INTO oauth_client_details
 (client_id, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)

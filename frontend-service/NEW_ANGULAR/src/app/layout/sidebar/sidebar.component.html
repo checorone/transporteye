@@ -1,0 +1,19 @@
+<mat-nav-list>
+  <a mat-list-item routerLink="/home" (click)="onSidenavClose()">
+    <mat-icon>home</mat-icon> <span class="nav-caption">Главная</span>
+  </a>
+  <a mat-list-item routerLink="/dashboard" (click)="onSidenavClose()">
+    <mat-icon>dashboard</mat-icon> <span class="nav-caption">Мониторинг</span>
+  </a>
+  <a mat-list-item routerLink="#" (click)="onSidenavClose()">
+    <mat-icon>class</mat-icon><span class="nav-caption">Сущности</span>
+  </a>
+  <mat-list-item [matMenuTriggerFor]="menu">
+    <mat-icon>unfold_more</mat-icon>
+    <a matline>Аккаунт</a>
+  </mat-list-item>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/login" (click)="onSidenavClose()">Вход</button>
+    <button mat-menu-item routerLink="/register" (click)="onSidenavClose()">Регистрация</button>
+  </mat-menu>
+</mat-nav-list>

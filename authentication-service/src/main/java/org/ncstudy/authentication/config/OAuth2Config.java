@@ -51,8 +51,6 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
         oauthServer
                 .tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_TRUSTED_CLIENT')")
-//                .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')");
-                .checkTokenAccess("permitAll()");
-
+                .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')");
     }
 }

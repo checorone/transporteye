@@ -1,9 +1,9 @@
 package org.ncstudy.authentication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.ncstudy.authentication.validation.ValidPassword;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,26 +11,31 @@ import java.util.UUID;
 @Table(name = "app_user")
 public class UserData {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
+    @Email
     private String email;
 
     @Column(name = "password")
     @JsonIgnore
-    @ValidPassword
     private String password;
 
     @Column(name = "active")
     private boolean active;
 
     @Column(name = "activation_code")
+    @JsonIgnore
     private UUID activationCode;
+
+    @Column(name = "reset_code")
+    @JsonIgnore
+    private UUID resetPasswordCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "app_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -101,5 +106,13 @@ public class UserData {
 
     public void setActivationCode(UUID activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public UUID getResetPasswordCode() {
+        return resetPasswordCode;
+    }
+
+    public void setResetPasswordCode(UUID resetPasswordCode) {
+        this.resetPasswordCode = resetPasswordCode;
     }
 }

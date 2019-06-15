@@ -15,12 +15,16 @@ import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component';
 import {UsersTableComponent} from './admin/tables/users-table.component';
 import {UserModifyComponent} from './admin/user-modify/user-modify.component';
 import {HomeComponent} from './home/home.component';
+import {BusStopsTableComponent} from "./admin/tables/bus-stops-table.component";
+import {TransportTableComponent} from "./admin/tables/transport-table.component";
 
 const ownerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   // { path: 'home', component: UsersTableComponent },
   { path: 'admin/cards', component: UsersTableComponent },
   { path: 'admin/card/modify', component: UserModifyComponent },
+  { path: 'admin/transport', component: TransportTableComponent },
+  { path: 'admin/busStop', component: BusStopsTableComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'entity', component: TransportListComponent },
   { path: 'map', component: MapsComponent },

@@ -9,7 +9,7 @@ import {ComponentsEventsService} from './components-events.service';
 const httpOptions = {
   headers: new HttpHeaders({
     Authorization: 'Basic ' + btoa('netcracker:ncpassword')
-    // Authorization: 'Basic ' + btoa('shortrefreshtoken:hi')
+    // Authorization: 'Basic ' + btoa('shortaccesstoken:ncpassword')
   })
 };
 
@@ -119,7 +119,6 @@ export class AuthService {
     console.log(info);
     console.log(jwt_decode(resp.refresh_token));
     this.cookieService.set('authorities', info.authorities);
-    console.log(info.user_name);
     this.eventsService.onLoginEvent.emit(info.user_name);
 
   }

@@ -1,7 +1,6 @@
 package org.ncstudy.authentication.controller;
 
 import org.ncstudy.authentication.exceptions.AuthChangesException;
-import org.ncstudy.authentication.model.Role;
 import org.ncstudy.authentication.model.UserData;
 import org.ncstudy.authentication.service.UserDetailsServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
@@ -33,22 +31,13 @@ public class AdminController {
         this.service = service;
     }
 
-    @PutMapping("/modify/roles")
-    public void changeRoles(
-            @RequestParam("card_id")
-            @Pattern(regexp = "^\\d{16}$", message = "Неверный формат номера карты")
-                    String cardId,
-            @RequestParam List<Role> roles) {
-        try {
-            service.setRoles(cardId, roles);
-        } catch (AuthChangesException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
     @GetMapping("/card/get/all")
     public List getAllUsers(){
         return service.getAll();
+    }
+    @GetMapping("/card/get/all/id")
+    public List getAllUsersId(){
+        return service.getAllCardId();
     }
 
     @DeleteMapping("/card/delete")

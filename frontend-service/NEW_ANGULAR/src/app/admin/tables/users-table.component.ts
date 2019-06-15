@@ -40,7 +40,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
         .pipe(
             catchError(err => {
               this.snackBar.open(err, 'OK', {
-                duration: 2000,
+                duration: 5000,
               });
               console.log(err);
               throw EMPTY;
@@ -56,8 +56,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
 
 
   modifyCall(element: UserInfo) {
-    this.adminService.choosenUserInfo = element;
-    console.log(this.adminService.choosenUserInfo);
+    this.adminService.choosenToModifyInfo = element;
     this.router.navigate(['admin/card/modify']);
   }
 }

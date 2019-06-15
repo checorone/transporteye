@@ -33,60 +33,64 @@ import {ConfirmDialogComponent} from './admin/confirm-dialog/confirm-dialog.comp
 import {MatSnackBarModule} from '@angular/material';
 import {CommonInterceptor} from './common-interceptor';
 import {ComponentsEventsService} from './shared/services/components-events.service';
+import {BusStopsTableComponent} from './admin/tables/bus-stops-table.component';
+import {TransportTableComponent} from './admin/tables/transport-table.component';
 
 @NgModule({
-  declarations: [
-    ActivationComponent,
-    LoginComponent,
-    ProfileComponent,
-    RegisterComponent,
-    ResetPasswordComponent,
-    HomeComponent,
-    NavbarComponent,
-    FooterComponent,
-    SidebarComponent,
-    MainComponent,
-    FlexboxComponent,
-    DashboardComponent,
-    DashboardChartComponent,
-    DashboardInfoComponent,
-    DashboardCardsSpawnerComponent,
-    NotFoundComponent,
-    ServerErrorComponent,
-    MapsComponent,
-    AuthTabsComponent,
-    UsersTableComponent,
-    UserModifyComponent,
-    ConfirmDialogComponent,
-  ],
-  imports: [
-    ReactiveFormsModule,
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    SharedModule,
-    MatSnackBarModule,
-    BrowserAnimationsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'
-    }),
-    FormsModule,
-    // LocalStorageModule.forRoot({
-    //   prefix: 'eye',
-    //   storageType: 'localStorage'
-    // })
-  ],
-  providers: [
-    DashboardCardsService,
-    CookieService,
-    ComponentsEventsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CommonInterceptor,
-      multi: true
-    }],
-  bootstrap: [MainComponent],
-  entryComponents: [ConfirmDialogComponent]
+    declarations: [
+        ActivationComponent,
+        LoginComponent,
+        ProfileComponent,
+        RegisterComponent,
+        ResetPasswordComponent,
+        HomeComponent,
+        NavbarComponent,
+        FooterComponent,
+        SidebarComponent,
+        MainComponent,
+        FlexboxComponent,
+        DashboardComponent,
+        DashboardChartComponent,
+        DashboardInfoComponent,
+        DashboardCardsSpawnerComponent,
+        NotFoundComponent,
+        ServerErrorComponent,
+        MapsComponent,
+        AuthTabsComponent,
+        UsersTableComponent,
+        UserModifyComponent,
+        ConfirmDialogComponent,
+        BusStopsTableComponent,
+        TransportTableComponent,
+    ],
+    imports: [
+        ReactiveFormsModule,
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        SharedModule,
+        MatSnackBarModule,
+        BrowserAnimationsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'
+        }),
+        FormsModule,
+        // LocalStorageModule.forRoot({
+        //   prefix: 'eye',
+        //   storageType: 'localStorage'
+        // })
+    ],
+    providers: [
+        DashboardCardsService,
+        CookieService,
+        ComponentsEventsService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CommonInterceptor,
+            multi: true
+        }],
+    bootstrap: [MainComponent],
+    entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule {
 }

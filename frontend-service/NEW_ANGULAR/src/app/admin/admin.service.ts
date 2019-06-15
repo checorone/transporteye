@@ -8,7 +8,7 @@ import {UserInfo} from './user-info.model';
 export class AdminService {
 
   private adminUrl = 'http://localhost:8901/api/v1/admin/';
-  choosenUserInfo: UserInfo;
+  choosenToModifyInfo: any;
 
   constructor(private http: HttpClient) {
   }
@@ -24,7 +24,7 @@ export class AdminService {
     bbody.set('cardId', userInfo.cardId);
     bbody.set('email', userInfo.email);
     userInfo.roles.forEach(role => {
-      bbody.set('roles', role);
+      bbody.append('roles', role);
     });
     return this.http.put(this.adminUrl + 'card/update', bbody);
   }

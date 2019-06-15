@@ -26,7 +26,6 @@ export class UserInfo {
   }
 
   copyFromRow(userInfo: UserInfo): void {
-    console.log(userInfo);
     this.active = userInfo.active;
     this.email = userInfo.email;
     this.cardId = userInfo.cardId;

@@ -31,8 +31,7 @@ export class UserModifyComponent implements OnInit {
 
   ngOnInit() {
     this.userInfo = new UserInfo();
-    this.userInfo.copyFromRow(this.adminService.choosenUserInfo);
-    console.log(this.userInfo);
+    this.userInfo.copyFromRow(this.adminService.choosenToModifyInfo);
     this.userForm = this.formBuilder.group({
       email: [this.userInfo.email, [Validators.email]],
       active: [this.userInfo.active],
@@ -60,7 +59,7 @@ export class UserModifyComponent implements OnInit {
     }
     this.userInfo.active = this.f.active.value;
     this.userInfo.email = this.f.email.value;
-    if (this.userInfo.equals(this.adminService.choosenUserInfo) && !this.f.resetPassword.value) {
+    if (this.userInfo.equals(this.adminService.choosenToModifyInfo) && !this.f.resetPassword.value) {
       this.message = 'Нет изменений';
       return;
     }
@@ -76,6 +75,7 @@ export class UserModifyComponent implements OnInit {
         }))
         .subscribe(() => {
           this.message = 'Пользователь был обновлен';
+          this.adminService.choosenToModifyInfo = null;
         });
 
   }
@@ -93,7 +93,6 @@ export class UserModifyComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if (result) {
-
         this.adminService.deleteUser(this.userInfo.cardId)
             .pipe(catchError(err => {
               this.message = err;

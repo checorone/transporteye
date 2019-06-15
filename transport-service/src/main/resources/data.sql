@@ -4,12 +4,6 @@ values ('9928698d-5eff-4ce7-9b25-40d41b6a64ed', 'LIAZ4450', 37.5880909, 55.75503
        ('d4d747c1-a2c3-40d2-95ba-ffc021bcbf13', 'LIAZ7250', 37.63941765, 55.75107653, 30)
 on conflict (id) do nothing;
 
-INSERT INTO card (card_id, password)
-values ('9928698d-5eff-4ce7-9b25-40d41b6a64ed', 'pp'),
-       ('5fa0d0ae-462b-4e88-895a-7f78b344e93f', 'pp'),
-       ('d4d747c1-a2c3-40d2-95ba-ffc021bcbf13', 'pp')
-on conflict (card_id) do nothing;
-
 INSERT INTO bus_stop (bus_stop_id, bus_stop_name, latitude, longitude)
 values ('9928698d-5eff-4ce7-9b25-40d41b6a64ed', 'FIRST', 37.6080909, 55.7500373),
        ('5fa0d0ae-462b-4e88-895a-7f78b344e93f', 'SECOND', 37.62482643, 55.76296051),

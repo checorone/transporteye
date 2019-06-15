@@ -5,6 +5,7 @@ public class AuthChangesException extends Exception {
     public static final String BAD_LINK = "Ссылка недействительна";
     public static final String CARD_ALREADY_EXIST = "Карта с таким ID уже зарегистрирована";
     public static final String EMAIL_ALREADY_USED = "Карта с таким email уже зарегистрирована";
+    public static final String USER_NOT_ACTIVE = "Профиль не активирован или был заблокирован";
 
     public AuthChangesException(String message) {
         super(message);

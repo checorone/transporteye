@@ -33,6 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserData userData = userRepository.findByCardId(s);
         if (userData == null)
             throw new UsernameNotFoundException(AuthChangesException.CARD_NOT_EXIST);
+        if (!userData.isActive())
+            throw new UsernameNotFoundException(AuthChangesException.USER_NOT_ACTIVE);
         List<GrantedAuthority> authorities = new ArrayList<>();
         userData.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
         return new User(userData.getCardId(), userData.getPassword(), authorities);
@@ -124,5 +126,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             userData.setPassword(oldData.getPassword());
         }
         userRepository.save(userData);
+    }
+
+    public List<String> getAllCardId(){
+        return userRepository.getAllCardId();
     }
 }

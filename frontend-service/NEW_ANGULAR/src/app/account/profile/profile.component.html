@@ -19,7 +19,7 @@
     <div *ngIf="authService.isAdmin(); else user">
       <button mat-menu-item [routerLink]="['admin/cards']">Пользователи</button>
       <button mat-menu-item [routerLink]="['admin/transport']">Транспорт</button>
-      <button mat-menu-item [routerLink]="['admin/stops']">Остановки</button>
+      <button mat-menu-item [routerLink]="['admin/busStop']">Остановки</button>
       <button mat-menu-item (click)="logout()">Выйти</button>
     </div>
   </mat-menu>

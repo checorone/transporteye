@@ -35,7 +35,6 @@ export class CommonInterceptor implements HttpInterceptor {
           return EMPTY;
         }
         if (err.error.error_description) {
-          console.log(err.error.error_description);
           return throwError(err.error.error_description);
         }
         return throwError(err.error);

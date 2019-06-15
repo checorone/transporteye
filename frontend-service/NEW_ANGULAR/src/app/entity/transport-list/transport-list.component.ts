@@ -1,8 +1,8 @@
-import { RepositoryService } from './../../shared/services/repository.service';
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Transport } from '../../shared/models/transport.model';
-import { Router } from '@angular/router';
+import {RepositoryService} from './../../shared/services/repository.service';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Transport} from '../../shared/models/transport.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-transport-list',
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class TransportListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['id', 'name', 'fullness', 'latitude', 'longitude'];
+  public displayedColumns = ['id', 'name', 'workload', 'latitude', 'longitude'];
   public dataSource = new MatTableDataSource<Transport>(); 
 
   @ViewChild(MatSort) sort: MatSort;

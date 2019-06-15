@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class TransportService {
@@ -32,7 +31,7 @@ public class TransportService {
 
     }
 
-    public void deleteTransport(UUID uuid){
-        transportRepository.deleteById(uuid);
+    public void deleteTransport(int id){
+        transportRepository.deleteById(id);
     }
 }

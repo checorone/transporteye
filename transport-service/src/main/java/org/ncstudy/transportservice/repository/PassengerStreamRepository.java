@@ -1,11 +1,11 @@
 package org.ncstudy.transportservice.repository;
 
-import org.ncstudy.transportservice.model.Route;
+
+import org.ncstudy.transportservice.model.PassengerStream;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface RouteRepository extends CrudRepository<Route, Integer> {
+public interface PassengerStreamRepository extends CrudRepository<PassengerStream, Integer> {
 }
+

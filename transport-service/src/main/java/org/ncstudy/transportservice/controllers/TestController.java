@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
 @RestController
 @RequestMapping("test")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -20,8 +18,7 @@ public class TestController {
     }
 
     @GetMapping("/usr")
-//    @PreAuthorize(value = "hasAuthority('USER')")
-    public String testUser(Principal principal){
-        return principal.toString();
+    public String testUser(@RequestParam String mess){
+        return mess;
     }
 }

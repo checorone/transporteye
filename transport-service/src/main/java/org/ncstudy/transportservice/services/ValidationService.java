@@ -1,13 +1,12 @@
 package org.ncstudy.transportservice.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.ncstudy.transportservice.model.Validation;
 import org.ncstudy.transportservice.repository.ValidationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 
 @Service
@@ -33,7 +32,7 @@ public class ValidationService {
 
     }
 
-    public void deleteValidation(UUID uuid){
-        validationRepository.deleteById(uuid);
+    public void deleteValidation(int id){
+        validationRepository.deleteById(id);
     }
 }

@@ -1,13 +1,12 @@
 package org.ncstudy.transportservice.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.ncstudy.transportservice.model.Route;
 import org.ncstudy.transportservice.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class RouteService {
@@ -32,7 +31,7 @@ public class RouteService {
 
     }
 
-    public void deleteRoute(UUID uuid){
-        routeRepository.deleteById(uuid);
+    public void deleteRoute(int id){
+        routeRepository.deleteById(id);
     }
 }

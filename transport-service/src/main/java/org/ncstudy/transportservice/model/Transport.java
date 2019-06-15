@@ -22,8 +22,9 @@ public class Transport {
     @Column(name = "longitude", nullable = false)
 	private String longitude;
     
-    @Column(name = "workload", nullable = false)
-	private int workload;
+    @Column(name = "seats", nullable = false)
+	private int seats;
+    
 
 	public int getId() {
 		return id;
@@ -57,11 +58,11 @@ public class Transport {
 		this.longitude = longitude;
 	}
 
-	public int getWorkload() {
-		return workload;
+	public int getSeats() {
+		return seats;
 	}
 
-	public void setWorkload(int workload) {
-		this.workload = workload;
+	public void setSeats(int seats) {
+		this.seats = seats;
 	}
 }

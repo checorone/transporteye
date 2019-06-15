@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CardService {
@@ -32,7 +31,7 @@ public class CardService {
 
     }
 
-    public void deleteCard(UUID uuid){
-        cardRepository.deleteById(uuid);
+    public void deleteCard(int id){
+        cardRepository.deleteById(id);
     }
 }

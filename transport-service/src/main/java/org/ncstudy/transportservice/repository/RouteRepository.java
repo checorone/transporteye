@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface RouteRepository extends CrudRepository<Route, UUID> {
+public interface RouteRepository extends CrudRepository<Route, Integer> {
 }

@@ -4,7 +4,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-import { DashboardChartComponent } from './dashboard/cards/dashboard-chart/dashboard-chart.component';
 import { DashboardInfoComponent } from './dashboard/cards/dashboard-info/dashboard-info.component';
 import { DashboardCardsSpawnerComponent } from './dashboard/cards/dashboard-cards-spawner/dashboard-cards-spawner.component';
 import { HomeComponent } from './home/home.component';
@@ -27,6 +26,10 @@ import {CookieService} from 'ngx-cookie-service';
 import { ComponentsEventsService } from './shared/services/components-events.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms'
+import { DashboardBigChartComponent } from './dashboard/cards/dashboard-chart-big/dashboard-chart-big.component';
+import { DashboardMidChartComponent } from './dashboard/cards/dashboard-chart-mid/dashboard-chart-mid.component';
+import { DashboardSmallChartComponent } from './dashboard/cards/dashboard-chart-small/dashboard-chart-small.component';
+import { ChartistModule } from 'ng-chartist';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import { ReactiveFormsModule } from '@angular/forms'
     MainComponent,
     FlexboxComponent,
     DashboardComponent,
-    DashboardChartComponent,
+    DashboardBigChartComponent,
+    DashboardMidChartComponent,
+    DashboardSmallChartComponent,
     DashboardInfoComponent,
     DashboardCardsSpawnerComponent,
     NotFoundComponent,
@@ -55,6 +60,7 @@ import { ReactiveFormsModule } from '@angular/forms'
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
+    ChartistModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'

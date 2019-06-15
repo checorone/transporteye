@@ -28,5 +28,3 @@ services:
       image: transporteye/frontendservice:alpha
       ports:
         - "80:80"
-      volumes:
-      - "../../frontend-service/src/main/web:/usr/share/nginx/html:ro"

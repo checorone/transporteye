@@ -46,7 +46,7 @@ public class TransportServiceController {
 
     @RequestMapping(value="/transport/{transportId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTransport( @PathVariable("transportId") UUID transportId) {
+    public void deleteTransport( @PathVariable("transportId") int transportId) {
         transportService.deleteTransport( transportId );
     }
 
@@ -75,37 +75,37 @@ public class TransportServiceController {
 
     @RequestMapping(value="/card/{card_id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCard( @PathVariable("card_id") UUID card_id) {
+    public void deleteCard( @PathVariable("card_id") int card_id) {
         cardService.deleteCard( card_id );
     }
 
 
     //BUS
     @Autowired
-    private Bus_stopService bus_stopService;
+    private BusStopService bus_stopService;
 
     @RequestMapping(value="/bus_stop",method = RequestMethod.GET)
-    public List<Bus_stop> getAllBus_stops() {
-        List<Bus_stop> list = bus_stopService.getAllBus_stops();
+    public List<BusStop> getAllBus_stops() {
+        List<BusStop> list = bus_stopService.getAllBusStops();
         return list;
     }
 
 
     @RequestMapping(value="/bus_stop",method = RequestMethod.POST)
-    public void saveBus_stop(@RequestBody Bus_stop bus_stop) {
-        bus_stopService.saveBus_stop(bus_stop);
+    public void saveBus_stop(@RequestBody BusStop bus_stop) {
+        bus_stopService.saveBusStop(bus_stop);
     }
 
     @RequestMapping(value="/bus_stop",method = RequestMethod.PUT)
-    public void updateBus_stop(@RequestBody Bus_stop bus_stop) {
-        bus_stopService.saveBus_stop(bus_stop);
+    public void updateBus_stop(@RequestBody BusStop bus_stop) {
+        bus_stopService.saveBusStop(bus_stop);
 
     }
 
     @RequestMapping(value="/bus_stop/{bus_stop_id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBus_stop( @PathVariable("bus_stop_id") UUID bus_stop_id) {
-        bus_stopService.deleteBus_stop( bus_stop_id );
+    public void deleteBus_stop( @PathVariable("bus_stop_id") int bus_stop_id) {
+        bus_stopService.deleteBusStop( bus_stop_id );
     }
 
 
@@ -132,8 +132,8 @@ public class TransportServiceController {
 
     @RequestMapping(value="/validation/{validation_id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteValidation( @PathVariable("validation_id") UUID bus_stop_id) {
-        bus_stopService.deleteBus_stop( bus_stop_id );
+    public void deleteValidation( @PathVariable("validation_id") int bus_stop_id) {
+    	validationService.deleteValidation( bus_stop_id );
     }
 
 
@@ -161,8 +161,35 @@ public class TransportServiceController {
 
     @RequestMapping(value="/route/{route_id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRoute( @PathVariable("route_id") UUID route_id) {
+    public void deleteRoute( @PathVariable("route_id") int route_id) {
         routeService.deleteRoute( route_id );
+    }
+    
+    //PassengerStream
+    @Autowired
+    private PassengerStreamService passengerStreamService;
+
+    @RequestMapping(value="/passengers",method = RequestMethod.GET)
+    public List<PassengerStream> getAllPassengersStreams() {
+        List<PassengerStream> list = passengerStreamService.getAllPassengerStreams();
+        return list;
+    }
+
+
+    @RequestMapping(value="/passengers",method = RequestMethod.POST)
+    public void saveStream(@RequestBody PassengerStream stream) {
+        passengerStreamService.savePassengerStream(stream);
+    }
+
+    @RequestMapping(value="/passengers",method = RequestMethod.PUT)
+    public void updateStream(@RequestBody PassengerStream stream) {
+        passengerStreamService.savePassengerStream(stream);
+    }
+
+    @RequestMapping(value="/passengers/{streamId}",method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteStream( @PathVariable("streamId") int streamId) {
+        routeService.deleteRoute( streamId );
     }
 
 

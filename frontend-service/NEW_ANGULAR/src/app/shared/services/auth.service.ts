@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 
 const httpOptions = {
@@ -16,7 +17,7 @@ const httpOptions = {
 })
 
 export class AuthService {
-  private authServerUrl = 'http://localhost:8901/';
+  private authServerUrl = environment.AUTHSERVERURI;
   private authUrl = this.authServerUrl + 'oauth/token';
   private registerUrl = this.authServerUrl + 'api/v1/users/register';
   private activateUrl = this.authServerUrl + 'api/v1/users/activation/';

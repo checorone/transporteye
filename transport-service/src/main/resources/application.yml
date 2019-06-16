@@ -7,8 +7,8 @@ security:
 spring:
   datasource:
     #url: jdbc:postgresql://localhost:5432/transport_eye_v1?currentSchema=transporteye_v1
-    # username: postgres
-    # password: 1002199Ti
+    #username: postgres
+    #password: 1002199Ti
     url: jdbc:postgresql://database:5432/postgres
     username: postgres
     password: p0stgr@s

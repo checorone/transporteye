@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnalyticsServiceController {
 	@Autowired
     private AnalyticsService analyticsService;
-    private static final Logger logger = LoggerFactory.getLogger(TransportServiceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AnalyticsServiceController.class);
 
 	@RequestMapping(value="/tickets/all",method = RequestMethod.GET)
     public int getAllActivatedTickets() {

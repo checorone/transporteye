@@ -16,10 +16,10 @@ public class BusStop {
     @Column(name = "bus_stop_name", nullable = false)
     private String busStopName;
 
-    @Column(name = "latitude", nullable = false)
+    @Column(name = "bus_stop_latitude", nullable = false)
     private float latitude;
 
-    @Column(name = "longitude", nullable = false)
+    @Column(name = "bus_stop_longitude", nullable = false)
     private float longitude;
 
     public BusStop() {

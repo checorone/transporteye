@@ -29,7 +29,6 @@ public class Card {
         return password;
     }
 
-
     public void setPassword(String password) {
         this.password = password;
     }

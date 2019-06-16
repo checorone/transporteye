@@ -15,6 +15,17 @@ public class Validation {
     @Column(name = "card_id", nullable = false)
     private int cardId;
 
+    @Column(name = "transport_id", nullable = false)
+	private int transportId;
+
+	public int getTransportId() {
+		return transportId;
+	}
+
+	public void setTransportId(int transportId) {
+		this.transportId = transportId;
+	}
+
 	public int getValidationId() {
 		return validationId;
 	}

@@ -1,10 +1,6 @@
 package org.ncstudy.transportservice.services;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import org.ncstudy.transportservice.model.BusStop;
 import org.ncstudy.transportservice.model.PassengerStream;
@@ -12,6 +8,7 @@ import org.ncstudy.transportservice.model.Route;
 import org.ncstudy.transportservice.model.Transport;
 import org.ncstudy.transportservice.model.Trip;
 import org.ncstudy.transportservice.model.Validation;
+import org.ncstudy.transportservice.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -32,271 +29,308 @@ public class AnalyticsService {
     @Autowired
     private BusStopService busStopService;
 
-	/**
-	 * Возвращает хешмап с количеством всех вошедших пассажиров, всех вышедших и тех, кто прошел валидацию.
-	 *
-	 * @return Map[("in": int) ("out": int) ("validated": int)]
-	 */
+    @Autowired
+    private TripRepository tripRepository;
+    @Autowired
+    private ValidationRepository validationRepository;
+    @Autowired
+    private PassengerStreamRepository passengerStreamRepository;
+    @Autowired
+    private TransportRepository transportRepository;
+    @Autowired
+    private RouteRepository routeRepository;
+
+
+    /**
+     * Возвращает хешмап с количеством всех вошедших пассажиров, всех вышедших и тех, кто прошел валидацию.
+     *
+     * @return Map[(" in " : int) ("out": int) ("validated": int)]
+     */
     public Map<String, Integer> getAllPassengerTypesCount() {
-    	Map<String, Integer> map = new HashMap<String, Integer>();
-    	map.put("in", 0);
-    	map.put("out", 0);
-    	map.put("validated", 0);
-    	List<PassengerStream> pStreams = passengerStreamService.getAllPassengerStreams();
-    	for (PassengerStream passengerStream : pStreams) {
-    		map.put("in", map.get("in") + passengerStream.getInCount());
-    		map.put("out", map.get("out") + passengerStream.getOutCount());
-		}
-    	List<Validation> validations = validationService.getAllValidations();
-    	map.put("validated", validations.size());
-		return map;
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("in", 0);
+        map.put("out", 0);
+        map.put("validated", 0);
+        List<PassengerStream> pStreams = passengerStreamService.getAllPassengerStreams();
+        for (PassengerStream passengerStream : pStreams) {
+            map.put("in", map.get("in") + passengerStream.getInCount());
+            map.put("out", map.get("out") + passengerStream.getOutCount());
+        }
+        List<Validation> validations = validationService.getAllValidations();
+        map.put("validated", validations.size());
+        return map;
     }
-    
+
     /**
-	 * Возвращает хешмап с количеством вошедших пассажиров, вышедших и тех, 
-	 * кто прошел валидацию на конкретной остановке.
-	 *
-	 * @param busStopId идентификатор остановки
-	 * @return Map[("in": int) ("out": int) ("validated": int)]
-	 */
-    public Map<String, Integer> getPassengerTypesCountOnStop(int busStopId) {
-    	Map<String, Integer> map = new HashMap<String, Integer>();
-    	//TODO: method impl
-    	//Использовать следующие методы: 
-    	//getAllDisboardPassengersCountOnStop(busStopID)
-    	//getAllValidationsCountOnStop(busStopId);
-    	//getAllOnboardPassengersCountOnStop(busStopID);
-    	return map;
+     * Возвращает хешмап с количеством вошедших пассажиров, вышедших и тех,
+     * кто прошел валидацию на конкретной остановке.
+     *
+     * @param busStopId идентификатор остановки
+     * @return Map[(" in " : int) ("out": int) ("validated": int)]
+     */
+    public Map<String, Long> getPassengerTypesCountOnStop(int busStopId) {
+        Map<String, Long> map = new HashMap<String, Long>();
+        map.put("in", getAllOnboardPassengersCountOnStop(busStopId));
+        map.put("out", getAllDisboardPassengersCountOnStop(busStopId));
+        map.put("validated", getAllValidationsCountOnStop(busStopId));
+        return map;
     }
-    
-    
-	/**
-	 * Возвращает количество ТС, находящихся на всех маршрутах. 
-	 *
-	 * @return Количество ТС 
-	 */
+
+
+    /**
+     * Возвращает количество ТС, находящихся на всех маршрутах.
+     *
+     * @return Количество ТС
+     */
     public int getTransportCountOnTrip() {
-    	List<Trip> trips = tripService.getAllTrips();
-    	return trips.size();
+        List<Trip> trips = tripService.getAllTrips();
+        return trips.size();
     }
-    
-	/**
-	 * Возвращает все ТС, находящихся на конкретном маршруте. 
-	 * {@code null} если данного маршрута не существует.
-	 *
-	 * @param routeId идентификатор маршрута
-	 * @return Количество ТС 
-	 */
-    public int getTransportCountOnRoute(int routeId) {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
-    }
-    
-	/**
-	 * Возвращает все ТС в автопарке. 
-	 *
-	 * @return Количество ТС 
-	 */
-    public int getTransportCount() {
-    	List<Transport> transports = transportService.getAllTransports();
-    	return transports.size();
-    }
-    
-	/**
-	 * Возвращает всех пассажиров, прошедших валидацию на всех маршрутах. 
-	 *
-	 * @return Количество пассажиров 
-	 */
-    public int getAllValidationsCount() {
-    	List<Validation> validations = validationService.getAllValidations();
-    	return validations.size();
-    }
-    
-	/**
-	 * Возвращает всех пассажиров, прошедших валидацию на конкретной остановке. 
-	 * {@code null} если данной остановки не существует.
-	 *
-	 * @param busStopId идентификатор остановки
-	 * @return Количество пассажиров 
-	 */
-    public int getAllValidationsCountOnStop(int busStopId) {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
-    }
-    
-	/**
-	 * Возвращает пассажиров последней посадки, прошедших валидацию на конкретной остановке. 
-	 * {@code null} если данной остановки не существует.
-	 *
-	 * @param busStopId идентификатор остановки
-	 * @return Количество пассажиров 
-	 */
-    public int getLastValidationsCountOnStop(int busStopId) {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
-    }
-    
-	/**
-	 * Возвращает прибавку пассажиров после оследней посадки на остановке. 
-	 * {@code null} если данной остановки не существует.
-	 *
-	 * @param busStopId идентификатор остановки
-	 * @return Количество пассажиров 
-	 */
-	public int getLastOnboardPassengersOnStop(int busStopId) {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
-	}
-	
-	/**
-	 * Возвращает всех пассажиров, не прошедших валидацию на конкретной остановке. 
-	 * {@code null} если данной остановки не существует.
-	 *
-	 * @param busStopId идентификатор остановки
-	 * @return Количество пассажиров 
-	 */
-    public int getAllPassengersWithoutTicketOnStop(int busStopId) {
-    	//TODO: method impl
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
-    }
-    
-	/**
-	 * Возвращает всех пассажиров, зашедших в транспорт на конкретной остановке. 
-	 * {@code null} если данной остановки не существует.
-	 *
-	 * @param busStopId идентификатор остановки
-	 * @return Количество пассажиров 
-	 */
-    public int getAllOnboardPassengersCountOnStop(int busStopId) {
-    	//TODO: method impl
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
-    }
-    
+
     /**
-	 * Возвращает всех пассажиров, вышедших из транспорта на конкретной остановке. 
-	 * {@code null} если данной остановки не существует.
-	 *
-	 * @param busStopId идентификатор остановки
-	 * @return Количество пассажиров 
-	 */
-    public int getAllDisboardPassengersCountOnStop(int busStopId) {
-    	//TODO: method impl
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
+     * Возвращает все ТС, находящихся на конкретном маршруте.
+     * {@code null} если данного маршрута не существует.
+     *
+     * @param routeId идентификатор маршрута
+     * @return Количество ТС
+     */
+
+    public long getTransportCountOnRoute(int routeId) {
+        long countOnRoute = tripRepository.countByRouteId(routeId);
+        return countOnRoute;
     }
-    
-	/**
-	 * Возвращает всех пассажиров, находящихся в общественном транспорте. 
-	 *
-	 * @return Количество пассажиров 
-	 */
+
+    /**
+     * Возвращает все ТС в автопарке.
+     *
+     * @return Количество ТС
+     */
+    public int getTransportCount() {
+        List<Transport> transports = transportService.getAllTransports();
+        return transports.size();
+    }
+
+    /**
+     * Возвращает всех пассажиров, прошедших валидацию на всех маршрутах.
+     *
+     * @return Количество пассажиров
+     */
+    public int getAllValidationsCount() {
+        List<Validation> validations = validationService.getAllValidations();
+        return validations.size();
+    }
+
+    /**
+     * Возвращает всех пассажиров, прошедших валидацию на конкретной остановке.
+     * {@code null} если данной остановки не существует.
+     *
+     * @param busStopId идентификатор остановки
+     * @return Количество пассажиров
+     */
+    public long getAllValidationsCountOnStop(int busStopId) {
+        long countOnStop = validationRepository.countByBusStopId(busStopId);
+        return countOnStop;
+    }
+
+    /**
+     * Возвращает пассажиров последней посадки, прошедших валидацию на конкретной остановке.
+     * {@code null} если данной остановки не существует.
+     *
+     * @param busStopId идентификатор остановки
+     * @return Количество пассажиров
+     */
+    public int getLastValidationsCountOnStop(int busStopId) {
+        List<Validation> validations = validationRepository.getValidationByBusStopId(busStopId);
+        int endId = 0;
+        int trId = 0;
+        for (Validation validation : validations) {
+            if (validation.getTransportId() != trId) {
+                trId = validation.getTransportId();
+                endId = validation.getValidationId() - 1;
+            }
+        }
+        int countOnStop = 0;
+        for (Validation validation : validations) {
+            if (validation.getValidationId() > endId) {
+                countOnStop++;
+            }
+        }
+        return countOnStop;
+    }
+
+    /**
+     * Возвращает прибавку пассажиров последней посадки на остановке.
+     * {@code null} если данной остановки не существует.
+     *
+     * @param busStopId идентификатор остановки
+     * @return Количество пассажиров
+     */
+    public int getLastOnboardPassengersOnStop(int busStopId) {
+        List<PassengerStream> passengerStreams = passengerStreamRepository.getPassengerStreamByBusStopId(busStopId);
+
+        return passengerStreams.get(passengerStreams.size() - 1).getInCount();
+    }
+
+    /**
+     * Возвращает всех пассажиров, не прошедших валидацию на конкретной остановке.
+     * {@code null} если данной остановки не существует.
+     *
+     * @param busStopId идентификатор остановки
+     * @return Количество пассажиров
+     */
+    public long getAllPassengersWithoutTicketOnStop(int busStopId) {
+        long inCount = getAllOnboardPassengersCountOnStop(busStopId);
+        long validationCount = getAllValidationsCountOnStop(busStopId);
+
+        return inCount - validationCount;
+    }
+
+    /**
+     * Возвращает всех пассажиров, зашедших в транспорт на конкретной остановке.
+     * {@code null} если данной остановки не существует.
+     *
+     * @param busStopId идентификатор остановки
+     * @return Количество пассажиров
+     */
+    public long getAllOnboardPassengersCountOnStop(int busStopId) {
+        List<PassengerStream> passengerStreams = passengerStreamRepository.getPassengerStreamByBusStopId(busStopId);
+        int inCount = 0;
+        for (PassengerStream passengerStream : passengerStreams) {
+            inCount += passengerStream.getInCount();
+        }
+
+        return inCount;
+    }
+
+    /**
+     * Возвращает всех пассажиров, вышедших из транспорта на конкретной остановке.
+     * {@code null} если данной остановки не существует.
+     *
+     * @param busStopId идентификатор остановки
+     * @return Количество пассажиров
+     */
+    public long getAllDisboardPassengersCountOnStop(int busStopId) {
+        List<PassengerStream> passengerStreams = passengerStreamRepository.getPassengerStreamByBusStopId(busStopId);
+        int outCount = 0;
+        for (PassengerStream passengerStream : passengerStreams) {
+            outCount += passengerStream.getOutCount();
+        }
+
+        return outCount;
+    }
+
+    /**
+     * Возвращает всех пассажиров, находящихся в общественном транспорте.
+     *
+     * @return Количество пассажиров
+     */
     public int getAllPassengersOnTrip() {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
+        List<PassengerStream> passengerStreams = passengerStreamService.getAllPassengerStreams();
+        int onTrip = 0;
+        for (PassengerStream passengerStream : passengerStreams) {
+            onTrip += passengerStream.getInCount() - passengerStream.getOutCount();
+        }
+        return onTrip;
     }
-    
-	/**
-	 * Возвращает пассажиров, находящихся в общественном транспорте, на конкретном маршруте. 
-	 * {@code null} если данного маршрута не существует.
-	 *
-	 * @param routeId идентификатор маршрута
-	 * @return Количество пассажиров 
-	 */
+
+    /**
+     * Возвращает пассажиров, находящихся в общественном транспорте, на конкретном маршруте.
+     * {@code null} если данного маршрута не существует.
+     *
+     * @param routeId идентификатор маршрута
+     * @return Количество пассажиров
+     */
     public int getAllPassengersOnRoute(int routeId) {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
+        int onTrip = 0;
+        List<Trip> trips = tripRepository.getTripByRouteId(routeId);
+        List<PassengerStream> passengerStreams = passengerStreamService.getAllPassengerStreams();
+        for (PassengerStream passengerStream : passengerStreams) {
+            for (Trip trip : trips) {
+                if (passengerStream.getTransportId() == trip.getTransportId()) {
+                    onTrip += passengerStream.getInCount() - passengerStream.getOutCount();
+                }
+            }
+        }
+        return onTrip;
     }
-    
-	/**
-	 * Возвращает количество свободных мест в транспортном средстве. 
-	 * {@code null} если данного транспорта не существует.
-	 *
-	 * @param transportId идентификатор ТС
-	 * @return Количество мест 
-	 */
+
+    /**
+     * Возвращает количество свободных мест в транспортном средстве.
+     * {@code null} если данного транспорта не существует.
+     *
+     * @param transportId идентификатор ТС
+     * @return Количество мест
+     */
     public int getEmptySeatsOnTransport(int transportId) {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
+        List<PassengerStream> passengerStreams = passengerStreamRepository.getPassengerStreamByTransportId(transportId);
+        int onBoard = 0;
+        for (PassengerStream passengerStream : passengerStreams) {
+            onBoard += passengerStream.getInCount() - passengerStream.getOutCount();
+        }
+
+        int seats = transportRepository.getTransportByTransportId(transportId).getSeats();
+        return seats - onBoard;
     }
-    
-	/**
-	 * Возвращает количество свободных мест во всех транспортных средствах на маршруте. 
-	 * {@code null} если данного маршрута не существует.
-	 *
-	 * @param routeId идентификатор маршрута
-	 * @return Количество мест 
-	 */
+
+    /**
+     * Возвращает количество свободных мест во всех транспортных средствах на маршруте.
+     * {@code null} если данного маршрута не существует.
+     *
+     * @param routeId идентификатор маршрута
+     * @return Количество мест
+     */
     public int getEmptySeatsOnRoute(int routeId) {
-		//TODO: Method implementation
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
+        List<Trip> trips = tripRepository.getTripByRouteId(routeId);
+        int emptySeats = 0;
+        for (Trip trip : trips) {
+            emptySeats += getEmptySeatsOnTransport(trip.getTransportId());
+        }
+        return emptySeats;
     }
-    
-	/**
-	 * Возвращает количество свободных мест во всех транспортных средствах на всех маршрутах. 
-	 *
-	 * @return Количество мест 
-	 */
+
+    /**
+     * Возвращает количество свободных мест во всех транспортных средствах на всех маршрутах.
+     *
+     * @return Количество мест
+     */
     public int getAllEmptySeats() {
-    	int passcount = 0;
-    	List<PassengerStream> pStreams = passengerStreamService.getAllPassengerStreams();
-    	for (PassengerStream passengerStream : pStreams) {
-    		passcount += passengerStream.getInCount() - passengerStream.getOutCount();
-		}
-    	int seatscount = 0;
-    	List<Transport> transports = transportService.getAllTransports();
-    	for (Transport transport : transports) {
-			seatscount += transport.getSeats();
-		}
-		return seatscount - passcount;
+        int passCount = getAllPassengersOnTrip();
+        int seatsCount = getAllSeats();
+        return seatsCount - passCount;
     }
-    
-	/**
-	 * Возвращает количество всех доступных мест во всех транспортных средствах на всех маршрутах. 
-	 *
-	 * @return Количество мест 
-	 */
+
+    /**
+     * Возвращает количество всех доступных мест во всех транспортных средствах на всех маршрутах.
+     *
+     * @return Количество мест
+     */
     public int getAllSeats() {
-//    	int seatscount = 0;
-//    	List<Transport> transports = transportService.getAllTransports();
-//    	for (Transport transport : transports) {
-//			seatscount += transport.getSeats();
-//		}
-//		return seatscount;
-		//TODO: Method implementation
-    	// Нужно сделать выборку не из транспорта, а из трипов, так как транспорт может просто стоять в парке
-    	Random random = new Random();
-    	return random.nextInt(30) + 20;
+        int seatsCount = 0;
+        List<Trip> trips = tripService.getAllTrips();
+        List<Integer> transportIds = new ArrayList<>();
+        for (Trip trip : trips) {
+            transportIds.add(trip.getTransportId());
+        }
+        List<Transport> transports = transportService.getAllTransports();
+        for (Transport transport : transports) {
+            for (Integer integer : transportIds) {
+                if (transport.getTransportId() == integer) {
+                    seatsCount += transport.getSeats();
+                }
+            }
+        }
+        return seatsCount;
     }
-    
-	/**
-	 * Возвращает все маршруты по которым перемещался указанный пользователь вместе с остановкой на которой он сел. 
-	 * {@code null} если данного пользователя не существует.
-	 *
-	 * @param cardId идентификатор пользователя (номер его карты)
-	 * @return Станции посадки пользователя
-	 */
-    public List<Pair<BusStop, Route>> getAllPassengerRotesAndBoardingStops(int cardId) {
-		//TODO: Method implementation
-    	//НИЖЕ ЗАГЛУШККА
-    	Random random = new Random();
-    	List<Pair<BusStop, Route>> outList = new ArrayList<Pair<BusStop, Route>>();
-    	List<Route> routesList = routeService.getAllRoutes();
-    	for (Route route : routesList) {
-			String[] busStopList = route.getBusStopList().split(" ");
-			int index = random.nextInt(busStopList.length);
-			BusStop bsBusStop = busStopService.getBusStopById(Integer.parseInt(busStopList[index]));
-			outList.add(Pair.of(bsBusStop, route));
-		}
-    	return outList;
+
+    /**
+     * Возвращает все маршруты по которым перемещался указанный пользователь вместе с остановкой на которой он сел.
+     * {@code null} если данного пользователя не существует.
+     *
+     * @param cardId идентификатор пользователя (номер его карты)
+     * @return Станции посадки пользователя
+     */
+    public List<Pair<BusStop, Route>> getAllPassengerRoutesAndBoardingStops(int cardId) {
+
+        return null;
     }
 }

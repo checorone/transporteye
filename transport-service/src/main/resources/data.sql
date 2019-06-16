@@ -19,7 +19,13 @@ on conflict (bus_stop_id) do nothing;
 INSERT INTO validation (bus_stop_id, card_id, transport_id)
 values (2, 1, 1),
        (2, 2, 1),
-       (2, 3, 2);
+       (2, 3, 1),
+       (3, 1, 2),
+       (2, 3, 3),
+       (2, 1, 3),
+       (3, 1, 2),
+       (3, 2, 2),
+       (3, 2, 2);
       
 INSERT INTO route (route_number, bus_stop_list)
 values ('54rf', '1 2 3'),
@@ -28,13 +34,12 @@ values ('54rf', '1 2 3'),
      
 INSERT INTO trip (route_id, transport_id)
 values (1, 1),
-       (1, 2),
-       (1, 3);
-
+       (1, 2);
       
 INSERT INTO passenger_stream (bus_stop_id, transport_id, in_count, out_count)
-values (1, 1, 44, 0),
-       (2, 1, 35, 20),
-       (3, 1, 46, 10);
+values (1, 1, 20, 0),
+       (2, 1, 15, 14),
+       (3, 1, 17, 10),
+       (2, 2, 8, 3);
 
 

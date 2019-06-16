@@ -4,7 +4,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from './shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
-import {DashboardChartComponent} from './dashboard/cards/dashboard-chart/dashboard-chart.component';
+import {DashboardBigChartComponent} from './dashboard/cards/dashboard-chart-big/dashboard-chart-big.component';
+import {DashboardMidChartComponent} from './dashboard/cards/dashboard-chart-mid/dashboard-chart-mid.component';
+import {DashboardSmallChartComponent} from './dashboard/cards/dashboard-chart-small/dashboard-chart-small.component';
+import {ChartistModule} from 'ng-chartist';
 import {DashboardInfoComponent} from './dashboard/cards/dashboard-info/dashboard-info.component';
 import {DashboardCardsSpawnerComponent} from './dashboard/cards/dashboard-cards-spawner/dashboard-cards-spawner.component';
 import {HomeComponent} from './home/home.component';
@@ -48,7 +51,9 @@ import {ComponentsEventsService} from './shared/services/components-events.servi
     MainComponent,
     FlexboxComponent,
     DashboardComponent,
-    DashboardChartComponent,
+    DashboardBigChartComponent,
+    DashboardMidChartComponent,
+    DashboardSmallChartComponent,
     DashboardInfoComponent,
     DashboardCardsSpawnerComponent,
     NotFoundComponent,
@@ -64,6 +69,7 @@ import {ComponentsEventsService} from './shared/services/components-events.servi
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ChartistModule,
     SharedModule,
     MatSnackBarModule,
     BrowserAnimationsModule,

@@ -5,6 +5,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import * as jwt_decode from 'jwt-decode';
 import {ComponentsEventsService} from './components-events.service';
+import { environment } from '../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,7 +19,7 @@ const httpOptions = {
 })
 
 export class AuthService {
-  private authServerUrl = 'http://localhost:8901/';
+  private authServerUrl = environment.AUTHSERVERURI;
   // private authServerUrl = 'http://authenticationservice:8901/';
   private authUrl = this.authServerUrl + 'oauth/token';
   private registerUrl = this.authServerUrl + 'api/v1/users/register';

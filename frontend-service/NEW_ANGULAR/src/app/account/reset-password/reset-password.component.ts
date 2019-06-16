@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {catchError} from 'rxjs/operators';
-import {EMPTY} from 'rxjs';
+import {throwError} from 'rxjs';
 
 @Component({
   selector: 'app-reset-password',
@@ -37,28 +37,28 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit() {
     if (this.recoveryForm.invalid) {
-      return;
-    }
-    if (this.f.password1.value !== this.f.password2.value) {
-      this.message = 'Пароли не совпадают';
+      if (this.f.password1.value !== this.f.password2.value) {
+        this.message = 'Пароли не совпадают';
+      }
       return;
     }
 
     this.authService.resetPassword(this.route.snapshot.paramMap.get('uuid'), this.f.password1.value)
-        .pipe(catchError((error) => {
-              if (error.toString().includes(',')) {
-                this.message = '<ul>';
-                error.split(',').forEach(el => {
-                  this.message += '<li>' + el + '</li>';
-                });
-                this.message += '</ul>';
-              } else {
-                this.message = error;
-              }
-              console.log(error);
-              return EMPTY;
-            })
-        ).subscribe(() => {
+      .pipe(catchError((error) => {
+          if (error.status === 0) {
+            this.message = 'Ошибка подключения';
+          } else if (error.status === 400) {
+            this.message = '<ul>';
+            error.error.split(',').forEach(el => {
+              this.message += '<li>' + el + '</li>';
+            });
+            this.message += '</ul>';
+          } else {
+            this.message = 'Неизвестная ошибка';
+          }
+          return throwError(this.message);
+        })
+      ).subscribe(() => {
       this.router.navigate(['/login']);
     });
   }

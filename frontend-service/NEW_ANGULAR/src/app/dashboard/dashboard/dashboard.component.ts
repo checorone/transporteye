@@ -5,14 +5,16 @@ import {DashboardCardsService} from '../services/dashboard-cards/dashboard-cards
 import {MediaObserver} from '@angular/flex-layout';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
-import { DashboardChartComponent } from '../cards/dashboard-chart/dashboard-chart.component';
 import { DashboardInfoComponent } from '../cards/dashboard-info/dashboard-info.component';
+import { DashboardSmallChartComponent } from '../cards/dashboard-chart-small/dashboard-chart-small.component';
+import { DashboardMidChartComponent } from '../cards/dashboard-chart-mid/dashboard-chart-mid.component';
+import { DashboardBigChartComponent } from '../cards/dashboard-chart-big/dashboard-chart-big.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.less'],
-  entryComponents: [DashboardChartComponent, DashboardInfoComponent]
+  entryComponents: [DashboardBigChartComponent, DashboardSmallChartComponent, DashboardMidChartComponent, DashboardInfoComponent]
 })
 export class DashboardComponent implements OnInit {
 
@@ -268,7 +270,7 @@ export class DashboardComponent implements OnInit {
             key: DashboardCard.metadata.COLOR,
             value: 'blue'
           }
-        }, DashboardChartComponent
+        }, DashboardMidChartComponent
       )
     );
     this.cardsService.addCard(
@@ -298,7 +300,7 @@ export class DashboardComponent implements OnInit {
             key: DashboardCard.metadata.COLOR,
             value: 'blue'
           }
-        }, DashboardChartComponent
+        }, DashboardSmallChartComponent
       )
     );
     this.cardsService.addCard(
@@ -328,7 +330,7 @@ export class DashboardComponent implements OnInit {
             key: DashboardCard.metadata.COLOR,
             value: 'blue'
           }
-        }, DashboardChartComponent
+        }, DashboardSmallChartComponent
       )
     );
   }
@@ -361,7 +363,7 @@ export class DashboardComponent implements OnInit {
             key: DashboardCard.metadata.COLOR,
             value: 'blue'
           }
-        }, DashboardChartComponent
+        }, DashboardBigChartComponent
       )
     );
   }

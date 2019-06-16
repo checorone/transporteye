@@ -1,32 +1,8 @@
-<li *ngIf="cardId==''; else logged">
-  <a routerLink="/login">
-    <mat-icon class="up">account_box</mat-icon>
-    <span class="nav-caption">Аккаунт</span>
-  </a>
-</li>
+<span *ngIf="username===''; else logged">
+      <a mat-raised-button [routerLink]="['/login']">Войти</a>
+      <a mat-button [routerLink]="['/register']">Регистрация</a>
+    </span>
 <ng-template #logged>
-<!--  use this to return old version-->
-<!--  <span class="effects" [matMenuTriggerFor]="menu">-->
-<!--    <mat-icon class="up">payment</mat-icon>-->
-<!--    <span class="nav-caption">{{cardId}}</span>-->
-<!--  </span>-->
-  <button mat-flat-button [matMenuTriggerFor]="menu">
-    <mat-icon>payment</mat-icon>
-    <span class="nav-caption">{{cardId}}</span>
-  </button>
-<!--  instead of this-->
-  <mat-menu xPosition="after" #menu="matMenu">
-    <div *ngIf="authService.isAdmin(); else user">
-      <button mat-menu-item [routerLink]="['admin/cards']">Пользователи</button>
-      <button mat-menu-item [routerLink]="['admin/transport']">Транспорт</button>
-      <button mat-menu-item [routerLink]="['admin/stops']">Остановки</button>
-      <button mat-menu-item (click)="logout()">Выйти</button>
-    </div>
-  </mat-menu>
-</ng-template>
-
-<ng-template #user>
-  <button mat-menu-item>Мои пути</button>
-  <button mat-menu-item>Закладки?</button>
-  <button mat-menu-item (click)="logout()">Выйти</button>
+  <span>{{username}}</span>
+  <button mat-button (click)="logout()">Выйти</button>
 </ng-template>

@@ -3,8 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {catchError} from 'rxjs/operators';
-import {EMPTY} from 'rxjs';
+import {throwError} from 'rxjs';
 import {ProfileComponent} from '../profile/profile.component';
+import {ComponentsEventsService} from '../../shared/services/components-events.service';
 
 @Component({
   selector: 'app-login',
@@ -23,14 +24,14 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private authService: AuthService,
-              // private comp: ProfileComponent,
-              // private eventsService: ComponentsEventsService
+              private comp: ProfileComponent,
+              private service: ComponentsEventsService
   ) {
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      cardId: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -45,38 +46,40 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.f.cardId.value, this.f.password.value)
-        .pipe(catchError((error) => {
-              this.message = error;
-              console.log(error);
-              return EMPTY;
-            })
-        ).subscribe(() => {
-      // this.authService.setCookies(resp);
-      // this.eventsService.onLoginEvent.emit(this.f.cardId.value);
+    this.authService.login(this.f.username.value, this.f.password.value)
+      .pipe(catchError((error) => {
+          if (error.status === 0) {
+            this.message = 'Ошибка подключения';
+          } else if (error.error instanceof ErrorEvent) {
+            this.message = error.error.message;
+          } else {
+            this.message = error.error.error_description;
+          }
+          return throwError(this.message);
+        })
+      ).subscribe(resp => {
+      this.authService.setCookies(resp);
+      this.service.onLoginEvent.emit(this.f.username.value);
       this.router.navigate(['']);
     });
   }
 
   recoverPassword() {
-    if (this.f.cardId.value === '') {
+    if (this.f.username.value === '') {
       this.message = 'Укажите логин для восстановления';
       return;
     }
-    this.authService.recovery(this.f.cardId.value).pipe(catchError(error => {
-      // if (error.status === 0) {
-      //   this.message = 'Ошибка подключения';
-      // } else if (error.status === 400) {
-      //   this.message = 'Пользователь с таким логином не найден';
-      // } else if (error.error instanceof ErrorEvent) {
-      //   this.message = error.error.message;
-      // } else {
-      //   this.message = error.error.error_description;
-      // }
-      // return throwError(this.message);
-      this.message = error;
-      console.log(error);
-      return EMPTY;
+    this.authService.recovery(this.f.username.value).pipe(catchError(error => {
+      if (error.status === 0) {
+        this.message = 'Ошибка подключения';
+      } else if (error.status === 400) {
+        this.message = 'Пользователь с таким логином не найден';
+      } else if (error.error instanceof ErrorEvent) {
+        this.message = error.error.message;
+      } else {
+        this.message = error.error.error_description;
+      }
+      return throwError(this.message);
     })).subscribe(() => {
       this.message = 'Письмо для изменения пароля отправлено на почту';
     });

@@ -1,32 +1,33 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
-import {Router} from '@angular/router';
 import {ComponentsEventsService} from '../../shared/services/components-events.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.less']
 })
-export class ProfileComponent {
-  cardId = '';
+export class ProfileComponent implements OnInit {
+  username = '';
 
   constructor(private authService: AuthService,
-              private sharedService: ComponentsEventsService,
+              sharedService: ComponentsEventsService,
               private router: Router
   ) {
-    this.cardId = authService.getCardId();
-    sharedService.onLoginEvent.emit(this.cardId);
     sharedService.onLoginEvent.subscribe(
-        (cardId) => {
-          this.cardId = cardId;
-        }
+      (username) => {
+        this.username = username;
+      }
     );
+  }
+
+  ngOnInit() {
   }
 
   logout() {
     this.authService.logout();
-    // this.cardId = '';
+    this.username = '';
     this.router.navigate(['']);
   }
 }

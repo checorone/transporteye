@@ -5,7 +5,6 @@ import {EventEmitter, Injectable} from '@angular/core';
 })
 export class ComponentsEventsService {
 
-  // @Output()
   onLoginEvent: EventEmitter<string> = new EventEmitter();
   constructor() { }
 }

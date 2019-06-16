@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TransportRepository extends CrudRepository<Transport,Integer>  {
-	//Базовые операции уже реализованы, ничего определять не нужно, см TransportService
+	Transport getTransportById(int transportId);
 }

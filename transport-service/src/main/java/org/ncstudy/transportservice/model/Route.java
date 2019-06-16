@@ -1,15 +1,13 @@
 package org.ncstudy.transportservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "route")
 public class Route {
     @Id
-    @Column(name = "route_id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "route_id", nullable = false)
     private int routeId;
 
     @Column(name = "route_number", nullable = false)

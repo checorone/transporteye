@@ -87,7 +87,7 @@ export class UserModifyComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       // width: '250px',
-      data: {cardId: this.userInfo.cardId}
+      data: {message: 'пользователя ' + this.userInfo.cardId}
     });
 
     dialogRef.afterClosed().subscribe(result => {

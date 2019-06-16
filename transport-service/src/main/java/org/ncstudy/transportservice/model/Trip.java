@@ -1,16 +1,14 @@
 package org.ncstudy.transportservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "passenger_stream")
+@Table(name = "trip")
 public class Trip {
     @Id
-    @Column(name = "id", nullable = false)
-    private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "trip_id", nullable = false)
+    private int tripId;
 
     @Column(name = "route_id", nullable = false)
     private int routeId;
@@ -18,12 +16,12 @@ public class Trip {
     @Column(name = "transport_id", nullable = false)
     private int transportId;
 
-	public int getId() {
-		return id;
+	public int getTripId() {
+		return tripId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setTripId(int tripId) {
+		this.tripId = tripId;
 	}
 
 	public int getRouteId() {

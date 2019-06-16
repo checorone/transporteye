@@ -29,7 +29,7 @@ export class TransportListComponent implements OnInit, AfterViewInit {
   }
 
   public getAllTransports() {
-     this.dataSource.data =  this.repoService.getTransportData();
+     // this.dataSource.data =  this.repoService.getTransportData();
   }
 
   public doFilter = (value: string) => {

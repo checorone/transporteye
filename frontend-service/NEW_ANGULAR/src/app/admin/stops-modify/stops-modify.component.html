@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-title>{{busStopExist ? 'Изменение остановки ' + adminService.choosenToModifyInfo.id : 'Создание остановки'}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="busForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <input matInput placeholder="Название" formControlName="name">
+                <mat-error *ngIf="f.name.errors">Название обязательно</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Широта" formControlName="latitude">
+                <mat-error *ngIf="f.latitude.errors">Широта должна быть в пределах от -90 до 90</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Долгота" formControlName="longitude">
+                <mat-error *ngIf="f.longitude.errors">Долгота должна быть в пределах от -180 до 180</mat-error>
+            </mat-form-field>
+            <div>{{message}}</div>
+            <div>
+                <button mat-raised-button color="primary">Готово</button>
+                <button *ngIf="busStopExist" mat-button color="warn" type="button" (click)="deleteBusStop()">
+                    <mat-icon>delete_outline</mat-icon>
+                    Удалить
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

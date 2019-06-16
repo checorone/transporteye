@@ -1,50 +1,48 @@
 package org.ncstudy.transportservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "bus_stop")
 public class BusStop {
     @Id
-    @Column(name = "bus_stop_id", nullable = false)
-    private int busStopId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "bus_stop_id", nullable = false)
+    private int id;
 
     @Column(name = "bus_stop_name", nullable = false)
-    private String busStopName;
+    private String name;
 
-    @Column(name = "latitude", nullable = false)
+    @Column(name = "bus_stop_latitude", nullable = false)
     private float latitude;
 
-    @Column(name = "longitude", nullable = false)
+    @Column(name = "bus_stop_longitude", nullable = false)
     private float longitude;
 
     public BusStop() {
     }
 
-    public BusStop(int  busStopId, String busStopName, float latitude, float longitude) {
-        this.setBusStopId(busStopId);
-        this.setBusStopName(busStopName);
+    public BusStop(int id, String name, float latitude, float longitude) {
+        this.setId(id);
+        this.setName(name);
         this.setLatitude(latitude);
         this.setLongitude(longitude);
     }
 
-	public int getBusStopId() {
-		return busStopId;
+	public int getId() {
+		return id;
 	}
 
-	public void setBusStopId(int busStopId) {
-		this.busStopId = busStopId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getBusStopName() {
-		return busStopName;
+	public String getName() {
+		return name;
 	}
 
-	public void setBusStopName(String busStopName) {
-		this.busStopName = busStopName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public float getLatitude() {

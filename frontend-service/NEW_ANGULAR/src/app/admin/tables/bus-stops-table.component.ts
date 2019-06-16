@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/material";
-import {UserInfo} from "../user-info.model";
 import {AdminService} from "../admin.service";
 import {Router} from "@angular/router";
 import {EMPTY} from "rxjs";
@@ -15,7 +14,7 @@ import {BusStopModel} from "../../shared/models/bus-stop.model";
 })
 export class BusStopsTableComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['bus_stop_id', 'bus_stop_name', 'latitude', 'longitude'];
+  public displayedColumns = ['id', 'name', 'latitude', 'longitude'];
   public rusDisplayedColumns = ['ID', 'Название', 'Широта', 'Долгота'];
   public dataSource = new MatTableDataSource<BusStopModel>();
   private canAdd = true;
@@ -49,7 +48,9 @@ export class BusStopsTableComponent implements OnInit, AfterViewInit {
               throw EMPTY;
             }))
         .subscribe(res => {
+          console.log(res);
           this.dataSource.data = res;
+          console.log(this.dataSource.data)
         });
   }
 
@@ -58,7 +59,8 @@ export class BusStopsTableComponent implements OnInit, AfterViewInit {
   };
 
 
-  modifyCall(element: UserInfo) {
+  modifyCall(element: BusStopModel) {
+    console.log(element);
     this.adminService.choosenToModifyInfo = element;
     this.router.navigate(['admin/busStop/modify']);
   }

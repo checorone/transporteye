@@ -1,8 +1,7 @@
 export interface Transport{
-    id: string;
+    id: any;
     name: string;
-    // fullness: number;
-    workload: number;
+    seats: number;
     latitude: number;
     longitude: number;
 }

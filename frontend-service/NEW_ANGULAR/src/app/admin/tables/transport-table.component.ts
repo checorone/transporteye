@@ -16,7 +16,7 @@ import {Transport} from '../../shared/models/transport.model';
 })
 export class TransportTableComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['id', 'name', 'workload', 'latitude', 'longitude'];
+  public displayedColumns = ['id', 'name', 'seats', 'latitude', 'longitude'];
   public rusDisplayedColumns = ['ID', 'Название', 'Заполненность', 'Широта', 'Долгота'];
   public dataSource = new MatTableDataSource<Transport>();
   private canAdd = true;
@@ -50,7 +50,9 @@ export class TransportTableComponent implements OnInit, AfterViewInit {
               throw EMPTY;
             }))
         .subscribe(res => {
+          console.log(res);
           this.dataSource.data = res;
+          console.log( this.dataSource.data);
         });
   }
 

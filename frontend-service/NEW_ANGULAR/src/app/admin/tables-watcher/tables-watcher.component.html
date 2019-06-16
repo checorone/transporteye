@@ -1,0 +1,16 @@
+<mat-form-field>
+    <mat-label></mat-label>
+    <mat-select [(value)]="selected">
+        <mat-option>None</mat-option>
+        <mat-option value="users">Пользователи</mat-option>
+        <mat-option value="stops">Остановки</mat-option>
+        <mat-option value="transport">Транспорт</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<ng-container [ngSwitch]="selected">
+    <app-users-table *ngSwitchCase="'users'"></app-users-table>
+    <app-transport-table *ngSwitchCase="'transport'"></app-transport-table>
+    <app-bus-stops-table *ngSwitchCase="'stops'"></app-bus-stops-table>
+    <div *ngSwitchDefault>Выберите таблицу для редактирования</div>
+</ng-container>

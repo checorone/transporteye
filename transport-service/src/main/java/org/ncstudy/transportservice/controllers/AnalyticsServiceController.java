@@ -1,6 +1,5 @@
 package org.ncstudy.transportservice.controllers;
 
-
 import org.ncstudy.transportservice.services.AnalyticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping(value="api/v1/analytics")
 public class AnalyticsServiceController {
 	@Autowired
     private AnalyticsService analyticsService;
-    private static final Logger logger = LoggerFactory.getLogger(TransportServiceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AnalyticsServiceController.class);
 
 	@RequestMapping(value="/tickets/all",method = RequestMethod.GET)
     public int getAllActivatedTickets() {
@@ -26,9 +27,9 @@ public class AnalyticsServiceController {
     }
 	
 	@RequestMapping(value="/passengers/free/{busStopId}",method = RequestMethod.GET)
-    public int getFreeRiders(@PathVariable("busStopId") int busStopID) {
+    public double getFreeRiders(@PathVariable("busStopId") int busStopID) {
         logger.debug("Looking up data for passengers...");
-        int fr = analyticsService.getAllPassengersWithoutTicketOnStop(busStopID);
+        double fr = analyticsService.getAllPassengersWithoutTicketOnStop(busStopID);
         logger.debug("Found {} free riders.", fr);
         return fr;
     }
@@ -47,6 +48,30 @@ public class AnalyticsServiceController {
         int p = analyticsService.getAllPassengersOnTrip();
         logger.debug("Found {} passengers with tickets.", p);
         return p;
+    }
+
+    @RequestMapping(value="/passengers/onRoute/{routeId}",method = RequestMethod.GET)
+    public int getAllPassengersOnRoute(@PathVariable("routeId") int routeId) {
+        logger.debug("Looking up data for passengers...");
+        int p = analyticsService.getAllPassengersOnRoute(routeId);
+        logger.debug("Found {} passengers with tickets.", p);
+        return p;
+    }
+
+    @RequestMapping(value = "/passengers/typesCount", method = RequestMethod.GET)
+    public Map<String, Integer> getAllPassengerTypesCount(){
+        logger.debug("Looking up data for passengers...");
+        Map<String, Integer> typesCount = analyticsService.getAllPassengerTypesCount();
+        logger.debug("Found {} empty seats.", typesCount.size());
+        return typesCount;
+    }
+
+    @RequestMapping(value = "/passengers/typesCount/{busStopId}", method = RequestMethod.GET)
+    public Map<String, Long> getAllPassengerTypesCount(@PathVariable("busStopId") int busStopId){
+        logger.debug("Looking up data for passengers...");
+        Map<String, Long> typesCountOnStop = analyticsService.getPassengerTypesCountOnStop(busStopId);
+        logger.debug("Found {} empty seats.", typesCountOnStop.size());
+        return typesCountOnStop;
     }
 	
 	@RequestMapping(value="/seats/empty",method = RequestMethod.GET)
@@ -80,5 +105,38 @@ public class AnalyticsServiceController {
         logger.debug("Found {} activated tickets.", tr);
         return tr;
     }
+
+    @RequestMapping(value="/transport/countOnRoute/{routeId}",method = RequestMethod.GET)
+    public double getTransportCountOnRoute(@PathVariable("routeId") int routeId) {
+        logger.debug("Looking up data for transports...");
+        double countOnRoute = analyticsService.getTransportCountOnRoute(routeId);
+        logger.debug("Found {} activated tickets.", countOnRoute);
+        return countOnRoute;
+    }
+
+    @RequestMapping(value="/transport/empty/{transportId}",method = RequestMethod.GET)
+    public double getEmptySeatsOnTransport(@PathVariable("transportId") int transportId) {
+        logger.debug("Looking up data for transports...");
+        double countOnRoute = analyticsService.getEmptySeatsOnTransport(transportId);
+        logger.debug("Found {} activated tickets.", countOnRoute);
+        return countOnRoute;
+    }
+
+    @RequestMapping(value="/validation/countOnStop/{busStopId}",method = RequestMethod.GET)
+    public double getAllValidationsCountOnStop(@PathVariable("busStopId") int busStopId) {
+        logger.debug("Looking up data for transports...");
+        double countOnStop = analyticsService.getAllValidationsCountOnStop(busStopId);
+        logger.debug("Found {} activated tickets.", countOnStop);
+        return countOnStop;
+    }
+
+    @RequestMapping(value="/validation/countOnLastStop/{busStopId}",method = RequestMethod.GET)
+    public double getLastValidationsCountOnStop(@PathVariable("busStopId") int busStopId) {
+        logger.debug("Looking up data for transports...");
+        double countOnStop = analyticsService.getLastValidationsCountOnStop(busStopId);
+        logger.debug("Found {} activated tickets.", countOnStop);
+        return countOnStop;
+    }
+
 
 }

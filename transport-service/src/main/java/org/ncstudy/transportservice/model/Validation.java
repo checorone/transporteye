@@ -1,15 +1,13 @@
 package org.ncstudy.transportservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "validation")
 public class Validation {
     @Id
-    @Column(name = "validation_id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "validation_id", nullable = false)
     private int validationId;
 
     @Column(name = "bus_stop_id", nullable = false)
@@ -17,6 +15,17 @@ public class Validation {
 
     @Column(name = "card_id", nullable = false)
     private int cardId;
+
+    @Column(name = "transport_id", nullable = false)
+	private int transportId;
+
+	public int getTransportId() {
+		return transportId;
+	}
+
+	public void setTransportId(int transportId) {
+		this.transportId = transportId;
+	}
 
 	public int getValidationId() {
 		return validationId;

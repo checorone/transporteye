@@ -1,26 +1,23 @@
 package org.ncstudy.transportservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "transport")
 public class Transport {
     @Id
-    @Column(name = "id", nullable = false)
-	private
-    int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transport_id", nullable = false)
+	private int id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "transport_name", nullable = false)
 	private String name;
 
-    @Column(name = "latitude", nullable = false)
-	private String latitude;
+    @Column(name = "transport_latitude", nullable = false)
+	private float latitude;
 
-    @Column(name = "longitude", nullable = false)
-	private String longitude;
+    @Column(name = "transport_longitude", nullable = false)
+	private float longitude;
     
     @Column(name = "seats", nullable = false)
 	private int seats;
@@ -42,19 +39,19 @@ public class Transport {
 		this.name = name;
 	}
 
-	public String getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
 

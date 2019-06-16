@@ -14,42 +14,42 @@ export class RepositoryService {
 
     constructor(private http:HttpClient) { }
 
-  public getTransportData() : Transport[] {
-    return [
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 40, latitude: 55.7522200,  longitude: 37.6155600},
-      { id: "AB32P 150RU", name: 'LIAZ5433', workload: 73, latitude: 55.7492200,  longitude: 37.6165600},
-      { id: "AA51P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.7432200,  longitude: 37.6195600},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-      { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
-    ];
-  }
+  // public getTransportData() : Transport[] {
+  //   return [
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 40, latitude: 55.7522200,  longitude: 37.6155600},
+  //     { id: "AB32P 150RU", name: 'LIAZ5433', workload: 73, latitude: 55.7492200,  longitude: 37.6165600},
+  //     { id: "AA51P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.7432200,  longitude: 37.6195600},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //     { id: "AA32P 150RU", name: 'LIAZ5433', workload: 60, latitude: 55.43,  longitude: 53.43},
+  //   ];
+  // }
 
 
     public getBusStops(): Observable<BusStopModel[]> {
@@ -61,6 +61,7 @@ export class RepositoryService {
     }
 
     public addBusStop(busStop: BusStopModel):Observable<any>{
+        delete busStop.id;
         return this.http.post<any>(this.busStopsUrl, busStop);
     }
 
@@ -69,10 +70,20 @@ export class RepositoryService {
     }
 
     public addTransport(transport: Transport):Observable<any>{
+        delete transport.id;
         return this.http.post<any>(this.transportUrl, transport);
     }
 
     public updateTransport(transport: Transport):Observable<any>{
-        return this.http.put<any>(this.busStopsUrl, transport);
+        console.log(transport);
+        return this.http.put<any>(this.transportUrl, transport);
+    }
+
+    public deleteBusStop(id: string):Observable<any>{
+        return this.http.delete<any>(this.busStopsUrl+'/'+id);
+    }
+
+    public deleteTransport(id: string):Observable<any>{
+        return this.http.delete<any>(this.transportUrl+'/'+id);
     }
 }

@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-title>{{transportExist ? 'Изменение транспорта ' + adminService.choosenToModifyInfo.id : 'Создание транспорта'}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="transportForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Название" formControlName="name">
+        <mat-error *ngIf="f.name.errors">Название обязательно</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Количество мест" formControlName="seats">
+        <mat-error *ngIf="f.name.errors">Количество мест обязательно</mat-error>
+      </mat-form-field>
+
+      <div>{{message}}</div>
+      <div>
+        <button mat-raised-button color="primary">Готово</button>
+        <button *ngIf="transportExist" mat-button color="warn" type="button" (click)="deleteBusStop()">
+          <mat-icon>delete_outline</mat-icon>
+          Удалить
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

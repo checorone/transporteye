@@ -8,7 +8,7 @@ import {UserInfo} from './user-info.model';
 export class AdminService {
 
   private adminUrl = 'http://localhost:8901/api/v1/admin/';
-  choosenToModifyInfo: any;
+  choosenToModifyInfo: any = null;
 
   constructor(private http: HttpClient) {
   }

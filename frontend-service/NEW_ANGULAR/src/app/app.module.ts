@@ -35,6 +35,10 @@ import {CommonInterceptor} from './common-interceptor';
 import {ComponentsEventsService} from './shared/services/components-events.service';
 import {BusStopsTableComponent} from './admin/tables/bus-stops-table.component';
 import {TransportTableComponent} from './admin/tables/transport-table.component';
+import {TablesWatcherComponent} from './admin/tables-watcher/tables-watcher.component';
+import {StopsModifyComponent} from './admin/stops-modify/stops-modify.component';
+import {TransportModifyComponent} from './admin/transport-modify/transport-modify.component';
+import {MapSearchComponent} from './admin/map-search/map-search.component';
 
 @NgModule({
     declarations: [
@@ -62,6 +66,10 @@ import {TransportTableComponent} from './admin/tables/transport-table.component'
         ConfirmDialogComponent,
         BusStopsTableComponent,
         TransportTableComponent,
+        TablesWatcherComponent,
+        StopsModifyComponent,
+        TransportModifyComponent,
+        MapSearchComponent,
     ],
     imports: [
         ReactiveFormsModule,
@@ -72,7 +80,8 @@ import {TransportTableComponent} from './admin/tables/transport-table.component'
         MatSnackBarModule,
         BrowserAnimationsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'
+            apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM',
+            libraries: ["places"]
         }),
         FormsModule,
         // LocalStorageModule.forRoot({

@@ -10,32 +10,36 @@ import javax.persistence.Table;
 public class Route {
     @Id
     @Column(name = "route_id", nullable = false)
-    private int route_id;
+    private int routeId;
 
     @Column(name = "route_number", nullable = false)
-    private String route_number;
+    private String routeNumber;
+    
+    @Column(name = "bus_stop_list", nullable = false)
+    private String busStopList;
 
-    public Route() {
-    }
+	public int getRouteId() {
+		return routeId;
+	}
 
-    public Route(int route_id, String route_number) {
-        this.route_id = route_id;
-        this.route_number = route_number;
-    }
+	public void setRouteId(int routeId) {
+		this.routeId = routeId;
+	}
 
-    public int getRoute_id() {
-        return route_id;
-    }
+	public String getRouteNumber() {
+		return routeNumber;
+	}
 
-    public void setRoute_id(int route_id) {
-        this.route_id = route_id;
-    }
+	public void setRouteNumber(String routeNumber) {
+		this.routeNumber = routeNumber;
+	}
 
-    public String getRoute_number() {
-        return route_number;
-    }
+	public String getBusStopList() {
+		return busStopList;
+	}
 
-    public void setRoute_number(String route_number) {
-        this.route_number = route_number;
-    }
+	public void setBusStopList(String busStopList) {
+		this.busStopList = busStopList;
+	}
+    
 }

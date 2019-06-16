@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Service
@@ -33,7 +32,7 @@ public class ValidationService {
 
     }
 
-    public void deleteValidation(UUID uuid){
-        validationRepository.deleteById(uuid);
+    public void deleteValidation(int id){
+        validationRepository.deleteById(id);
     }
 }

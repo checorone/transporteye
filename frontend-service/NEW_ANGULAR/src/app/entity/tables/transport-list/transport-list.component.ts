@@ -1,8 +1,14 @@
-import { ResourceService } from './../../shared/services/resource.service';
+import { ResourceService } from './../../../shared/services/resource.service';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Transport } from '../../shared/models/transport.model';
-import { Router } from '@angular/router';
+
+export interface ITransport {
+	transportId: number,
+	name: string,
+	seats: number,
+	longitude: number,
+	latitude: number
+}
 
 @Component({
   selector: 'app-transport-list',
@@ -11,16 +17,16 @@ import { Router } from '@angular/router';
 })
 export class TransportListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['id', 'name', 'fullness', 'latitude', 'longitude'];
-  public dataSource = new MatTableDataSource<Transport>();
+  public displayedColumns = ['transportId', 'name', 'seats', 'latitude', 'longitude'];
+  public dataSource = new MatTableDataSource<ITransport>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private repoService: ResourceService, private router: Router) { }
+   constructor(private resourceService: ResourceService) { }
 
   ngOnInit() {
-    // this.getAllTransports();
+    this.getAllTransports();
   }
 
   ngAfterViewInit(): void {
@@ -28,13 +34,13 @@ export class TransportListComponent implements OnInit, AfterViewInit {
      this.dataSource.paginator = this.paginator;
   }
 
-//   public getAllTransports() {
-//      this.repoService.getTransportData();
-//   }
+  public getAllTransports() {
+     this.resourceService.getTransportData().subscribe(this.setData.bind(this));
+  }
 
-//   public setData() {
-//      this.repoService.getTransportData();
-//   }
+  public setData(data: ITransport[]) {
+     this.dataSource.data = data;
+  }
 
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();

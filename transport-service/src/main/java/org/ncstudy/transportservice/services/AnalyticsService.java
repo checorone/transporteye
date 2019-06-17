@@ -6,6 +6,7 @@ import org.ncstudy.transportservice.model.BusStop;
 import org.ncstudy.transportservice.model.PassengerStream;
 import org.ncstudy.transportservice.model.Route;
 import org.ncstudy.transportservice.model.Transport;
+import org.ncstudy.transportservice.model.TransportExt;
 import org.ncstudy.transportservice.model.Trip;
 import org.ncstudy.transportservice.model.Validation;
 import org.ncstudy.transportservice.repository.*;
@@ -86,6 +87,30 @@ public class AnalyticsService {
         map.put("first", 33.21);
         map.put("second", 55.0);
         return map;
+    }
+    
+    
+    /**
+     * Возвращает хешмап со всеми ТС в пути вместе с количеством пустых мест в них.
+     *
+     * @return 
+     */
+    public List<TransportExt> getMapDataTransport() {
+    	//TODO: impl
+    	Random random = new Random();
+    	List<TransportExt> transportExts = new ArrayList<TransportExt>();
+    	List<Transport> tr = transportService.getAllTransports();
+    	for (Transport transport : tr) {
+    		TransportExt tempExt = new TransportExt();
+			tempExt.transportId = transport.getTransportId();
+			tempExt.name = transport.getName();
+			tempExt.seats = transport.getSeats();
+			tempExt.longitude = transport.getLongitude();
+			tempExt.latitude = transport.getLatitude();
+			tempExt.emptySeats = random.nextInt(30);
+			transportExts.add(tempExt);
+		}
+        return transportExts;
     }
     
     /**

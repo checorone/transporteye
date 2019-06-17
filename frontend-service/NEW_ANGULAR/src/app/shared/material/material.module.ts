@@ -32,7 +32,7 @@ import { MatTabsModule,MatButtonToggleModule, MatTooltipModule, MatSidenavModule
     CommonModule,
     MatTabsModule,
     MatSidenavModule,
-    MatFormFieldModule
+	MatFormFieldModule
   ],
   exports: [
     MatButtonToggleModule,

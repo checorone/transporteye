@@ -4,8 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
 import {NotFoundComponent} from './error-pages/not-found/not-found.component';
 import {ServerErrorComponent} from './error-pages/server-error/server-error.component';
-import {EntityModule} from './entity/entity.module';
-import {TransportListComponent} from './entity/transport-list/transport-list.component';
+import {TransportListComponent} from './entity/tables/transport-list/transport-list.component';
 import {MapsComponent} from './maps/maps.component';
 import {RegisterComponent} from './account/register/register.component';
 import {ActivationComponent} from './account/activation/activation.component';
@@ -15,6 +14,10 @@ import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component';
 import {UsersTableComponent} from './admin/tables/users-table.component';
 import {UserModifyComponent} from './admin/user-modify/user-modify.component';
 import {HomeComponent} from './home/home.component';
+import { EntityComponentComponent } from './entity/entity-component/entity-component.component';
+import { CardListComponent } from './entity/tables/card-list/card-list.component';
+import { BusstopListComponent } from './entity/tables/busstop-list/busstop-list.component';
+import { RouteListComponent } from './entity/tables/route-list/route-list.component';
 
 const ownerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,7 +25,16 @@ const ownerRoutes: Routes = [
   { path: 'admin/cards', component: UsersTableComponent },
   { path: 'admin/card/modify', component: UserModifyComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'entity', component: TransportListComponent },
+  { path: 'list', component: TransportListComponent },
+  { path: 'entity', 
+  	component: EntityComponentComponent,
+	children: [
+		{path: '', redirectTo: 'transport', pathMatch: 'full'},
+		{path: 'transport', component: TransportListComponent},
+		{path: 'card', component: CardListComponent},
+		{path: 'busstop', component: BusstopListComponent},
+		{path: 'route', component: RouteListComponent},
+		] },
   { path: 'map', component: MapsComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'activation/:uuid', component: ActivationComponent},
@@ -33,13 +45,13 @@ const ownerRoutes: Routes = [
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
+  
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(ownerRoutes),
-    EntityModule
+    RouterModule.forRoot(ownerRoutes)
   ],
   exports: [
     RouterModule

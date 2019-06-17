@@ -1,0 +1,37 @@
+<mat-sidenav-container style="min-height: 220px;" >
+  <mat-sidenav [opened]="true" mode="side">
+        <mat-list>
+          <mat-list-item>
+            <button mat-mini-fab routerLink="./transport" matTooltip="Транспорт" [matTooltipPosition]="'right'"
+              [matTooltipClass]="'dash-tooltip-class'">
+				<mat-icon >directions_bus</mat-icon>
+
+			</button>
+		  </mat-list-item>
+		  <mat-list-item>
+            <button mat-mini-fab routerLink="./card" matTooltip="Карточки" [matTooltipPosition]="'right'"
+              [matTooltipClass]="'dash-tooltip-class'">
+				<mat-icon>payment</mat-icon>
+				
+			</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-mini-fab routerLink="./busstop" matTooltip="Остановки" [matTooltipPosition]="'right'"
+              [matTooltipClass]="'dash-tooltip-class'">
+				<mat-icon>local_parking</mat-icon>
+
+			</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-mini-fab routerLink="./route" matTooltip="Маршруты" [matTooltipPosition]="'right'"
+              [matTooltipClass]="'dash-tooltip-class'">
+				<mat-icon>timeline</mat-icon>
+
+			</button>
+          </mat-list-item>
+        </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+	<router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -36,6 +36,7 @@ import {ConfirmDialogComponent} from './admin/confirm-dialog/confirm-dialog.comp
 import {MatSnackBarModule} from '@angular/material';
 import {CommonInterceptor} from './common-interceptor';
 import {ComponentsEventsService} from './shared/services/components-events.service';
+import {EntityModule} from './entity/entity.module'
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import {ComponentsEventsService} from './shared/services/components-events.servi
     ChartistModule,
     SharedModule,
     MatSnackBarModule,
-    BrowserAnimationsModule,
+	BrowserAnimationsModule,
+	EntityModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'
     }),

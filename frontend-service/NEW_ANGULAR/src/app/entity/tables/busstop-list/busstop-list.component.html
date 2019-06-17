@@ -1,0 +1,32 @@
+<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+  <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="busStopId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Номер остановки </th>
+    <td mat-cell *matCellDef="let element"> {{element.busStopId}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="busStopName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Название </th>
+    <td mat-cell *matCellDef="let element"> {{element.busStopName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="latitude">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Широта</th>
+    <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="longitude">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Долгота </th>
+    <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+  </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 2, 3, 4, 5]">
+</mat-paginator>

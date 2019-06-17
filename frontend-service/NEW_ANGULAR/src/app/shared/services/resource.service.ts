@@ -19,6 +19,11 @@ export class ResourceService {
   private transportTypesCountUri = this.resourceService + this.analyticsUri + 'transports/types/all';
   private averageTransportsLoadUri = this.resourceService + this.analyticsUri + 'transports/average/all';
   private averageSeatsLoadUri = this.resourceService + this.analyticsUri + 'seats/average/all';
+  private mapDataUri = this.resourceService + this.analyticsUri + 'map/transport';
+  private transportDataUri = this.resourceService + this.dataUri + 'transport';
+  private cardDataUri = this.resourceService + this.dataUri + 'card';
+  private busStopDataUri = this.resourceService + this.dataUri + 'bus_stop';
+  private routeDataUri = this.resourceService + this.dataUri + 'route';
 
   constructor( private http: HttpClient) {
   }
@@ -53,5 +58,24 @@ export class ResourceService {
   public getFreePassengers(): Observable<any> {
     return this.http.get<any>(this.freePassengersCountUri);
   }
+
+  public getTransportData(): Observable<any> {
+    return this.http.get<any>(this.transportDataUri);
+  }
+
+  public getCardData(): Observable<any> {
+    return this.http.get<any>(this.cardDataUri);
+  }
+
+  public getRouteData(): Observable<any> {
+    return this.http.get<any>(this.routeDataUri);
+  }
+
+  public getBusStopData(): Observable<any> {
+    return this.http.get<any>(this.busStopDataUri);
+  }
   
+    public getMapData(): Observable<any> {
+    return this.http.get<any>(this.mapDataUri);
+  }
 }

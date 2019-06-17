@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import {ResourceService} from '../shared/services/resource.service';
 
 declare const google: any;
+
+interface ITransport {
+	transportId: number,
+	name: string,
+	seats: number,
+	emptySeats: number,
+	longitude: number,
+	latitude: number
+}
 
 interface Marker {
 lat: number;
@@ -15,7 +25,9 @@ draggable?: boolean;
 })
 export class MapsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private resourceService: ResourceService) { }
+
+  private map: any;
 
   ngOnInit() {
 
@@ -111,15 +123,31 @@ export class MapsComponent implements OnInit {
         }]
 
     };
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	this.getData();
 
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        title: "Hello World!"
+    // var marker = new google.maps.Marker({
+    //     position: myLatlng,
+    //     title: "Hello World!"
+    // });
+
+    // // To add the marker to the map, call setMap();
+    // marker.setMap(this.map);
+  }
+
+  getData() {
+	  this.resourceService.getMapData().subscribe(this.setData.bind(this));
+  }
+
+  setData(data: ITransport[]) {
+	data.forEach(transport => {
+		var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(transport.latitude, transport.longitude),
+        title: transport.name + "\nНомер: " + transport.transportId + "\nЗагруженность: " + (transport.emptySeats / transport.seats)*100 + "%"
     });
 
-    // To add the marker to the map, call setMap();
-    marker.setMap(map);
+    marker.setMap(this.map);
+	});
   }
 
 }

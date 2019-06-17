@@ -5,8 +5,11 @@
   <a mat-list-item routerLink="/dashboard" (click)="onSidenavClose()">
     <mat-icon>dashboard</mat-icon> <span class="nav-caption">Мониторинг</span>
   </a>
-  <a mat-list-item routerLink="#" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="/entity" (click)="onSidenavClose()">
     <mat-icon>class</mat-icon><span class="nav-caption">Сущности</span>
+  </a>
+  <a mat-list-item routerLink="/map" (click)="onSidenavClose()">
+    <mat-icon>class</mat-icon><span class="nav-caption">Карта</span>
   </a>
   <mat-list-item [matMenuTriggerFor]="menu">
     <mat-icon>unfold_more</mat-icon>

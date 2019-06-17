@@ -9,11 +9,11 @@
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>Возможно вы хотите </span>&nbsp;
-                <a class="alert-link" (click)="login()">Войти</a>
+                <a class="alert-link" routerLink="/login">Войти</a>
             </div>
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>Нет аккаунта?</span>&nbsp;
-                <a class="alert-link" routerLink="register">Зарегистрироваться</a>
+                <a class="alert-link" routerLink="/register">Зарегистрироваться</a>
             </div>
         </div>
 

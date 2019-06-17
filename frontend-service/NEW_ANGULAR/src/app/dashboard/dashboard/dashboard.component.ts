@@ -290,7 +290,7 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'Накопительная доля пассажиров на всех маршрутах:'
+            value: 'Доля пассажиров на  маршрутах:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
@@ -324,7 +324,7 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'Количество пробитых билетов:'
+            value: 'Пробитые билеты на станции:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
@@ -358,7 +358,7 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'Количество пассажиров без валидации:'
+            value: 'Пассажиров без валидации на станции:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
@@ -395,7 +395,7 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'Количество пассажиров не прошедших валидацию:'
+            value: 'Число пассажиров в пути на маршрутах:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,

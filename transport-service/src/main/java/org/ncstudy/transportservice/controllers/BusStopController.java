@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value="api/v1/data")
 public class BusStopController {
     private static final Logger logger = LoggerFactory.getLogger(BusStopController.class);
 
     @Autowired
     private BusStopService busStopService;
 
-    @RequestMapping(value="api/v1/bus_stop",method = RequestMethod.GET)
+    @RequestMapping(value="/bus_stop",method = RequestMethod.GET)
     public List<BusStop> getAllBusStops() {
         logger.debug("Looking up data for bus stops...");
         List<BusStop> list = busStopService.getAllBusStops();
@@ -27,18 +28,18 @@ public class BusStopController {
     }
 
 
-    @RequestMapping(value="api/v1/bus_stop",method = RequestMethod.POST)
+    @RequestMapping(value="/bus_stop",method = RequestMethod.POST)
     public void saveBusStop(@RequestBody BusStop bus_stop) {
         busStopService.saveBusStop(bus_stop);
     }
 
-    @RequestMapping(value="api/v1/bus_stop",method = RequestMethod.PUT)
+    @RequestMapping(value="/bus_stop",method = RequestMethod.PUT)
     public void updateBusStop(@RequestBody BusStop bus_stop) {
         busStopService.updateBusStop(bus_stop);
 
     }
 
-    @RequestMapping(value="api/v1/bus_stop/{bus_stop_id}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/bus_stop/{bus_stop_id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBusStop( @PathVariable("bus_stop_id") int bus_stop_id) {
         busStopService.deleteBusStop( bus_stop_id );

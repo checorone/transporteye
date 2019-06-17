@@ -1,4 +1,4 @@
-import { RepositoryService } from './../../shared/services/repository.service';
+import { ResourceService } from './../../shared/services/resource.service';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Transport } from '../../shared/models/transport.model';
@@ -12,15 +12,15 @@ import { Router } from '@angular/router';
 export class TransportListComponent implements OnInit, AfterViewInit {
 
   public displayedColumns = ['id', 'name', 'fullness', 'latitude', 'longitude'];
-  public dataSource = new MatTableDataSource<Transport>(); 
+  public dataSource = new MatTableDataSource<Transport>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private repoService: RepositoryService, private router: Router) { }
+  constructor(private repoService: ResourceService, private router: Router) { }
 
   ngOnInit() {
-    this.getAllTransports();
+    // this.getAllTransports();
   }
 
   ngAfterViewInit(): void {
@@ -28,9 +28,13 @@ export class TransportListComponent implements OnInit, AfterViewInit {
      this.dataSource.paginator = this.paginator;
   }
 
-  public getAllTransports() {
-     this.dataSource.data =  this.repoService.getTransportData();
-  }
+//   public getAllTransports() {
+//      this.repoService.getTransportData();
+//   }
+
+//   public setData() {
+//      this.repoService.getTransportData();
+//   }
 
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();

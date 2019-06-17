@@ -1,10 +1,13 @@
+import { Observable } from 'rxjs';
+
 export abstract class AbstractDashboardCard {
   constructor(private _name: string,
               private _routerLink: string,
               private _iconClass: string,
               private _col: string,
               private _row: string,
-              private _color: string) {
+			  private _color: string,
+			  private _dataCallback: () => Observable<any>) {
   }
 
   get name(): string {
@@ -29,5 +32,9 @@ export abstract class AbstractDashboardCard {
 
   get color(): string {
     return this._color;
+  }
+
+  get dataCallback(): () => Observable<any> {
+    return this._dataCallback;
   }
 }

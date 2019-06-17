@@ -4,16 +4,16 @@
         <mat-icon class="icon">announcement</mat-icon>
     </div> 
   <mat-card-header >
-    <mat-card-title>Общая загруженность:</mat-card-title>
+    <mat-card-title>{{name}}</mat-card-title>
   </mat-card-header>
   <mat-card-content fxLayout="column" fxFlex>
-    <p>Места в транспорте: 2654/4000</p>
+    <p>{{first}} / {{second}}</p>
   </mat-card-content>
   <mat-card-footer >
       <mat-divider></mat-divider>
       <mat-card-content fxLayout="row" class="update-time"  fxFlex>
           <mat-icon>update</mat-icon>
-          <span  >Последнее обновление: {{secFromLastUpdate}} секунд назад.</span>
+          <span>Последнее обновление: {{secFromLastUpdate}} секунд назад.</span>
       </mat-card-content>
   </mat-card-footer>
 </mat-card>

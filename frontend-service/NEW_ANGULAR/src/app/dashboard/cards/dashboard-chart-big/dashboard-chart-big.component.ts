@@ -21,6 +21,8 @@ export function getRandomInt(min: number, max: number): number {
   styleUrls: ['./dashboard-chart-big.component.less']
 })
 export class DashboardBigChartComponent extends AbstractDashboardCard implements OnInit, OnDestroy {
+  
+  private secFromLastUpdate: number;
 
   constructor(private injector: Injector) {
     super(injector.get(DashboardCard.metadata.NAME),
@@ -28,7 +30,8 @@ export class DashboardBigChartComponent extends AbstractDashboardCard implements
       injector.get(DashboardCard.metadata.ICONCLASS),
       injector.get(DashboardCard.metadata.COLS),
       injector.get(DashboardCard.metadata.ROWS),
-      injector.get(DashboardCard.metadata.COLOR));
+	  injector.get(DashboardCard.metadata.COLOR),
+	  injector.get(DashboardCard.metadata.DATACALLBACK));
 
       this.data = {
         labels: [],
@@ -36,7 +39,8 @@ export class DashboardBigChartComponent extends AbstractDashboardCard implements
       };
       this.type = 'Line';
   
-      this.timerSubscription = timer(0, 2500).subscribe(() => this.updateData());
+	  this.timerSubscription = timer(0, 1000).subscribe(() => this.updateData());
+	  this.secFromLastUpdate = 4;
   }
 
   public data: LiveData;
@@ -48,14 +52,21 @@ export class DashboardBigChartComponent extends AbstractDashboardCard implements
   }
 
   updateData() {
-    const time: Date = new Date(),
+      this.secFromLastUpdate++;
+	  if(this.secFromLastUpdate == 5) {
+		  this.dataCallback().subscribe(this.setData.bind(this));
+		  this.secFromLastUpdate = 0;
+	  }
+  }
+
+  setData(value: number) {
+	const time: Date = new Date(),
       formattedTime = formatDate(time, 'HH:mm:ss', 'en'),
-      random = getRandomInt(1, 40),
       data = this.data.series[0],
       labels = this.data.labels;
 
     labels.push(formattedTime);
-    data.push(random);
+    data.push(value);
 
     // We only want to display 10 data points at a time
     this.data.labels = labels.slice(-9);

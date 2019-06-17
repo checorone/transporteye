@@ -3,7 +3,7 @@
       <mat-icon class="icon">assessment</mat-icon>
   </div> 
 <mat-card-header >
-  <mat-card-title>Общее число пассажиров на маршрутах:</mat-card-title>
+  <mat-card-title>{{name}}</mat-card-title>
 </mat-card-header>
 <mat-card-content fxLayout="column" fxFlex>
   <x-chartist [data]="data" [type]="type"> </x-chartist>

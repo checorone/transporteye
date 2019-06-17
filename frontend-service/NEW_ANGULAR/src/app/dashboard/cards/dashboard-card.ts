@@ -8,7 +8,8 @@ export class DashboardCard {
     ICONCLASS: new InjectionToken<string>('iconClass'),
     COLS: new InjectionToken<Observable<number>>('cols'),
     ROWS: new InjectionToken<Observable<number>>('rows'),
-    COLOR: new InjectionToken<string>('color')
+	COLOR: new InjectionToken<string>('color'),
+	DATACALLBACK: new InjectionToken<() => Observable<any>>('dataCallback')
   };
 
   constructor(private _input: {
@@ -35,6 +36,10 @@ export class DashboardCard {
     color: {
       key: InjectionToken<string>,
       value: string
+	},
+	dataCallback: {
+      key: InjectionToken<() => Observable<any>>,
+      value: () => Observable<any>
     }
   }, private _component: any) {
   }
@@ -63,7 +68,11 @@ export class DashboardCard {
     color: {
       key: InjectionToken<string>;
       value: string
-    }
+	};
+	dataCallback: {
+      key: InjectionToken<() => Observable<any>>,
+      value: () => Observable<any>
+    };
   } {
     return this._input;
   }

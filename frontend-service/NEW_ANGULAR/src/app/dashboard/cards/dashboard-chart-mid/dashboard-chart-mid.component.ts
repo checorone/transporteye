@@ -5,6 +5,13 @@ import { ChartType, ChartOptions, ChartInterfaces} from 'ng-chartist';
 import { Subscription, timer } from 'rxjs';
 import { formatDate } from '@angular/common';
 import * as Chartist from 'chartist';
+import {ResourceService} from 'src/app/shared/services/resource.service'
+
+export interface IPassengerTypes {
+	in: number;
+	out: number;
+	validated: number;
+}
 
 export interface LiveData {
   labels: string[];
@@ -23,42 +30,42 @@ export function getRandomInt(min: number, max: number): number {
 export class DashboardMidChartComponent extends AbstractDashboardCard implements OnInit, OnDestroy {
 
   public data: LiveData;
-  public options: ChartOptions;
   public type: ChartType;
+  private secFromLastUpdate: number;
 
   private timerSubscription: Subscription;
 
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private resourceService: ResourceService) {
     super(injector.get(DashboardCard.metadata.NAME),
       injector.get(DashboardCard.metadata.ROUTERLINK),
       injector.get(DashboardCard.metadata.ICONCLASS),
       injector.get(DashboardCard.metadata.COLS),
       injector.get(DashboardCard.metadata.ROWS),
-      injector.get(DashboardCard.metadata.COLOR));
-
-      this.data = {
-        labels: [],
-        series: []
-      };
-      this.type = 'Pie';
-      this.options = {
-        labelInterpolationFnc: function(value) {
-          return value[0]
-        }
-      };
-  
-      this.timerSubscription = timer(0, 2500).subscribe(() => this.updateData());
-      
+	  injector.get(DashboardCard.metadata.COLOR),
+	  injector.get(DashboardCard.metadata.DATACALLBACK));      
   }
 
   ngOnInit() {
+	this.data = {
+        labels: [],
+        series: []
+      };
+    this.type = 'Pie';
+	this.timerSubscription = timer(0, 1000).subscribe(() => this.updateData());
+	this.secFromLastUpdate = 4;
   }
 
   updateData() {
-    this.data = {
-      labels: ['Свободные места', 'Билеты', 'Зайцы'],
-      series: [getRandomInt(0,40), getRandomInt(0,40), getRandomInt(0,40)]
-    };
+	this.secFromLastUpdate++;
+	if (this.secFromLastUpdate == 5) {
+	this.resourceService.getPassengerTypes().subscribe((datad: IPassengerTypes) => {
+			this.data = {
+							labels: ['Пассажиры с билетами', 'Безбилетники', 'Свободные места'],
+							series: [datad.validated, datad.in - datad.validated, 40]
+						};
+			this.secFromLastUpdate = 0;
+		});
+	}
   }
 
   public ngOnDestroy(): void {

@@ -9,6 +9,7 @@ import { DashboardInfoComponent } from '../cards/dashboard-info/dashboard-info.c
 import { DashboardSmallChartComponent } from '../cards/dashboard-chart-small/dashboard-chart-small.component';
 import { DashboardMidChartComponent } from '../cards/dashboard-chart-mid/dashboard-chart-mid.component';
 import { DashboardBigChartComponent } from '../cards/dashboard-chart-big/dashboard-chart-big.component';
+import { ResourceService } from 'src/app/shared/services/resource.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,13 +23,16 @@ export class DashboardComponent implements OnInit {
   cols: Observable<number>;
   cols_big: Observable<number>;
   cols_sml: Observable<number>;
+  rows_sml: Observable<number>;
+  spec_sml: Observable<number>;
 
   bigCardsEnabled : boolean = true;
   midCardsEnabled : boolean = true;
   smallCardsEnabled : boolean = true;
 
   constructor(private cardsService: DashboardCardsService,
-              private observableMedia: MediaObserver) {
+			  private observableMedia: MediaObserver,
+			  private resourceService: ResourceService) {
     this.cardsService.cards.subscribe(cards => {
       this.cards = cards;
     });
@@ -69,7 +73,21 @@ export class DashboardComponent implements OnInit {
     /* Small card column span map */
     const cols_map_sml = new Map([
       ['xs', 1],
+      ['sm', 2],
+      ['md', 2],
+      ['lg', 2],
+      ['xl', 2]
+	]);
+	const rows_map_sml = new Map([
+      ['xs', 1],
       ['sm', 1],
+      ['md', 2],
+      ['lg', 2],
+      ['xl', 2]
+	]);
+	const spec_map_sml = new Map([
+      ['xs', 2],
+      ['sm', 2],
       ['md', 2],
       ['lg', 2],
       ['xl', 2]
@@ -103,6 +121,14 @@ export class DashboardComponent implements OnInit {
     this.cols_sml = this.observableMedia.media$
       .map(change => {
         return cols_map_sml.get(change.mqAlias);
+	  }).startWith(start_cols_sml);
+	this.rows_sml = this.observableMedia.media$
+      .map(change => {
+        return rows_map_sml.get(change.mqAlias);
+	  }).startWith(start_cols_sml);
+	  this.spec_sml = this.observableMedia.media$
+      .map(change => {
+        return spec_map_sml.get(change.mqAlias);
       }).startWith(start_cols_sml);
     this.createCards();
   }
@@ -125,15 +151,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'Element'
+            value: 'Количество ТС на маршрутах:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'assessment'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -141,12 +167,16 @@ export class DashboardComponent implements OnInit {
           },
           rows: {
             key: DashboardCard.metadata.ROWS,
-            value: this.cols_sml
+            value: this.rows_sml
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: this.resourceService.getTransportsTypesCount.bind(this.resourceService)
+		  }
         }, DashboardInfoComponent /* Reference to the component we'd like to spawn */
       )
     );
@@ -155,15 +185,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'users'
+            value: 'Количество свободных мест:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'fa-users'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -171,12 +201,16 @@ export class DashboardComponent implements OnInit {
           },
           rows: {
             key: DashboardCard.metadata.ROWS,
-            value: this.cols_sml
+            value: this.rows_sml
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: this.resourceService.getSeatsTypesCount.bind(this.resourceService)
+		  }
         }, DashboardInfoComponent
       )
     );
@@ -185,15 +219,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'users'
+            value: 'Средняя загрузка маршрута:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'fa-users'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -201,12 +235,16 @@ export class DashboardComponent implements OnInit {
           },
           rows: {
             key: DashboardCard.metadata.ROWS,
-            value: this.cols_sml
+            value: this.rows_sml
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: this.resourceService.getAverageTransportsLoad.bind(this.resourceService)
+		  }
         }, DashboardInfoComponent
       )
     );
@@ -215,15 +253,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'users'
+            value: 'Средняя загрузка транспорта:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'fa-users'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -231,12 +269,16 @@ export class DashboardComponent implements OnInit {
           },
           rows: {
             key: DashboardCard.metadata.ROWS,
-            value: this.cols_sml
+            value: this.rows_sml
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: this.resourceService.getAverageSeatsLoad.bind(this.resourceService)
+		  }
         }, DashboardInfoComponent
       )
     );
@@ -248,15 +290,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'users'
+            value: 'Накопительная доля пассажиров на всех маршрутах:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'fa-users'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -268,8 +310,12 @@ export class DashboardComponent implements OnInit {
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: null
+		  }
         }, DashboardMidChartComponent
       )
     );
@@ -278,15 +324,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'users'
+            value: 'Количество пробитых билетов:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'fa-users'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -294,12 +340,16 @@ export class DashboardComponent implements OnInit {
           },
           rows: {
             key: DashboardCard.metadata.ROWS,
-            value: this.cols_sml
+            value: this.spec_sml
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: this.resourceService.getAllValidations.bind(this.resourceService)
+		  }
         }, DashboardSmallChartComponent
       )
     );
@@ -308,15 +358,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'users'
+            value: 'Количество пассажиров без валидации:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'fa-users'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -324,12 +374,16 @@ export class DashboardComponent implements OnInit {
           },
           rows: {
             key: DashboardCard.metadata.ROWS,
-            value: this.cols_sml
+            value: this.spec_sml
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: this.resourceService.getOntripPassengers.bind(this.resourceService)
+		  }
         }, DashboardSmallChartComponent
       )
     );
@@ -341,15 +395,15 @@ export class DashboardComponent implements OnInit {
         {
           name: {
             key: DashboardCard.metadata.NAME,
-            value: 'users'
+            value: 'Количество пассажиров не прошедших валидацию:'
           },
           routerLink: {
             key: DashboardCard.metadata.ROUTERLINK,
-            value: '/dashboard/users'
+            value: ''
           },
           iconClass: {
             key: DashboardCard.metadata.ICONCLASS,
-            value: 'assessment'
+            value: ''
           },
           cols: {
             key: DashboardCard.metadata.COLS,
@@ -361,8 +415,12 @@ export class DashboardComponent implements OnInit {
           },
           color: {
             key: DashboardCard.metadata.COLOR,
-            value: 'blue'
-          }
+            value: ''
+		  },
+		  dataCallback: {
+			key: DashboardCard.metadata.DATACALLBACK,
+            value: this.resourceService.getOntripPassengers.bind(this.resourceService)
+		  }
         }, DashboardBigChartComponent
       )
     );

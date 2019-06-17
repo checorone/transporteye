@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value="api/v1/data")
 public class CardController {
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
     @Autowired
     private CardService cardService;
 
-    @RequestMapping(value="api/v1/card",method = RequestMethod.GET)
+    @RequestMapping(value="/card",method = RequestMethod.GET)
     public List<Card> getAllCards() {
         logger.debug("Looking up data for cards...");
         List<Card> list = cardService.getAllCards();
@@ -27,18 +28,18 @@ public class CardController {
     }
 
 
-    @RequestMapping(value="api/v1/card",method = RequestMethod.POST)
+    @RequestMapping(value="/card",method = RequestMethod.POST)
     public void saveCard(@RequestBody Card card) {
         cardService.saveCard(card);
     }
 
-    @RequestMapping(value="api/v1/card",method = RequestMethod.PUT)
+    @RequestMapping(value="/card",method = RequestMethod.PUT)
     public void updateCard(@RequestBody Card card) {
         cardService.updateCard(card);
 
     }
 
-    @RequestMapping(value="api/v1/card/{card_id}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/card/{card_id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCard( @PathVariable("card_id") int card_id) {
         cardService.deleteCard( card_id );

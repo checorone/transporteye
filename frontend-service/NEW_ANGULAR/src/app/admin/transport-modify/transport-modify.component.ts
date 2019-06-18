@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AdminService} from "../admin.service";
-import {RepositoryService} from "../../shared/services/repository.service";
+import {ResourceService} from "../../shared/services/resource.service";
 import {AuthService} from "../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material";
@@ -21,7 +21,7 @@ export class TransportModifyComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
-    private resService: RepositoryService,
+    private resService: ResourceService,
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,

@@ -3,16 +3,30 @@
       <mat-icon class="icon">assessment</mat-icon>
   </div> 
 <mat-card-header >
-  <mat-card-title>Общее число пассажиров на маршрутах:</mat-card-title>
+  <mat-card-title>{{name}}</mat-card-title>
 </mat-card-header>
 <mat-card-content fxLayout="column" fxFlex>
-  <x-chartist [data]="data" [type]="type"> </x-chartist>
+  <x-chartist [data]="data" [type]="type" fxFlex> </x-chartist>
 </mat-card-content>
-<mat-card-footer >
-    <mat-divider></mat-divider>
+<mat-card-footer fxLayout="column">
+	<mat-divider></mat-divider>
     <mat-card-content fxLayout="row" class="update-time"  fxFlex>
-        <mat-icon>update</mat-icon>
-        <span  >Последнее обновление: {{secFromLastUpdate}} секунд назад.</span>
+        <mat-card-content  fxLayout="row" fxLayoutAlign="space-between" class="update-time"  fxFlex>
+		<div fxLayout="row">
+			<mat-icon>update</mat-icon>
+		    <p>Последнее обновление: {{secFromLastUpdate}} секунд назад.</p>
+	    </div>
+		
+			<mat-form-field>
+			<mat-label>Выбор станции</mat-label>
+			<mat-select>
+				<mat-option value="all">Все станции</mat-option>
+    			<mat-option *ngFor="let busStop of busStop" [value]="busStop.busStopId">
+					{{busStop.busStopId}}
+				</mat-option>
+			</mat-select>
+			</mat-form-field>
+    </mat-card-content>
     </mat-card-content>
 </mat-card-footer>
 </mat-card>

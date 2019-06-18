@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -37,8 +34,79 @@ public class AnalyticsService {
     private TransportRepository transportRepository;
     @Autowired
     private RouteRepository routeRepository;
-
-
+    
+    /**
+     * Возвращает хешмап с количеством пустых сидений и количеством всех сидений.
+     *
+     * @return Map[("empty" : int) ("all": int)]
+     */
+    public Map<String, Integer> getAllSeatsTypesCount() {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("first", getAllEmptySeats());
+        map.put("second", getAllSeats());
+        return map;
+    }
+    
+    /**
+     * Возвращает хешмап с количеством ТС на маршруте и количеством всех ТС в автопарке.
+     *
+     * @return Map[("ontrip" : int) ("all": int)]
+     */
+    public Map<String, Integer> getAllTransportsTypesCount() {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("first", getTransportCountOnTrip());
+        map.put("second", getTransportCount());
+        return map;
+    }
+    
+    /**
+     * Возвращает хешмап со средней загрузкой маршрутов и максимальным количеством машин на маршруте.
+     *
+     * @return Map[("avg" : float) ("max": float)]
+     */
+    public Map<String, Double> getAverageRouteLoad() {
+        Map<String, Double> map = new HashMap<String, Double>();
+        map.put("first", 3.45);
+        map.put("second", 5.0);
+        return map;
+    }
+    
+    /**
+     * Возвращает хешмап со средней загрузкой транспорта и максимальным количеством занятых мест в транспорте.
+     *
+     * @return Map[("avg" : float) ("max": float)]
+     */
+    public Map<String, Double> getAverageTransportLoad() {
+        Map<String, Double> map = new HashMap<String, Double>();
+        map.put("first", 33.21);
+        map.put("second", 55.0);
+        return map;
+    }
+    
+    
+    /**
+     * Возвращает хешмап со всеми ТС в пути вместе с количеством пустых мест в них.
+     *
+     * @return 
+     */
+    public List<TransportExt> getMapDataTransport() {
+    	//TODO: impl
+    	Random random = new Random();
+    	List<TransportExt> transportExts = new ArrayList<TransportExt>();
+    	List<Transport> tr = transportService.getAllTransports();
+    	for (Transport transport : tr) {
+    		TransportExt tempExt = new TransportExt();
+			tempExt.transportId = transport.getId();
+			tempExt.name = transport.getName();
+			tempExt.seats = transport.getSeats();
+			tempExt.longitude = transport.getLongitude();
+			tempExt.latitude = transport.getLatitude();
+			tempExt.emptySeats = random.nextInt(30);
+			transportExts.add(tempExt);
+		}
+        return transportExts;
+    }
+    
     /**
      * Возвращает хешмап с количеством всех вошедших пассажиров, всех вышедших и тех, кто прошел валидацию.
      *

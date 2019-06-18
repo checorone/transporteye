@@ -4,7 +4,7 @@ import {AdminService} from "../admin.service";
 import {AuthService} from "../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material";
-import {RepositoryService} from "../../shared/services/repository.service";
+import {ResourceService} from "../../shared/services/resource.service";
 import {catchError} from "rxjs/operators";
 import {EMPTY, throwError} from "rxjs";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
@@ -21,7 +21,7 @@ export class StopsModifyComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
-    private resService: RepositoryService,
+    private resService: ResourceService,
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,

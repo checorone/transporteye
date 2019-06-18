@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value="api/v1/data")
 public class TransportController {
     @Autowired
     private TransportService transportService;
     private static final Logger logger = LoggerFactory.getLogger(TransportController.class);
 
 
-    @RequestMapping(value="api/v1/transport",method = RequestMethod.GET)
+    @RequestMapping(value="/transport",method = RequestMethod.GET)
     public List<Transport> getAllTransports() {
         logger.debug("Looking up data for transports...");
         List<Transport> list = transportService.getAllTransports();
@@ -25,18 +26,18 @@ public class TransportController {
         return list;
     }
 
-    @RequestMapping(value="api/v1/transport",method = RequestMethod.POST)
+    @RequestMapping(value="/transport",method = RequestMethod.POST)
     public void saveTransport(@RequestBody Transport transport) {
         transportService.saveTransport(transport);
     }
 
-    @RequestMapping(value="api/v1/transport",method = RequestMethod.PUT)
+    @RequestMapping(value="/transport",method = RequestMethod.PUT)
     public void updateTransport(@RequestBody Transport transport) {
         transportService.updateTransport(transport);
 
     }
 
-    @RequestMapping(value="api/v1/transport/{transportId}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/transport/{transportId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTransport( @PathVariable("transportId") int transportId) {
         transportService.deleteTransport( transportId );

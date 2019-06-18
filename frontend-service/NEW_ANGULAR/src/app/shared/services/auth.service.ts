@@ -19,7 +19,6 @@ const httpOptions = {
 
 export class AuthService {
   private authServerUrl = environment.AUTHSERVERURI;
-  // private authServerUrl = 'http://authenticationservice:8901/';
   private authUrl = this.authServerUrl + 'oauth/token';
   private registerUrl = this.authServerUrl + 'api/v1/users/register';
   private activateUrl = this.authServerUrl + 'api/v1/users/activation/';
@@ -32,7 +31,6 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    // private cookieService: CookieService,
     private eventsService: ComponentsEventsService
   ) {
   }

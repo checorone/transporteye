@@ -3,16 +3,28 @@
       <mat-icon class="icon">assessment</mat-icon>
   </div> 
 <mat-card-header >
-  <mat-card-title>Общее число пассажиров на маршрутах:</mat-card-title>
+  <mat-card-title>{{name}}</mat-card-title>
 </mat-card-header>
 <mat-card-content fxLayout="column" fxFlex>
   <x-chartist [data]="data" [type]="type"> </x-chartist>
 </mat-card-content>
 <mat-card-footer >
     <mat-divider></mat-divider>
-    <mat-card-content fxLayout="row" class="update-time"  fxFlex>
-        <mat-icon>update</mat-icon>
-        <span  >Последнее обновление: {{secFromLastUpdate}} секунд назад.</span>
+        <mat-card-content  fxLayout="row" fxLayoutAlign="space-between" class="update-time"  fxFlex>
+		<div fxLayout="row">
+			<mat-icon>update</mat-icon>
+		    <p>Последнее обновление: {{secFromLastUpdate}} секунд назад.</p>
+	    </div>
+		
+			<mat-form-field>
+			<mat-label>Выбор маршрута</mat-label>
+			<mat-select>
+				<mat-option value="all">Все маршруты</mat-option>
+    			<mat-option *ngFor="let route of routes" [value]="route.routeId">
+					{{route.routeNumber}}
+				</mat-option>
+			</mat-select>
+			</mat-form-field>
     </mat-card-content>
 </mat-card-footer>
 </mat-card>

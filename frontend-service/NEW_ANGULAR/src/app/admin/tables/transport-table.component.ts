@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/material";
-import {UserInfo} from "../user-info.model";
+import {UserInfo} from "../../shared/models/user-info.model";
 import {AdminService} from "../admin.service";
 import {Router} from "@angular/router";
 import {EMPTY} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {RepositoryService} from "../../shared/services/repository.service";
+import {ResourceService} from "../../shared/services/resource.service";
 import {Transport} from '../../shared/models/transport.model';
 
 
@@ -24,7 +24,7 @@ export class TransportTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private resService: RepositoryService,
+  constructor(private resService: ResourceService,
               private adminService: AdminService,
               private router: Router,
               private snackBar: MatSnackBar) {

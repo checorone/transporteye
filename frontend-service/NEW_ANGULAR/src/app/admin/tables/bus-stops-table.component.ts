@@ -3,7 +3,7 @@ import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/m
 import {AdminService} from "../admin.service";
 import {Router} from "@angular/router";
 import {EMPTY} from "rxjs";
-import {RepositoryService} from "../../shared/services/repository.service";
+import {ResourceService} from "../../shared/services/resource.service";
 import {catchError} from "rxjs/operators";
 import {BusStopModel} from "../../shared/models/bus-stop.model";
 
@@ -23,7 +23,7 @@ export class BusStopsTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private adminService: AdminService,
-              private resService: RepositoryService,
+              private resService: ResourceService,
               private router: Router,
               private snackBar: MatSnackBar) {
   }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../admin.service';
 import {Router} from '@angular/router';
-import {UserInfo} from '../user-info.model';
+import {UserInfo} from '../../shared/models/user-info.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EMPTY} from 'rxjs';
 import {catchError} from 'rxjs/operators';

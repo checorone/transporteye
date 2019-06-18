@@ -42,6 +42,7 @@ import {TablesWatcherComponent} from './admin/tables-watcher/tables-watcher.comp
 import {StopsModifyComponent} from './admin/stops-modify/stops-modify.component';
 import {TransportModifyComponent} from './admin/transport-modify/transport-modify.component';
 import {MapSearchComponent} from './admin/map-search/map-search.component';
+import {EntityModule} from './entity/entity.module'
 
 @NgModule({
   declarations: [
@@ -84,10 +85,10 @@ import {MapSearchComponent} from './admin/map-search/map-search.component';
     ChartistModule,
     SharedModule,
     MatSnackBarModule,
-    BrowserAnimationsModule,
+	BrowserAnimationsModule,
+	EntityModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM',
-      libraries: ["places"]
+      apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'
     }),
     FormsModule,
     // LocalStorageModule.forRoot({

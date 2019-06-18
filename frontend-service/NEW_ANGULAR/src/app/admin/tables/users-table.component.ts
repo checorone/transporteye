@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
-import {UserInfo} from '../user-info.model';
+import {UserInfo} from '../../shared/models/user-info.model';
 import {AdminService} from '../admin.service';
 import {EMPTY} from 'rxjs';
 import {catchError} from 'rxjs/operators';

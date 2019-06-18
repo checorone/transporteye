@@ -1,6 +1,7 @@
 package org.ncstudy.transportservice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "bus_stop")
@@ -18,6 +19,9 @@ public class BusStop {
 
     @Column(name = "bus_stop_longitude", nullable = false)
     private float longitude;
+
+	@OneToMany(mappedBy = "busStop")
+	private Set<UsersTrip> trip;
 
     public BusStop() {
     }

@@ -52,3 +52,19 @@ CREATE TABLE if not exists bus_stops_routes (
     bus_stop_id             INTEGER         NOT NULL,
     route_id                INTEGER         NOT NULL
 );
+
+drop table if exists users_trip;
+create table users_trip
+(
+    id           serial       not null
+        constraint users_trip_pkey
+            primary key,
+    card_id      varchar(255) not null,
+    date         timestamp    not null,
+    bus_stop_id  integer
+        constraint fklg86ohweot5r35kmghbka5sud
+            references bus_stop,
+    transport_id integer
+        constraint fki6n9bbue0cwkyyh507edt1mcw
+            references transport
+);

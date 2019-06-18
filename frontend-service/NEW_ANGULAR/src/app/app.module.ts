@@ -4,7 +4,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from './shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
-import {DashboardChartComponent} from './dashboard/cards/dashboard-chart/dashboard-chart.component';
+import {DashboardBigChartComponent} from './dashboard/cards/dashboard-chart-big/dashboard-chart-big.component';
+import {DashboardMidChartComponent} from './dashboard/cards/dashboard-chart-mid/dashboard-chart-mid.component';
+import {DashboardSmallChartComponent} from './dashboard/cards/dashboard-chart-small/dashboard-chart-small.component';
+import {ChartistModule} from 'ng-chartist';
 import {DashboardInfoComponent} from './dashboard/cards/dashboard-info/dashboard-info.component';
 import {DashboardCardsSpawnerComponent} from './dashboard/cards/dashboard-cards-spawner/dashboard-cards-spawner.component';
 import {HomeComponent} from './home/home.component';
@@ -41,65 +44,68 @@ import {TransportModifyComponent} from './admin/transport-modify/transport-modif
 import {MapSearchComponent} from './admin/map-search/map-search.component';
 
 @NgModule({
-    declarations: [
-        ActivationComponent,
-        LoginComponent,
-        ProfileComponent,
-        RegisterComponent,
-        ResetPasswordComponent,
-        HomeComponent,
-        NavbarComponent,
-        FooterComponent,
-        SidebarComponent,
-        MainComponent,
-        FlexboxComponent,
-        DashboardComponent,
-        DashboardChartComponent,
-        DashboardInfoComponent,
-        DashboardCardsSpawnerComponent,
-        NotFoundComponent,
-        ServerErrorComponent,
-        MapsComponent,
-        AuthTabsComponent,
-        UsersTableComponent,
-        UserModifyComponent,
-        ConfirmDialogComponent,
-        BusStopsTableComponent,
-        TransportTableComponent,
-        TablesWatcherComponent,
-        StopsModifyComponent,
-        TransportModifyComponent,
-        MapSearchComponent,
-    ],
-    imports: [
-        ReactiveFormsModule,
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        SharedModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM',
-            libraries: ["places"]
-        }),
-        FormsModule,
-        // LocalStorageModule.forRoot({
-        //   prefix: 'eye',
-        //   storageType: 'localStorage'
-        // })
-    ],
-    providers: [
-        DashboardCardsService,
-        CookieService,
-        ComponentsEventsService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: CommonInterceptor,
-            multi: true
-        }],
-    bootstrap: [MainComponent],
-    entryComponents: [ConfirmDialogComponent]
+  declarations: [
+    ActivationComponent,
+    LoginComponent,
+    ProfileComponent,
+    RegisterComponent,
+    ResetPasswordComponent,
+    HomeComponent,
+    NavbarComponent,
+    FooterComponent,
+    SidebarComponent,
+    MainComponent,
+    FlexboxComponent,
+    DashboardComponent,
+    DashboardBigChartComponent,
+    DashboardMidChartComponent,
+    DashboardSmallChartComponent,
+    DashboardInfoComponent,
+    DashboardCardsSpawnerComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
+    MapsComponent,
+    AuthTabsComponent,
+    UsersTableComponent,
+    UserModifyComponent,
+    ConfirmDialogComponent,
+    BusStopsTableComponent,
+    TransportTableComponent,
+    TablesWatcherComponent,
+    StopsModifyComponent,
+    TransportModifyComponent,
+    MapSearchComponent,
+  ],
+  imports: [
+    ReactiveFormsModule,
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ChartistModule,
+    SharedModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM',
+      libraries: ["places"]
+    }),
+    FormsModule,
+    // LocalStorageModule.forRoot({
+    //   prefix: 'eye',
+    //   storageType: 'localStorage'
+    // })
+  ],
+  providers: [
+    DashboardCardsService,
+    CookieService,
+    ComponentsEventsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CommonInterceptor,
+      multi: true
+    }],
+  bootstrap: [MainComponent],
+  entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule {
 }

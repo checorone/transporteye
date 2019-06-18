@@ -4,31 +4,28 @@ import {RouterModule, Routes} from '@angular/router';
 import {NotFoundComponent} from './error-pages/not-found/not-found.component';
 import {ServerErrorComponent} from './error-pages/server-error/server-error.component';
 import {EntityModule} from './entity/entity.module';
-import {TransportListComponent} from './entity/transport-list/transport-list.component';
 import {MapsComponent} from './maps/maps.component';
 import {RegisterComponent} from './account/register/register.component';
 import {ActivationComponent} from './account/activation/activation.component';
 import {ResetPasswordComponent} from './account/reset-password/reset-password.component';
 import {ProfileComponent} from './account/profile/profile.component';
 import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component';
-import {UsersTableComponent} from './admin/tables/users-table.component';
 import {UserModifyComponent} from './admin/user-modify/user-modify.component';
-import {BusStopsTableComponent} from "./admin/tables/bus-stops-table.component";
-import {TransportTableComponent} from "./admin/tables/transport-table.component";
-import {HomeComponent} from "./home/home.component";
 import {TransportModifyComponent} from "./admin/transport-modify/transport-modify.component";
 import {StopsModifyComponent} from "./admin/stops-modify/stops-modify.component";
+import {DashboardComponent} from "./dashboard/dashboard/dashboard.component";
+import {TablesWatcherComponent} from "./admin/tables-watcher/tables-watcher.component";
 
 const ownerRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  // { path: 'home', component: MapSearchComponent },
-  { path: 'admin/cards', component: UsersTableComponent },
+  // { path: 'home', component: HomeComponent },
+  { path: 'home', component: DashboardComponent },
+  // { path: 'admin/cards', component: UsersTableComponent },
   { path: 'admin/card/modify', component: UserModifyComponent },
-  { path: 'admin/transport', component: TransportTableComponent },
+  // { path: 'admin/transport', component: TransportTableComponent },
   { path: 'admin/transport/modify', component: TransportModifyComponent },
-  { path: 'admin/busStop', component: BusStopsTableComponent },
+  // { path: 'admin/busStop', component: BusStopsTableComponent },
   { path: 'admin/busStop/modify', component: StopsModifyComponent},
-  { path: 'entity', component: TransportListComponent },
+  { path: 'entities', component: TablesWatcherComponent },
   { path: 'map', component: MapsComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'activation/:uuid', component: ActivationComponent},

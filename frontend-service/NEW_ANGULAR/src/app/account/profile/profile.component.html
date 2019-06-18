@@ -1,28 +1,46 @@
-<li *ngIf="cardId==''; else logged">
-  <a routerLink="/login">
+<!--<li *ngIf="cardId==''; else logged">-->
+  <a *ngIf="cardId==''; else logged" routerLink="/login">
     <mat-icon class="up">account_box</mat-icon>
     <span class="nav-caption">Аккаунт</span>
   </a>
-</li>
+<!--</li>-->
 <ng-template #logged>
 <!--  use this to return old version-->
 <!--  <span class="effects" [matMenuTriggerFor]="menu">-->
 <!--    <mat-icon class="up">payment</mat-icon>-->
 <!--    <span class="nav-caption">{{cardId}}</span>-->
 <!--  </span>-->
-  <button mat-flat-button [matMenuTriggerFor]="menu">
+  <span [ngSwitch]="authService.getRole()">
+    <a *ngSwitchCase="'admin'" routerLink="/entities">
+      <mat-icon class="up">book</mat-icon>
+      <span class="nav-caption">Сущности</span>
+    </a>
+    <a *ngSwitchCase="'user'" routerLink="/entity">
+      <mat-icon>book</mat-icon>
+      <span class="nav-caption">Мои пути</span>
+    </a>
+  </span>
+<!--  <li>-->
+  <button mat-flat-button>
     <mat-icon>payment</mat-icon>
     <span class="nav-caption">{{cardId}}</span>
   </button>
+<!--  </li>-->
+<!--  <li>-->
+    <a (click)="authService.logout()" routerLink="/">
+      <span class="nav-caption">Выйти</span>
+    </a>
+<!--  </li>-->
+
 <!--  instead of this-->
-  <mat-menu xPosition="after" #menu="matMenu">
-    <div *ngIf="authService.isAdmin(); else user">
-      <button mat-menu-item [routerLink]="['admin/cards']">Пользователи</button>
-      <button mat-menu-item [routerLink]="['admin/transport']">Транспорт</button>
-      <button mat-menu-item [routerLink]="['admin/busStop']">Остановки</button>
-      <button mat-menu-item (click)="logout()">Выйти</button>
-    </div>
-  </mat-menu>
+<!--  <mat-menu xPosition="after" #menu="matMenu">-->
+<!--    <div *ngIf="authService.isAdmin(); else user">-->
+<!--      <button mat-menu-item [routerLink]="['admin/cards']">Пользователи</button>-->
+<!--      <button mat-menu-item [routerLink]="['admin/transport']">Транспорт</button>-->
+<!--      <button mat-menu-item [routerLink]="['admin/busStop']">Остановки</button>-->
+<!--      <button mat-menu-item (click)="logout()">Выйти</button>-->
+<!--    </div>-->
+<!--  </mat-menu>-->
 </ng-template>
 
 <ng-template #user>

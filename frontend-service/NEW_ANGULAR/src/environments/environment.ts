@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  AUTHSERVERURI: "http://localhost:8901/",
+  TRANSPORTSERVERURI: "http://localhost:8085/",
   production: false
 };
 

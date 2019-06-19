@@ -3,17 +3,13 @@
         <span class="ncracker img-fluid rounded"></span>
     </div>
     <div class="col-md-9">
-        <h1 class="display-4">Привет, пользователь!</h1>
+        <h2 class="display-4">Привет, пользователь{{cardId !=''?' карты ' + cardId : ''}}!</h2>
         <p class="lead">Это главная страница</p>
 
-        <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-warning" *ngSwitchCase="false">
+        <div *ngIf="cardId == ''">
+            <div class="alert alert-warning">
                 <span>Возможно вы хотите </span>&nbsp;
-                <a class="alert-link" routerLink="/login">Войти</a>
-            </div>
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>Нет аккаунта?</span>&nbsp;
-                <a class="alert-link" routerLink="/register">Зарегистрироваться</a>
+                <a class="alert-link" routerLink="/auth/login">Войти или зарегистрироваться</a>
             </div>
         </div>
 

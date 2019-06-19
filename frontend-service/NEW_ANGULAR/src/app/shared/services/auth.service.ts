@@ -9,7 +9,6 @@ import {environment} from '../../../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({
     Authorization: 'Basic ' + btoa('netcracker:ncpassword')
-    // Authorization: 'Basic ' + btoa('shortaccesstoken:ncpassword')
   })
 };
 
@@ -22,8 +21,8 @@ export class AuthService {
   private authUrl = this.authServerUrl + 'oauth/token';
   private registerUrl = this.authServerUrl + 'api/v1/users/register';
   private activateUrl = this.authServerUrl + 'api/v1/users/activation/';
-  private activateClientUrl = location.origin + '/activation';
-  private recoverClientUrl = location.origin + '/recovery';
+  private activateClientUrl = location.origin + '/auth/activation';
+  private recoverClientUrl = location.origin + '/auth/recovery';
   private recoverUrl = this.authServerUrl + 'api/v1/users/password/recovery';
   private changePasswdUrl = this.authServerUrl + 'api/v1/users/password/change';
   private logoutUrl = this.authServerUrl + 'api/v1/logout';
@@ -74,6 +73,7 @@ export class AuthService {
   }
 
   public logout(): void {
+    console.log('logout func');
     const refreshToken = localStorage.getItem('refresh_token');
     if (refreshToken) {
       const bbody = new FormData();
@@ -129,5 +129,13 @@ export class AuthService {
 
   hasRefreshToken(): boolean {
     return localStorage.getItem('refresh_token') != null;
+  }
+
+  getTokenHeaderOption() {
+    return {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('access_token')
+      })
+    };
   }
 }

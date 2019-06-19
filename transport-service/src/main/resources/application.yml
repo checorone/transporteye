@@ -19,6 +19,8 @@ spring:
   jpa:
     properties:
       hibernate:
+        jdbc:
+          time-zone: UTC
         ddl-auto: create-drop
         temp:
           use_jdbc_metadata_defaults: false

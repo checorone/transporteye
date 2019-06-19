@@ -15,10 +15,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.DELETE, "api/v1/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST, "api/v1/**").authenticated()
-                .antMatchers(HttpMethod.PUT, "api/v1/**").authenticated()
-                .antMatchers("test/**").authenticated()
+                .antMatchers("/api/v1/data/trip").authenticated()
+                .antMatchers(HttpMethod.DELETE).hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST).hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT).hasAuthority("ADMIN")
                 .anyRequest().permitAll();
     }
 }

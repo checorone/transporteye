@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {EMPTY} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {ResourceService} from "../../shared/services/resource.service";
-import {Transport} from '../../shared/models/transport.model';
+import {TransportModel} from '../../shared/models/transport.model';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class TransportTableComponent implements OnInit, AfterViewInit {
 
   public displayedColumns = ['id', 'name', 'seats', 'latitude', 'longitude'];
   public rusDisplayedColumns = ['ID', 'Название', 'Заполненность', 'Широта', 'Долгота'];
-  public dataSource = new MatTableDataSource<Transport>();
+  public dataSource = new MatTableDataSource<TransportModel>();
   private canAdd = true;
 
   @ViewChild(MatSort) sort: MatSort;

@@ -1,0 +1,59 @@
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: #bbcedd;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  margin: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+th.mat-header-cell {
+  text-align: left;
+  max-width: 300px!important;
+}
+
+.data:hover{
+  background: #bbcedd; //todo: set common named color
+}
+
+.row{
+  display: flex;
+  width: 100%;
+}
+
+.busStop{
+  color: red;
+}
+.transport{
+  color: yellow;
+}
+
+agm-map{
+  height: 200px;
+  width: 400px;
+}

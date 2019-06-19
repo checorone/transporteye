@@ -6,18 +6,23 @@ import java.util.Date;
 @Entity
 @Table
 public class UsersTrip {
+
     @Id
     @Column(nullable = false)
     private Long id;
+
     @Column(nullable = false)
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+
     @Column(nullable = false)
     private String cardId;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "bus_stop_id", referencedColumnName = "bus_stop_id")
     private BusStop busStop;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "transport_id", referencedColumnName = "transport_id")
     private Transport transport;
@@ -54,4 +59,11 @@ public class UsersTrip {
         this.busStop = busStop;
     }
 
+    public Transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
+    }
 }

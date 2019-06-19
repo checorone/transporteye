@@ -1,22 +1,45 @@
 <mat-nav-list>
+
   <a mat-list-item routerLink="/home" (click)="onSidenavClose()">
-    <mat-icon>home</mat-icon> <span class="nav-caption">Главная</span>
-  </a>
-  <a mat-list-item routerLink="/dashboard" (click)="onSidenavClose()">
-    <mat-icon>dashboard</mat-icon> <span class="nav-caption">Мониторинг</span>
-  </a>
-  <a mat-list-item routerLink="/entity" (click)="onSidenavClose()">
-    <mat-icon>class</mat-icon><span class="nav-caption">Сущности</span>
+    <mat-icon>home</mat-icon>
+    <span class="nav-caption">Главная</span>
   </a>
   <a mat-list-item routerLink="/map" (click)="onSidenavClose()">
-    <mat-icon>class</mat-icon><span class="nav-caption">Карта</span>
+    <mat-icon>layers</mat-icon>
+    <span class="nav-caption">Карта</span>
   </a>
-  <mat-list-item [matMenuTriggerFor]="menu">
-    <mat-icon>unfold_more</mat-icon>
-    <a matline>Аккаунт</a>
-  </mat-list-item>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/login" (click)="onSidenavClose()">Вход</button>
-    <button mat-menu-item routerLink="/register" (click)="onSidenavClose()">Регистрация</button>
-  </mat-menu>
+
+  <ng-container *ngIf="cardId == ''; else logged">
+    <a mat-list-item routerLink="/auth/login" (click)="onSidenavClose()">
+      <mat-icon>account_box</mat-icon>
+      <span class="nav-caption">Аккаунт</span>
+    </a>
+  </ng-container>
+
+  <ng-template #logged>
+    <ng-container [ngSwitch]="authService.getRole()">
+      <ng-container *ngSwitchCase="'admin'">
+    <a mat-list-item
+       routerLink="/admin/dashboard"
+       (click)="onSidenavClose()">
+      <mat-icon>dashboard</mat-icon>
+      <span class="nav-caption">Мониторинг</span>
+    </a>
+    <a mat-list-item
+       routerLink="/admin/entities"
+       (click)="onSidenavClose()">
+      <mat-icon>class</mat-icon>
+      <span class="nav-caption">Сущности</span>
+    </a>
+      </ng-container>
+      <a *ngSwitchCase="'user'" mat-list-item
+         routerLink="/user/trips"
+         (click)="onSidenavClose()">
+        <mat-icon>class</mat-icon>
+        <span class="nav-caption">Поездки</span>
+      </a>
+    </ng-container>
+    <a (click)="logout()" mat-list-item>Выйти</a>
+  </ng-template>
+
 </mat-nav-list>

@@ -1,4 +1,4 @@
-export interface Transport{
+export interface TransportModel{
     id: any;
     name: string;
     seats: number;

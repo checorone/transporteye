@@ -42,7 +42,8 @@ import {TablesWatcherComponent} from './admin/tables-watcher/tables-watcher.comp
 import {StopsModifyComponent} from './admin/stops-modify/stops-modify.component';
 import {TransportModifyComponent} from './admin/transport-modify/transport-modify.component';
 import {MapSearchComponent} from './admin/map-search/map-search.component';
-import {EntityModule} from './entity/entity.module'
+import {EntityModule} from './entity/entity.module';
+import {TripsTableComponent} from './user/trips-table/trips-table.component'
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import {EntityModule} from './entity/entity.module'
     StopsModifyComponent,
     TransportModifyComponent,
     MapSearchComponent,
+    TripsTableComponent,
   ],
   imports: [
     ReactiveFormsModule,

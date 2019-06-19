@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {ComponentsEventsService} from '../../shared/services/components-events.service';
@@ -8,19 +8,21 @@ import {ComponentsEventsService} from '../../shared/services/components-events.s
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.less']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit{
   cardId = '';
 
   constructor(private authService: AuthService,
               private sharedService: ComponentsEventsService,
               private router: Router
-  ) {
-    this.cardId = authService.getCardId();
-    sharedService.onLoginEvent.emit(this.cardId);
-    sharedService.onLoginEvent.subscribe(
-        (cardId) => {
-          this.cardId = cardId;
-        }
+  ) {}
+
+  ngOnInit(): void {
+    this.cardId = this.authService.getCardId();
+    this.sharedService.onLoginEvent.subscribe(
+      (cardId) => {
+        console.log('profile catch '+cardId);
+        this.cardId = cardId;
+      }
     );
   }
 

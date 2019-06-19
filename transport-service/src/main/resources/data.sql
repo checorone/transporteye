@@ -36,8 +36,8 @@ values (1, 1, 20, 0),
        (3, 1, 17, 10),
        (2, 2, 8, 3);
 
-INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (0, '0000000000000001', '2019-06-18 22:23:21.764000', 1, 4);
-INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (1, '0000000000000001', '2019-06-18 22:23:21.764000', 1, 4);
-INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (2, '0000000000000001', '2019-06-18 22:23:21.764000', 2, 5);
-INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (3, '0000000000000002', '2019-06-18 22:23:21.764000', 3, 6);
+INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (0, '0000000000000001', '2019-06-18 22:23:21.764000', 4, 4);
+INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (1, '0000000000000001', '2019-06-18 22:23:21.764000', 3, 4);
+INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (2, '0000000000000001', '2019-06-18 22:23:21.764000', 4, 5);
+INSERT INTO public.users_trip (id, card_id, date, bus_stop_id, transport_id) VALUES (3, '0000000000000002', '2019-06-18 22:23:21.764000', 3, 5);
 

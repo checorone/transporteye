@@ -1,7 +1,6 @@
 package org.ncstudy.transportservice.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "transport")
@@ -23,8 +22,8 @@ public class Transport {
     @Column(name = "seats", nullable = false)
 	private int seats;
 
-	@OneToMany(mappedBy = "transport")
-	private Set<UsersTrip> trip;
+//	@OneToMany(mappedBy = "transport", orphanRemoval = true)
+//	private Set<UsersTrip> trip;
 
 	public int getId() {
 		return id;

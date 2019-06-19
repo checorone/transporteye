@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AdminService} from "../../shared/services/admin.service";
 
 @Component({
   selector: 'app-tables-watcher',
@@ -6,9 +7,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./tables-watcher.component.less']
 })
 export class TablesWatcherComponent implements OnInit {
-  selected: string;
 
-  constructor() { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
   }

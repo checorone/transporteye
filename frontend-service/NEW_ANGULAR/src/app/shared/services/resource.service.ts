@@ -56,6 +56,19 @@ export class ResourceService {
     return this.http.get<RouteModel[]>(this.routesUrl);
   }
 
+  public addRoute(route: RouteModel): Observable<any> {
+    return this.http.post<any>(this.routesUrl, route);
+  }
+
+  public updateRoute(route: RouteModel): Observable<any> {
+    return this.http.put<any>(this.routesUrl, route);
+  }
+
+
+  public deleteRoute(id: string): Observable<any> {
+    return this.http.delete<any>(this.routesUrl + '/' + id);
+  }
+
   public getTrips(): Observable<TripModel[]>{
     return this.http.get<TripModel[]>(this.tripUrl);
   }

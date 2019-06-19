@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.regForm = this.formBuilder.group({
-      cardId: ['',  Validators.pattern(/^\d{16}$/)],
+      cardId: ['', Validators.pattern(/^\d{16}$/)],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
@@ -42,24 +42,21 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.register(this.f.cardId.value, this.f.password.value, this.f.email.value)
       .pipe(catchError((error) => {
-          // if (error.status === 0) {
-          //   this.message = 'Ошибка подключения';
-          // } else if (error.status === 400) {
-        if (error.toString().includes(',')) {
-          this.message = '<ul>';
-          error.split(',').forEach(el => {
-            this.message += '<li>' + el + '</li>';
-          });
-          this.message += '</ul>';
-        } else {
-          this.message = error;
-        }
-        console.log(error);
-        return EMPTY;
-          // } else {
-          //   this.message = 'Неизвестная ошибка';
-          // }
-          // return throwError(this.message);
+          if (error.toString().includes(',')) {
+            // this.message = '<ul>';
+            // error.split(',').forEach(el => {
+            //   this.message += '<li>' + el + '</li>';
+            // });
+            // this.message += '</ul>';
+            this.message='';
+            error.split(',').forEach(el => {
+              this.message += '<div>&bull; ' + el + '</div>';
+            });
+          } else {
+            this.message = error;
+          }
+          console.log(error);
+          return EMPTY;
         })
       ).subscribe(() => {
       this.message = 'Письмо было отправлено на почту';

@@ -19,13 +19,19 @@ public class UsersTrip {
     @Column(nullable = false)
     private String cardId;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "bus_stop_id", referencedColumnName = "bus_stop_id")
-    private BusStop busStop;
+    @Column
+    Integer busStopId;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "transport_id", referencedColumnName = "transport_id")
-    private Transport transport;
+    @Column
+    Integer transportId;
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "bus_stop_id", referencedColumnName = "bus_stop_id")
+//    private BusStop busStop;
+//
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "transport_id", referencedColumnName = "transport_id")
+//    private Transport transport;
 
     public Long getId() {
         return id;
@@ -51,19 +57,20 @@ public class UsersTrip {
         this.cardId = cardId;
     }
 
-    public BusStop getBusStop() {
-        return busStop;
-    }
 
-    public void setBusStop(BusStop busStop) {
-        this.busStop = busStop;
-    }
+//    public BusStop getBusStop() {
+//        return busStop;
+//    }
 
-    public Transport getTransport() {
-        return transport;
-    }
+//    public void setBusStop(BusStop busStop) {
+//        this.busStop = busStop;
+//    }
 
-    public void setTransport(Transport transport) {
-        this.transport = transport;
-    }
+//    public Transport getTransport() {
+//        return transport;
+//    }
+//
+//    public void setTransport(Transport transport) {
+//        this.transport = transport;
+//    }
 }

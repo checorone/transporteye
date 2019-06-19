@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminService} from '../admin.service';
+import {AdminService} from '../../../shared/services/admin.service';
 import {Router} from '@angular/router';
-import {UserInfo} from '../../shared/models/user-info.model';
+import {UserInfo} from '../../../shared/models/user-info.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EMPTY} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material';
-import {AuthService} from '../../shared/services/auth.service';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-user-modify',
@@ -86,7 +86,6 @@ export class UserModifyComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      // width: '250px',
       data: {message: 'пользователя ' + this.userInfo.cardId}
     });
 
@@ -99,7 +98,7 @@ export class UserModifyComponent implements OnInit {
               console.log(err);
               return EMPTY;
             })).subscribe(() => {
-          this.router.navigate(['admin/cards']);
+          this.router.navigate(['/admin/entities']);
         });
       }
     });

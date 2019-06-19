@@ -14,28 +14,21 @@ export class ActivationComponent implements OnInit {
   success: boolean;
 
   constructor(
-      private route: ActivatedRoute,
-      private authService: AuthService
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
   }
 
   ngOnInit() {
     this.authService.activate(this.route.snapshot.paramMap.get('uuid')).pipe(catchError((error) => {
-          this.success = false;
-          // if (error.status === 0) {
-          //   this.message = 'Ошибка подключения';
-          // } else if (error.status === 400) {
-          //   this.message = 'Не удалось активировать аккаунт. Возможно, ссылка была повреждена';
-          // } else if (error.error instanceof ErrorEvent) {
-          //   this.message = error.error.message;
-          // } else {
-          //   this.message = error.error.error_description;
-          // }
-          // return throwError(this.message);
+        this.success = false;
+        if (error.message.includes('Invalid UUID string')) {
+          this.message = 'Не удалось активировать аккаунт. Возможно, ссылка была повреждена';
+        } else
           this.message = error;
-          console.log(error);
-          return EMPTY;
-        })
+        console.log(error);
+        return EMPTY;
+      })
     ).subscribe(() => {
       this.message = 'Аккаунт был активирован';
       this.success = true;

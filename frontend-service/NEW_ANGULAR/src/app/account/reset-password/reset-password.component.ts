@@ -47,11 +47,15 @@ export class ResetPasswordComponent implements OnInit {
     this.authService.resetPassword(this.route.snapshot.paramMap.get('uuid'), this.f.password1.value)
         .pipe(catchError((error) => {
               if (error.toString().includes(',')) {
-                this.message = '<ul>';
+                // this.message = '<ul>';
+                // error.split(',').forEach(el => {
+                //   this.message += '<li>' + el + '</li>';
+                // });
+                // this.message += '</ul>';
+                this.message='';
                 error.split(',').forEach(el => {
-                  this.message += '<li>' + el + '</li>';
+                  this.message += '<div>&bull; ' + el + '</div>';
                 });
-                this.message += '</ul>';
               } else {
                 this.message = error;
               }
@@ -59,7 +63,7 @@ export class ResetPasswordComponent implements OnInit {
               return EMPTY;
             })
         ).subscribe(() => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
     });
   }
 }

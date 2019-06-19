@@ -1,15 +1,13 @@
-<!--<div>-->
-  <mat-form-field>
-    <mat-icon class="down" matPrefix>search</mat-icon>
-    <input matInput (keyup)="doFilter($event.target.value)" placeholder="Поиск">
-  </mat-form-field>
-  <ng-container *ngIf="canAdd">
-    <button mat-button color="accent" (click)="addNew()">
-      <mat-icon>add_circle_outline</mat-icon>
-      Добавить
-    </button>
-  </ng-container>
-<!--</div>-->
+<mat-form-field>
+  <mat-icon class="down" matPrefix>search</mat-icon>
+  <input matInput (keyup)="doFilter($event.target.value)" placeholder="Поиск">
+</mat-form-field>
+<ng-container *ngIf="canAdd">
+  <button mat-button color="accent" (click)="addNew()">
+    <mat-icon>add_circle_outline</mat-icon>
+    Добавить
+  </button>
+</ng-container>
 
 <table mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns; index as i;">

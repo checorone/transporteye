@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/material";
-import {AdminService} from "../admin.service";
+import {AdminService} from "../../shared/services/admin.service";
 import {Router} from "@angular/router";
 import {EMPTY} from "rxjs";
 import {ResourceService} from "../../shared/services/resource.service";

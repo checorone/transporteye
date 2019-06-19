@@ -107,9 +107,12 @@ export class AuthService {
   }
 
   public getRole(): string {
-    if(localStorage.getItem('authorities').includes('ADMIN'))
+    let authorities = localStorage.getItem('authorities');
+    if (authorities == null)
+      return 'anon';
+    if(authorities.includes('ADMIN'))
       return 'admin';
-    if(localStorage.getItem('authorities').includes('USER'))
+    if(authorities.includes('USER'))
       return 'user';
   }
 

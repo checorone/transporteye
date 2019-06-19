@@ -20,7 +20,8 @@ import {throwError} from "rxjs";
 })
 export class TripsTableComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<TripModel>();
-  columnsToDisplay = ['date', 'busStopName', 'transportName'];
+  columnsToDisplay = ['date', 'bus_stop_name', 'transport_name'];
+  rusColumnsToDisplay = ['Дата и время', 'Остановка', 'Транспорт'];
   expandedElement: TripModel | null;
 
   @ViewChild(MatSort) sort: MatSort;

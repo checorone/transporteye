@@ -28,10 +28,11 @@ export class CommonInterceptor implements HttpInterceptor {
         return throwError('Ошибка подключения');
       }
       if (err.status === 400) {
-        if (req.body.get('refresh_token') != null) {
+        console.log(req.body)
+        if (req.body instanceof FormData && req.body.get('refresh_token') != null) {
           console.log('should logout');
           this.authService.logout();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/auth/login']);
           return EMPTY;
         }
         if (err.error.error_description) {
@@ -45,10 +46,9 @@ export class CommonInterceptor implements HttpInterceptor {
         }
         console.log('should logout');
         this.authService.logout();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
         return EMPTY;
       }
-      console.log('should route');
       this.router.navigate([err.status]);
       return EMPTY;
     }));

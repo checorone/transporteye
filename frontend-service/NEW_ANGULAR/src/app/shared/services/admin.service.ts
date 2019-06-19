@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {UserInfo} from '../shared/models/user-info.model';
+import {UserInfo} from '../models/user-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class AdminService {
 
   private adminUrl = 'http://localhost:8901/api/v1/admin/';
   choosenToModifyInfo: any = null;
+  selectedTable: string = '';
 
   constructor(private http: HttpClient) {
   }

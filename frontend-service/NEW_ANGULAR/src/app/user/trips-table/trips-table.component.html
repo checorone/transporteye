@@ -7,33 +7,49 @@
 <!--</div>-->
 
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
-  <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата и время </th>
-    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+<!--  <ng-container matColumnDef="date">-->
+<!--    <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата и время </th>-->
+<!--    <td mat-cell *matCellDef="let element"> {{element.date}} </td>-->
+<!--  </ng-container>-->
+<!--  <ng-container matColumnDef="busStopName">-->
+<!--    <th mat-header-cell *matHeaderCellDef mat-sort-header> Остановка </th>-->
+<!--    <td mat-cell *matCellDef="let element"> {{element.busStop.name}} </td>-->
+<!--  </ng-container>-->
+<!--  <ng-container matColumnDef="transportName">-->
+<!--    <th mat-header-cell *matHeaderCellDef mat-sort-header> Транспорт </th>-->
+<!--    <td mat-cell *matCellDef="let element"> {{element.transport.name}} </td>-->
+<!--  </ng-container>-->
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; index as i;">
+    <th mat-header-cell *matHeaderCellDef> {{rusColumnsToDisplay[i]}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
   </ng-container>
-  <ng-container matColumnDef="busStopName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Остановка </th>
-    <td mat-cell *matCellDef="let element"> {{element.busStop.name}} </td>
-  </ng-container>
-  <ng-container matColumnDef="transportName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Транспорт </th>
-    <td mat-cell *matCellDef="let element"> {{element.transport.name}} </td>
-  </ng-container>
+
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="element-detail "
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="row">
+<!--          <span class="column">-->
+<!--            <span>ID остановки: {{element.busStop.id}}</span>-->
+<!--            <span>Широта: {{element.busStop.latitude}}</span>-->
+<!--            <span>Долгота: {{element.busStop.longitude}}</span>-->
+<!--          </span>-->
+<!--          <span class="column">-->
+<!--            <span>ID транспорта: {{element.transport.id}}</span>-->
+<!--            <span>Заполненность: {{element.transport.seats}}</span>-->
+<!--            <span>Широта: {{element.transport.latitude}}</span>-->
+<!--            <span>Долгота: {{element.transport.longitude}}</span>-->
+<!--          </span>          -->
           <span class="column">
-            <span>ID остановки: {{element.busStop.id}}</span>
-            <span>Широта: {{element.busStop.latitude}}</span>
-            <span>Долгота: {{element.busStop.longitude}}</span>
+            <span>ID остановки: {{element.bus_stop_id}}</span>
+            <span>Широта: {{element.bus_stop_latitude}}</span>
+            <span>Долгота: {{element.bus_stop_longitude}}</span>
           </span>
           <span class="column">
-            <span>ID транспорта: {{element.transport.id}}</span>
-            <span>Заполненность: {{element.transport.seats}}</span>
-            <span>Широта: {{element.transport.latitude}}</span>
-            <span>Долгота: {{element.transport.longitude}}</span>
+            <span>ID транспорта: {{element.transport_id}}</span>
+            <span>Заполненность: {{element.seats}}</span>
+            <span>Широта: {{element.transport_latitude}}</span>
+            <span>Долгота: {{element.transport_longitude}}</span>
           </span>
         </div>
 <!--          <div class="row">-->

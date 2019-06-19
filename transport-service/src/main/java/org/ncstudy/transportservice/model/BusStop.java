@@ -1,7 +1,6 @@
 package org.ncstudy.transportservice.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "bus_stop")
@@ -20,8 +19,8 @@ public class BusStop {
     @Column(name = "bus_stop_longitude", nullable = false)
     private float longitude;
 
-	@OneToMany(mappedBy = "busStop")
-	private Set<UsersTrip> trip;
+//	@OneToMany(mappedBy = "busStop", orphanRemoval = true)
+//	private Set<UsersTrip> trip;
 
     public BusStop() {
     }
@@ -32,6 +31,14 @@ public class BusStop {
         this.setLatitude(latitude);
         this.setLongitude(longitude);
     }
+
+//	public void setTripsKeyNull() {
+//		for (UsersTrip usersTrip : trip) {
+//			usersTrip.set
+//		}
+//
+//
+//	}
 
 	public int getId() {
 		return id;

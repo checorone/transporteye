@@ -23,27 +23,28 @@ import {AgmCoreModule} from '@agm/core';
 import {MapsComponent} from './maps/maps.component';
 import {ActivationComponent} from './account/activation/activation.component';
 import {LoginComponent} from './account/login/login.component';
-import {ProfileComponent} from './account/profile/profile.component';
+import {ProfileComponent} from './layout/profile/profile.component';
 import {RegisterComponent} from './account/register/register.component';
 import {ResetPasswordComponent} from './account/reset-password/reset-password.component';
 import {CookieService} from 'ngx-cookie-service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthTabsComponent} from './account/auth-tabs/auth-tabs.component';
-import {UsersTableComponent} from './admin/tables/users-table.component';
-import {UserModifyComponent} from './admin/user-modify/user-modify.component';
-import {ConfirmDialogComponent} from './admin/confirm-dialog/confirm-dialog.component';
+import {UsersTableComponent} from './entities/tables/users-table.component';
+import {UserModifyComponent} from './entities/editors/user-modify/user-modify.component';
+import {ConfirmDialogComponent} from './entities/confirm-dialog/confirm-dialog.component';
 import {MatSnackBarModule} from '@angular/material';
 import {CommonInterceptor} from './common-interceptor';
 import {ComponentsEventsService} from './shared/services/components-events.service';
-import {BusStopsTableComponent} from './admin/tables/bus-stops-table.component';
-import {TransportTableComponent} from './admin/tables/transport-table.component';
-import {TablesWatcherComponent} from './admin/tables-watcher/tables-watcher.component';
-import {StopsModifyComponent} from './admin/stops-modify/stops-modify.component';
-import {TransportModifyComponent} from './admin/transport-modify/transport-modify.component';
-import {MapSearchComponent} from './admin/map-search/map-search.component';
+import {BusStopsTableComponent} from './entities/tables/bus-stops-table.component';
+import {TransportTableComponent} from './entities/tables/transport-table.component';
+import {TablesWatcherComponent} from './entities/tables-watcher/tables-watcher.component';
+import {StopsModifyComponent} from './entities/editors/stops-modify/stops-modify.component';
+import {TransportModifyComponent} from './entities/editors/transport-modify/transport-modify.component';
 import {EntityModule} from './entity/entity.module';
-import {TripsTableComponent} from './user/trips-table/trips-table.component'
+import {TripsTableComponent} from './user/trips-table/trips-table.component';
+import {RouteTableComponent} from './entities/tables/route-table.component';
+import {RouteModifyComponent} from './entities/editors/route-modify/route-modify.component'
 
 @NgModule({
   declarations: [
@@ -76,8 +77,9 @@ import {TripsTableComponent} from './user/trips-table/trips-table.component'
     TablesWatcherComponent,
     StopsModifyComponent,
     TransportModifyComponent,
-    MapSearchComponent,
     TripsTableComponent,
+    RouteTableComponent,
+    RouteModifyComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -93,10 +95,6 @@ import {TripsTableComponent} from './user/trips-table/trips-table.component'
       apiKey: 'AIzaSyBAsO7gE3liM-7oWu7i79lEbqxOnvE8OVM'
     }),
     FormsModule,
-    // LocalStorageModule.forRoot({
-    //   prefix: 'eye',
-    //   storageType: 'localStorage'
-    // })
   ],
   providers: [
     DashboardCardsService,

@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AdminService} from "../admin.service";
-import {ResourceService} from "../../shared/services/resource.service";
-import {AuthService} from "../../shared/services/auth.service";
+import {AdminService} from "../../../shared/services/admin.service";
+import {ResourceService} from "../../../shared/services/resource.service";
+import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material";
 import {catchError} from "rxjs/operators";
 import {EMPTY, throwError} from "rxjs";
-import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-transport-modify',
   templateUrl: './transport-modify.component.html',
   styleUrls: ['./transport-modify.component.less']
 })
-export class TransportModifyComponent implements OnInit {
+export class TransportModifyComponent implements OnInit{
   transportForm: FormGroup;
   message: string;
   transportExist = true;
@@ -34,9 +34,9 @@ export class TransportModifyComponent implements OnInit {
       this.transportForm = this.formBuilder.group({
         id: [this.adminService.choosenToModifyInfo.id],
         name: [this.adminService.choosenToModifyInfo.name, Validators.required],
-        seats: [this.adminService.choosenToModifyInfo.seats,[Validators.required, Validators.max(200)]],
         latitude: [this.adminService.choosenToModifyInfo.latitude],
-        longitude: [this.adminService.choosenToModifyInfo.longitude]
+        longitude: [this.adminService.choosenToModifyInfo.longitude],
+        seats: [this.adminService.choosenToModifyInfo.seats,[Validators.required, Validators.max(200)]],
       });
     } else {
       this.transportForm = this.formBuilder.group({
@@ -56,14 +56,13 @@ export class TransportModifyComponent implements OnInit {
     if (this.transportForm.invalid) {
       return;
     }
-    if (this.transportForm.pristine){
-      this.message = 'Нет изменений';
-      return;
-    }
-
+    let currentVer = this.transportForm.getRawValue();
     if (this.transportExist) {
-      console.log(this.transportForm.getRawValue())
-      this.resService.updateTransport(this.transportForm.getRawValue())
+      if (this.transportForm.pristine || JSON.stringify(currentVer) == JSON.stringify(this.adminService.choosenToModifyInfo)){
+        this.message = 'Нет изменений';
+        return;
+      }
+      this.resService.updateTransport(currentVer)
         .pipe(catchError(err => {
           this.message = err;
           return throwError(err);
@@ -71,7 +70,6 @@ export class TransportModifyComponent implements OnInit {
         this.message = 'Транспорт обновлен';
       });
     } else {
-      console.log(this.transportForm.getRawValue())
       this.resService.addTransport(this.transportForm.getRawValue())
         .pipe(catchError(err => {
           this.message = err;
@@ -100,7 +98,7 @@ export class TransportModifyComponent implements OnInit {
             console.log(err);
             return EMPTY;
           })).subscribe(() => {
-          this.router.navigate(['admin/transport']);
+          this.router.navigate(['/admin/transport']);
         });
       }
     });

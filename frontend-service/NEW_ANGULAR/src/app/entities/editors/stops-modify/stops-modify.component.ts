@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AdminService} from "../admin.service";
-import {AuthService} from "../../shared/services/auth.service";
+import {AdminService} from "../../../shared/services/admin.service";
+import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material";
-import {ResourceService} from "../../shared/services/resource.service";
+import {ResourceService} from "../../../shared/services/resource.service";
 import {catchError} from "rxjs/operators";
 import {EMPTY, throwError} from "rxjs";
-import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-stops-modify',
@@ -56,13 +56,14 @@ export class StopsModifyComponent implements OnInit {
     if (this.busForm.invalid) {
       return;
     }
-    if (this.busForm.pristine){
-      this.message = 'Нет изменений';
-      return;
-    }
 
+    let currentVer = this.busForm.getRawValue();
     if (this.busStopExist) {
-      this.resService.updateBusStop(this.busForm.getRawValue())
+      if (this.busForm.pristine || JSON.stringify(currentVer) == JSON.stringify(this.adminService.choosenToModifyInfo)){
+        this.message = 'Нет изменений';
+        return;
+      }
+      this.resService.updateBusStop(currentVer)
         .pipe(catchError(err => {
         this.message = err;
         return throwError(err);
@@ -70,7 +71,7 @@ export class StopsModifyComponent implements OnInit {
         this.message = 'Остановка обновлена';
       });
     } else {
-      this.resService.addBusStop(this.busForm.getRawValue())
+      this.resService.addBusStop(currentVer)
         .pipe(catchError(err => {
         this.message = err;
         return throwError(err);
@@ -98,7 +99,7 @@ export class StopsModifyComponent implements OnInit {
             console.log(err);
             return EMPTY;
           })).subscribe(() => {
-          this.router.navigate(['admin/busStop']);
+          this.router.navigate(['/admin/entities']);
         });
       }
     });

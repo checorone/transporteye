@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title>{{routeExist ? 'Изменение маршрута ' + adminService.choosenToModifyInfo.routeId : 'Создание маршрута'}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Название" formControlName="routeNumber">
+        <mat-error *ngIf="f.routeNumber.errors">Название обязательно</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Остановки(ID через пробел)" formControlName="busStopList">
+        <mat-error *ngIf="f.busStopList.errors">Путь обязателен</mat-error>
+      </mat-form-field>
+
+      <div>{{message}}</div>
+      <div>
+        <button mat-raised-button color="primary">Готово</button>
+        <button *ngIf="routeExist" mat-button color="warn" type="button" (click)="deleteRoute()">
+          <mat-icon>delete_outline</mat-icon>
+          Удалить
+        </button>
+      </div>
+    </form>
+    <div id="map" class="map">Hi</div>
+  </mat-card-content>
+</mat-card>

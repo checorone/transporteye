@@ -8,6 +8,7 @@ import {ResourceService} from "../../../shared/services/resource.service";
 import {catchError} from "rxjs/operators";
 import {EMPTY, throwError} from "rxjs";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
+import {MapPicker} from "../../map-picker";
 
 @Component({
   selector: 'app-stops-modify',
@@ -30,6 +31,7 @@ export class StopsModifyComponent implements OnInit {
   }
 
   ngOnInit() {
+    let map = new MapPicker(document.getElementById('map'));
     if (this.adminService.choosenToModifyInfo != null) {
       this.busForm = this.formBuilder.group({
         id: [this.adminService.choosenToModifyInfo.id],
@@ -37,6 +39,7 @@ export class StopsModifyComponent implements OnInit {
         latitude: [this.adminService.choosenToModifyInfo.latitude, [Validators.min(-90), Validators.max(90)]],
         longitude: [this.adminService.choosenToModifyInfo.longitude, [Validators.min(-180), Validators.max(180)]]
       });
+      map.setUniqueMarker(this.adminService.choosenToModifyInfo.latitude, this.adminService.choosenToModifyInfo.longitude, 'Остановка')
     } else {
       this.busForm = this.formBuilder.group({
         name: ['', Validators.required],
@@ -45,6 +48,7 @@ export class StopsModifyComponent implements OnInit {
       });
       this.busStopExist = false;
     }
+    map.updateFormOnClickOn(this.busForm);
   }
 
   get f() {

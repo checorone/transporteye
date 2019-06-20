@@ -45,24 +45,23 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     this.authService.resetPassword(this.route.snapshot.paramMap.get('uuid'), this.f.password1.value)
-        .pipe(catchError((error) => {
-              if (error.toString().includes(',')) {
-                // this.message = '<ul>';
-                // error.split(',').forEach(el => {
-                //   this.message += '<li>' + el + '</li>';
-                // });
-                // this.message += '</ul>';
-                this.message='';
-                error.split(',').forEach(el => {
-                  this.message += '<div>&bull; ' + el + '</div>';
-                });
-              } else {
-                this.message = error;
-              }
-              console.log(error);
-              return EMPTY;
-            })
-        ).subscribe(() => {
+      .pipe(catchError((error) => {
+          if (error.message && error.message.includes('Invalid UUID string')) {
+            this.message = 'Не удалось активировать аккаунт. Возможно, ссылка была повреждена';
+          } else {
+            if (error.toString().includes(',')) {
+              this.message = '';
+              error.split(',').forEach(el => {
+                this.message += '<div>&bull; ' + el + '</div>';
+              });
+            } else {
+              this.message = error;
+            }
+          }
+          console.log(error);
+          return EMPTY;
+        })
+      ).subscribe(() => {
       this.router.navigate(['/auth/login']);
     });
   }

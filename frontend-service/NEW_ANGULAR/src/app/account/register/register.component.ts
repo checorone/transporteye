@@ -48,10 +48,11 @@ export class RegisterComponent implements OnInit {
             //   this.message += '<li>' + el + '</li>';
             // });
             // this.message += '</ul>';
-            this.message='';
+            this.message='<div>';
             error.split(',').forEach(el => {
-              this.message += '<div>&bull; ' + el + '</div>';
+              this.message += '<br/>&bull; ' + el;
             });
+            this.message+='</div>';
           } else {
             this.message = error;
           }

@@ -24,8 +24,9 @@ export class ActivationComponent implements OnInit {
         this.success = false;
         if (error.message.includes('Invalid UUID string')) {
           this.message = 'Не удалось активировать аккаунт. Возможно, ссылка была повреждена';
-        } else
+        } else {
           this.message = error;
+        }
         console.log(error);
         return EMPTY;
       })

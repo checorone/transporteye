@@ -63,7 +63,7 @@ export class UserModifyComponent implements OnInit {
       this.message = 'Нет изменений';
       return;
     }
-    if (this.authService.getCardId() == this.userInfo.cardId && !this.userInfo.roles.includes('ADMIN')) {
+    if (this.authService.getCardId() == this.userInfo.cardId && this.userInfo.roles.includes('ADMIN')) {
       this.message = 'Сделать вас пользователем может только другой администратор';
       return;
     }
@@ -75,12 +75,15 @@ export class UserModifyComponent implements OnInit {
         }))
         .subscribe(() => {
           this.message = 'Пользователь был обновлен';
-          this.adminService.choosenToModifyInfo = null;
         });
 
   }
 
   deleteUser() {
+    if (this.authService.getCardId() == this.userInfo.cardId && this.userInfo.roles.includes('ADMIN')) {
+      this.message = 'Удалить вас может только другой администратор';
+      return;
+    }
     this.openDialog();
   }
 

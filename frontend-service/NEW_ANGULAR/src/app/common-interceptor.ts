@@ -28,7 +28,6 @@ export class CommonInterceptor implements HttpInterceptor {
         return throwError('Ошибка подключения');
       }
       if (err.status === 400) {
-        console.log(req.body)
         if (req.body instanceof FormData && req.body.get('refresh_token') != null) {
           console.log('should logout');
           this.authService.logout();
@@ -41,6 +40,7 @@ export class CommonInterceptor implements HttpInterceptor {
         return throwError(err.error);
       }
       if (err.status === 401) {
+        console.log('try refresh');
         if (this.authService.hasRefreshToken()) {
           return this.startRefreshing(req, next);
         }

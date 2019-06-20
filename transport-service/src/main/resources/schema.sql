@@ -63,7 +63,7 @@ CREATE TABLE if not exists bus_stops_routes
 drop table if exists users_trip;
 create table users_trip
 (
-    id           bigint       not null
+    id           serial       not null
         constraint users_trip_pkey
             primary key,
     bus_stop_id  integer,

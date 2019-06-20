@@ -5,6 +5,7 @@ import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/m
 import {TripModel} from "../../shared/models/trip.model";
 import {catchError} from "rxjs/operators";
 import {throwError} from "rxjs";
+import {MapPicker} from "../../entities/map-picker";
 
 @Component({
   selector: 'app-trips-table',
@@ -23,6 +24,7 @@ export class TripsTableComponent implements OnInit, AfterViewInit {
   columnsToDisplay = ['date', 'bus_stop_name', 'transport_name'];
   rusColumnsToDisplay = ['Дата и время', 'Остановка', 'Транспорт'];
   expandedElement: TripModel | null;
+  private map: MapPicker;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,7 +43,9 @@ export class TripsTableComponent implements OnInit, AfterViewInit {
       }))
       .subscribe((res) => {
         this.dataSource.data = res;
-      })
+      });
+    console.log(document.getElementById('map'))
+    this.map = new MapPicker(document.getElementById('map'));
   }
 
   ngAfterViewInit(): void {
@@ -52,5 +56,16 @@ export class TripsTableComponent implements OnInit, AfterViewInit {
   public doFilter = (value: any) => {
     console.log(value);
     this.dataSource.filter = value.toString().trim().toLocaleLowerCase();
+  }
+
+  showHideInfo(element) {
+    // this.expandedElement = this.expandedElement === element ? null : element;
+    if (this.expandedElement === element) {
+      this.expandedElement = null;
+    } else {
+      this.expandedElement = element;
+      // map.setBusStop(element.bus_stop_latitude, element.bus_stop_longitude, element.bus_stop_name);
+      // map.setTransport(element.transport_latitude, element.transport_longitude, element.transport_name);
+    }
   }
 }

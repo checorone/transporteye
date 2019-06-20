@@ -124,6 +124,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (oldData == null)
                 throw new AuthChangesException(AuthChangesException.CARD_NOT_EXIST);
             userData.setPassword(oldData.getPassword());
+        } else {
+            userData.setPassword("x");
         }
         userRepository.save(userData);
     }

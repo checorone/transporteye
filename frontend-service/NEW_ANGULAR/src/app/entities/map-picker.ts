@@ -1,4 +1,5 @@
 import MapOptions = google.maps.MapOptions;
+import LatLng = google.maps.LatLng;
 import {FormGroup} from "@angular/forms";
 import {BusStopModel} from "../shared/models/bus-stop.model";
 
@@ -7,12 +8,11 @@ export class MapPicker {
   private uniqueMarker: google.maps.Marker;
   private nonUniqueMarkers: google.maps.Marker[] = [];
 
-  constructor(docElement: HTMLElement, latitude = 37.61556, longitude = 55.75222) {
+  constructor(docElement: HTMLElement, latitude = 55.75120559644067, longitude = 37.613815508323114) {
     let myLatlng = new google.maps.LatLng(latitude, longitude);
     let mapOptions: MapOptions = {
       zoom: 13,
       center: myLatlng,
-      scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
       styles: [{
         "featureType": "water",
         "stylers": [{
@@ -103,8 +103,10 @@ export class MapPicker {
   }
 
   setUniqueMarker(latitude: number, longitude: number, description: string): void {
+    let latLng = new LatLng(latitude, longitude);
+    this.map.setCenter(latLng);
     this.uniqueMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(latitude, longitude),
+      position: latLng,
       title: description,
       map: this.map
     });
@@ -125,8 +127,7 @@ export class MapPicker {
     }));
   }
 
-  setBusStopsAndForm(stops: BusStopModel[], form: FormGroup) {
-    console.log(stops)
+  setBusStopsAndForm(stops: BusStopModel[], form: FormGroup): void {
     stops.forEach(el => {
       let marker = new google.maps.Marker({
         position: new google.maps.LatLng(el.latitude, el.longitude),
@@ -135,12 +136,46 @@ export class MapPicker {
       });
 
       marker.addListener('click', () => {
-        console.log(marker.getTitle());
         form.markAsDirty();
         form.controls['busStopList'].setValue(
         form.controls['busStopList'].value + marker.getTitle().split('\n')[0].split(':')[1]);
       });
       this.nonUniqueMarkers.push(marker);
     });
+  }
+
+  setBusStop(latitude: number, longitude: number, name: string): void{
+    this.nonUniqueMarkers.push(new google.maps.Marker({
+      position: new google.maps.LatLng(latitude, longitude),
+      title: name,
+      map: this.map,
+    }));
+  }
+
+  setTransport(latitude: number, longitude: number, name: string): void{
+    this.nonUniqueMarkers.push(new google.maps.Marker({
+      position: new google.maps.LatLng(latitude, longitude),
+      title: name,
+      map: this.map,
+      icon: this.pinSymbol('#FFFF00')
+    }));
+  }
+
+  clearMarkers(){
+    this.nonUniqueMarkers.forEach((el)=>{
+      el.setMap(null);
+    });
+    this.nonUniqueMarkers = [];
+  }
+
+  pinSymbol(color)  {
+    return {
+      path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
+      fillColor: color,
+      fillOpacity: 1,
+      strokeColor: '#000',
+      strokeWeight: 2,
+      scale: 1,
+    };
   }
 }

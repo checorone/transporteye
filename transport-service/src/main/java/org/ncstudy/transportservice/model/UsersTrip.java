@@ -1,5 +1,7 @@
 package org.ncstudy.transportservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ public class UsersTrip {
     @Column(nullable = false)
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     @Column(nullable = false)

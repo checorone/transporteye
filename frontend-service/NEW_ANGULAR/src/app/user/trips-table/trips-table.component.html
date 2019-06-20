@@ -6,6 +6,11 @@
 <!--  </mat-form-field>-->
 <!--</div>-->
 
+<mat-form-field>
+  <mat-icon class="down" matPrefix>search</mat-icon>
+  <input matInput (keyup)="doFilter($event.target.value)" placeholder="Поиск">
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
 <!--  <ng-container matColumnDef="date">-->
 <!--    <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата и время </th>-->
@@ -20,13 +25,13 @@
 <!--    <td mat-cell *matCellDef="let element"> {{element.transport.name}} </td>-->
 <!--  </ng-container>-->
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; index as i;">
-    <th mat-header-cell *matHeaderCellDef> {{rusColumnsToDisplay[i]}} </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{rusColumnsToDisplay[i]}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
   </ng-container>
 
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-      <div class="element-detail "
+      <div class="element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="row">
 <!--          <span class="column">-->
@@ -52,22 +57,10 @@
             <span>Долгота: {{element.transport_longitude}}</span>
           </span>
         </div>
-<!--          <div class="row">-->
-<!--          <agm-map-->
-<!--                  [latitude]="element.busStop.latitude"-->
-<!--                  [zoom]="10" [longitude]="element.busStop.longitude">-->
-<!--&lt;!&ndash;              <agm-marker class="busStop"&ndash;&gt;-->
-<!--&lt;!&ndash;                      [latitude]="element.busStop.latitude"&ndash;&gt;-->
-<!--&lt;!&ndash;                      [longitude]="element.busStop.longitude">&ndash;&gt;-->
-<!--&lt;!&ndash;                  {{element.busStop.name}}&ndash;&gt;-->
-<!--&lt;!&ndash;              </agm-marker>&ndash;&gt;-->
-<!--&lt;!&ndash;              <agm-marker class="transport"&ndash;&gt;-->
-<!--&lt;!&ndash;                      [latitude]="element.transport.latitude"&ndash;&gt;-->
-<!--&lt;!&ndash;                      [longitude]="element.transport.longitude">&ndash;&gt;-->
-<!--&lt;!&ndash;                  {{element.transport.name}}&ndash;&gt;-->
-<!--&lt;!&ndash;              </agm-marker>&ndash;&gt;-->
-<!--          </agm-map>-->
-<!--          </div>-->
+        <agm-map [latitude]="element.bus_stop_latitude" [zoom]="13" [longitude]="element.bus_stop_longitude">
+          <agm-marker  [latitude]="element.bus_stop_latitude" [longitude]="element.bus_stop_longitude" [label]="'BS'"></agm-marker>
+          <agm-marker  [latitude]="element.transport_latitude" [longitude]="element.transport_longitude" [label]="'T'"></agm-marker>
+        </agm-map>
         </div>
     </td>
   </ng-container>
@@ -76,7 +69,7 @@
   <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
       class="element-row"
       [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
+      (click)="showHideInfo(element)">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
 </table>

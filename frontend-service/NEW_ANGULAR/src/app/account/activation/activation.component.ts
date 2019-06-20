@@ -22,7 +22,7 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     this.authService.activate(this.route.snapshot.paramMap.get('uuid')).pipe(catchError((error) => {
         this.success = false;
-        if (error.message.includes('Invalid UUID string')) {
+        if (error.message && error.message.includes('Invalid UUID string')) {
           this.message = 'Не удалось активировать аккаунт. Возможно, ссылка была повреждена';
         } else {
           this.message = error;

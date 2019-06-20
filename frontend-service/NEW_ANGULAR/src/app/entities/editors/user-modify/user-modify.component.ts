@@ -64,7 +64,7 @@ export class UserModifyComponent implements OnInit {
       return;
     }
     if (this.authService.getCardId() == this.userInfo.cardId && this.userInfo.roles.includes('ADMIN')) {
-      this.message = 'Сделать вас пользователем может только другой администратор';
+      this.message = 'Редактировать администратора может только другой администратор';
       return;
     }
     this.adminService.updateUser(this.userInfo, this.f.resetPassword.value)

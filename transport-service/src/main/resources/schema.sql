@@ -20,10 +20,12 @@ CREATE TABLE if not exists bus_stop
 DROP TABLE IF EXISTS validation;
 CREATE TABLE if not exists validation
 (
-    validation_id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    validation_id SERIAL PRIMARY KEY,
+    date          TIMESTAMP                 NOT NULL,
     bus_stop_id   INTEGER                   NOT NULL,
-    card_id       INTEGER                   NOT NULL,
-    transport_id  INTEGER                   NOT NULL
+    card_id       VARCHAR(16)               NOT NULL,
+    transport_id  INTEGER                   NOT NULL,
+    route_id      INTEGER                   NOT NULL
 );
 
 DROP TABLE IF EXISTS passenger_stream;
@@ -44,31 +46,10 @@ CREATE TABLE if not exists route
     bus_stop_list VARCHAR(155)              NOT NULL
 );
 
-DROP TABLE IF EXISTS trip;
-CREATE TABLE if not exists trip
-(
-    trip_id      SERIAL UNIQUE PRIMARY KEY NOT NULL,
-    route_id     INTEGER                   NOT NULL,
-    transport_id INTEGER                   NOT NULL
-);
-
 DROP TABLE IF EXISTS bus_stops_routes;
 CREATE TABLE if not exists bus_stops_routes
 (
     bus_stops_routes_id SERIAL UNIQUE PRIMARY KEY NOT NULL,
     bus_stop_id         INTEGER                   NOT NULL,
     route_id            INTEGER                   NOT NULL
-);
-
-drop table if exists users_trip;
-create table users_trip
-(
-    id           serial       not null
-        constraint users_trip_pkey
-            primary key,
-    bus_stop_id  integer,
-    card_id      varchar(255) not null,
-    date         timestamp    not null,
-    transport_id integer,
-    route_id integer
 );

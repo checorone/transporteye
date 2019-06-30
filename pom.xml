@@ -22,7 +22,8 @@
 		<module>transport-service</module>
 		<module>authentication-service</module>
 		<module>frontend-service/NEW_ANGULAR</module>
-	</modules>
+        <module>faketransport-service</module>
+    </modules>
 	<build>
 		<plugins>
 			<!-- Докер плагин для создания образов-->

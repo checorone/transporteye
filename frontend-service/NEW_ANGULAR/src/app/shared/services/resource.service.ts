@@ -15,7 +15,7 @@ export class ResourceService {
   private busStopsUrl = this.resServerUrl + 'bus_stop';
   private transportUrl = this.resServerUrl + 'transport';
   private routesUrl = this.resServerUrl + 'route';
-  private tripUrl = this.resServerUrl + 'trip';
+  private tripUrl = this.resServerUrl + 'validation/user';
 
   constructor(private http: HttpClient) {
   }

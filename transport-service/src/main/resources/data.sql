@@ -21,26 +21,11 @@ INSERT INTO bus_stop (bus_stop_name,bus_stop_latitude,bus_stop_longitude) VALUES
 ,('м. Пушкинская',55.76493453979492,37.60477828979492)
 ;
 
-INSERT INTO validation (bus_stop_id, card_id, transport_id)
-values (2, 1, 1),
-       (2, 2, 1),
-       (2, 3, 1),
-       (3, 1, 2),
-       (2, 3, 3),
-       (2, 1, 3),
-       (3, 1, 2),
-       (3, 2, 2),
-       (3, 2, 2);
-
 INSERT INTO route (route_number,bus_stop_list) VALUES 
-('Ленинский студ.',' 1 4 3 2 5')
-,('Волхонка',' 7 10 8 9 6')
-,('Тверская',' 12 13 14 15')
+('470к',' 1 4 3 2 5')
+,('347',' 7 10 11 8 9 6')
+,('590а',' 12 13 14 15')
 ;
-
-INSERT INTO trip (route_id, transport_id)
-values (1, 1),
-       (1, 2);
 
 INSERT INTO passenger_stream (bus_stop_id, transport_id, in_count, out_count)
 values (1, 1, 20, 0),
@@ -48,7 +33,7 @@ values (1, 1, 20, 0),
        (3, 1, 17, 10),
        (2, 2, 8, 3);
 
-INSERT INTO users_trip (card_id, date, bus_stop_id, transport_id, route_id)
+INSERT INTO validation (card_id, date, bus_stop_id, transport_id, route_id)
 VALUES ('1234123412341234', '2019-05-18 22:23:21.764000', 3, 1, 1),
        ('0000000000000002', '2019-06-18 12:23:21.764000', 1, 1, 1),
        ('0000000000000002', '2019-06-21 08:00:32.764000', 14, 2, 3),

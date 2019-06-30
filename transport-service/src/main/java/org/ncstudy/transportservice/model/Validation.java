@@ -1,6 +1,7 @@
 package org.ncstudy.transportservice.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "validation")
@@ -8,7 +9,12 @@ public class Validation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "validation_id", nullable = false)
-    private int validationId;
+    private int id;
+
+    @Column(nullable = false)
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
     @Column(name = "bus_stop_id", nullable = false)
     private int busStopId;
@@ -19,6 +25,9 @@ public class Validation {
     @Column(name = "transport_id", nullable = false)
     private int transportId;
 
+    @Column
+    Integer routeId;
+
     public int getTransportId() {
         return transportId;
     }
@@ -28,11 +37,11 @@ public class Validation {
     }
 
     public int getValidationId() {
-        return validationId;
+        return id;
     }
 
     public void setValidationId(int validationId) {
-        this.validationId = validationId;
+        this.id = validationId;
     }
 
     public int getBusStopId() {
@@ -49,5 +58,21 @@ public class Validation {
 
     public void setCardId(int cardId) {
         this.cardId = cardId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Integer getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Integer routeId) {
+        this.routeId = routeId;
     }
 }

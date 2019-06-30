@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/v1/data")
@@ -41,6 +43,11 @@ public class ValidationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteValidation(@PathVariable("validation_id") int bus_stop_id) {
         validationService.deleteValidation(bus_stop_id);
+    }
+
+    @GetMapping("/validation/user")
+    public List<Map> getAllUsersValidations(Principal card) {
+        return validationService.getAllValidationsByCardId(card.getName());
     }
 
 }

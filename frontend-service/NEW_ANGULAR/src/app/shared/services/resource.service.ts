@@ -72,4 +72,9 @@ export class ResourceService {
   public getTrips(): Observable<TripModel[]>{
     return this.http.get<TripModel[]>(this.tripUrl);
   }
+
+  public getBusStopsByIds(ids: number[]): Observable<BusStopModel[]>{
+    return this.http.post<any>(this.busStopsUrl+'/part', ids);
+  }
 }
+  

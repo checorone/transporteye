@@ -40,7 +40,8 @@ public class UserData {
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
 
-    public UserData() {}
+    public UserData() {
+    }
 
     public UserData(String cardId, String password, List<Role> roles, boolean active, String email) {
         this.cardId = cardId;

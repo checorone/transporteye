@@ -1,29 +1,9 @@
-<!--<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">-->
-<!--  <mat-form-field>-->
-<!--    <input matInput [matDatepicker]="picker" (dateInput)="doFilter($event.target.value)" placeholder="Выбрать дату">-->
-<!--    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--    <mat-datepicker #picker></mat-datepicker>-->
-<!--  </mat-form-field>-->
-<!--</div>-->
-
 <mat-form-field>
   <mat-icon class="down" matPrefix>search</mat-icon>
   <input matInput (keyup)="doFilter($event.target.value)" placeholder="Поиск">
 </mat-form-field>
 
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
-<!--  <ng-container matColumnDef="date">-->
-<!--    <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата и время </th>-->
-<!--    <td mat-cell *matCellDef="let element"> {{element.date}} </td>-->
-<!--  </ng-container>-->
-<!--  <ng-container matColumnDef="busStopName">-->
-<!--    <th mat-header-cell *matHeaderCellDef mat-sort-header> Остановка </th>-->
-<!--    <td mat-cell *matCellDef="let element"> {{element.busStop.name}} </td>-->
-<!--  </ng-container>-->
-<!--  <ng-container matColumnDef="transportName">-->
-<!--    <th mat-header-cell *matHeaderCellDef mat-sort-header> Транспорт </th>-->
-<!--    <td mat-cell *matCellDef="let element"> {{element.transport.name}} </td>-->
-<!--  </ng-container>-->
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; index as i;">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{rusColumnsToDisplay[i]}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
@@ -34,32 +14,32 @@
       <div class="element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="row">
-<!--          <span class="column">-->
-<!--            <span>ID остановки: {{element.busStop.id}}</span>-->
-<!--            <span>Широта: {{element.busStop.latitude}}</span>-->
-<!--            <span>Долгота: {{element.busStop.longitude}}</span>-->
-<!--          </span>-->
-<!--          <span class="column">-->
-<!--            <span>ID транспорта: {{element.transport.id}}</span>-->
-<!--            <span>Заполненность: {{element.transport.seats}}</span>-->
-<!--            <span>Широта: {{element.transport.latitude}}</span>-->
-<!--            <span>Долгота: {{element.transport.longitude}}</span>-->
-<!--          </span>          -->
-          <span class="column">
+          <span *ngIf="element.bus_stop_latitude" class="column">
             <span>ID остановки: {{element.bus_stop_id}}</span>
             <span>Широта: {{element.bus_stop_latitude}}</span>
             <span>Долгота: {{element.bus_stop_longitude}}</span>
           </span>
-          <span class="column">
+          <span *ngIf="element.transport_latitude" class="column">
             <span>ID транспорта: {{element.transport_id}}</span>
             <span>Заполненность: {{element.seats}}</span>
             <span>Широта: {{element.transport_latitude}}</span>
             <span>Долгота: {{element.transport_longitude}}</span>
           </span>
         </div>
-        <agm-map [latitude]="element.bus_stop_latitude" [zoom]="13" [longitude]="element.bus_stop_longitude">
+        <agm-map [latitude]="element.bus_stop_latitude" [zoom]="15" [longitude]="element.bus_stop_longitude">
           <agm-marker  [latitude]="element.bus_stop_latitude" [longitude]="element.bus_stop_longitude" [label]="'BS'"></agm-marker>
           <agm-marker  [latitude]="element.transport_latitude" [longitude]="element.transport_longitude" [label]="'T'"></agm-marker>
+          <agm-marker  *ngFor="let routeBus of routeBuses"
+            [iconUrl]="
+            {
+              url: '../../assets/img/bullet_blue_10.png',
+              scaledSize: {
+                  width: 15,
+                  height: 15
+              }
+            }
+            " 
+            [latitude]="routeBus.latitude" [longitude]="routeBus.longitude"></agm-marker>
         </agm-map>
         </div>
     </td>

@@ -5,7 +5,6 @@ import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/m
 import {TripModel} from "../../shared/models/trip.model";
 import {catchError} from "rxjs/operators";
 import {throwError} from "rxjs";
-import {MapPicker} from "../../entities/map-picker";
 
 @Component({
   selector: 'app-trips-table',
@@ -21,10 +20,10 @@ import {MapPicker} from "../../entities/map-picker";
 })
 export class TripsTableComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<TripModel>();
-  columnsToDisplay = ['date', 'bus_stop_name', 'transport_name'];
-  rusColumnsToDisplay = ['Дата и время', 'Остановка', 'Транспорт'];
+  columnsToDisplay = ['date', 'bus_stop_name', 'transport_name', 'route_number'];
+  rusColumnsToDisplay = ['Дата и время', 'Остановка', 'Транспорт', 'Путь'];
   expandedElement: TripModel | null;
-  private map: MapPicker;
+  private routeBuses = [];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,10 +41,15 @@ export class TripsTableComponent implements OnInit, AfterViewInit {
         return throwError(err);
       }))
       .subscribe((res) => {
+        res.forEach(el=>{
+          el.date = el.date.replace('T', '  ').split('.')[0];
+          if(el.bus_stop_name == undefined)
+            el.bus_stop_name = 'Снесена';
+          if(el.transport_name == undefined)
+            el.transport_name = 'Утилизирован';
+        })
         this.dataSource.data = res;
       });
-    console.log(document.getElementById('map'))
-    this.map = new MapPicker(document.getElementById('map'));
   }
 
   ngAfterViewInit(): void {
@@ -54,18 +58,22 @@ export class TripsTableComponent implements OnInit, AfterViewInit {
   }
 
   public doFilter = (value: any) => {
-    console.log(value);
     this.dataSource.filter = value.toString().trim().toLocaleLowerCase();
   }
 
   showHideInfo(element) {
-    // this.expandedElement = this.expandedElement === element ? null : element;
     if (this.expandedElement === element) {
       this.expandedElement = null;
+      this.routeBuses = [];
     } else {
       this.expandedElement = element;
-      // map.setBusStop(element.bus_stop_latitude, element.bus_stop_longitude, element.bus_stop_name);
-      // map.setTransport(element.transport_latitude, element.transport_longitude, element.transport_name);
+      this.resService.getBusStopsByIds(element.bus_stop_list.split(' ')).subscribe(res=>{
+        res.forEach(el=>{
+          if(el.id != element.bus_stop_id){
+            this.routeBuses.push(el);
+          }
+        });
+      });
     }
   }
 }

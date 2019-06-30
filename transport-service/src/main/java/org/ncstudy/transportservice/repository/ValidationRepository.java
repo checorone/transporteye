@@ -9,7 +9,10 @@ import java.util.List;
 
 @Repository
 public interface ValidationRepository extends CrudRepository<Validation, Integer> {
+
     long countByBusStopId(int busStopId);
+
     List<Validation> getValidationByBusStopId(int bysStopId);
+
     List<Validation> getValidationByCardId(int cardId);
 }

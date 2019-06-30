@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping("/adm")
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    public String testAdmin(@RequestParam String mess){
+    public String testAdmin(@RequestParam String mess) {
         return mess;
     }
 
     @GetMapping("/usr")
-    public String testUser(@RequestParam String mess){
+    public String testUser(@RequestParam String mess) {
         return mess;
     }
 }

@@ -16,7 +16,7 @@ public class UsersTrip {
     @Column(nullable = false)
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     @Column(nullable = false)
@@ -28,13 +28,8 @@ public class UsersTrip {
     @Column
     Integer transportId;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "bus_stop_id", referencedColumnName = "bus_stop_id")
-//    private BusStop busStop;
-//
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "transport_id", referencedColumnName = "transport_id")
-//    private Transport transport;
+    @Column
+    Integer routeId;
 
     public Long getId() {
         return id;
@@ -60,20 +55,27 @@ public class UsersTrip {
         this.cardId = cardId;
     }
 
+    public Integer getBusStopId() {
+        return busStopId;
+    }
 
-//    public BusStop getBusStop() {
-//        return busStop;
-//    }
+    public void setBusStopId(Integer busStopId) {
+        this.busStopId = busStopId;
+    }
 
-//    public void setBusStop(BusStop busStop) {
-//        this.busStop = busStop;
-//    }
+    public Integer getTransportId() {
+        return transportId;
+    }
 
-//    public Transport getTransport() {
-//        return transport;
-//    }
-//
-//    public void setTransport(Transport transport) {
-//        this.transport = transport;
-//    }
+    public void setTransportId(Integer transportId) {
+        this.transportId = transportId;
+    }
+
+    public Integer getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Integer routeId) {
+        this.routeId = routeId;
+    }
 }

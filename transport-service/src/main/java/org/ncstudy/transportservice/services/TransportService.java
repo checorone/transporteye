@@ -15,23 +15,23 @@ public class TransportService {
 
 
     public List<Transport> getAllTransports() {
-    	ArrayList<Transport> list = new ArrayList<Transport>();
-    	for (Transport transport : transportRepository.findAll()) {
-			list.add(transport);
-		}
+        ArrayList<Transport> list = new ArrayList<Transport>();
+        for (Transport transport : transportRepository.findAll()) {
+            list.add(transport);
+        }
         return list;
     }
 
-    public void saveTransport(Transport transport){
+    public void saveTransport(Transport transport) {
         transportRepository.save(transport);
     }
 
-    public void updateTransport(Transport transport){
+    public void updateTransport(Transport transport) {
         transportRepository.save(transport);
 
     }
 
-    public void deleteTransport(int id){
+    public void deleteTransport(int id) {
         transportRepository.deleteById(id);
     }
 

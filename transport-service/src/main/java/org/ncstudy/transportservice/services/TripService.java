@@ -15,24 +15,24 @@ public class TripService {
 
 
     public List<Trip> getAllTrips() {
-    	ArrayList<Trip> list = new ArrayList<Trip>();
-    	for (Trip trip : tripRepository.findAll()) {
-			list.add(trip);
-		}
+        ArrayList<Trip> list = new ArrayList<Trip>();
+        for (Trip trip : tripRepository.findAll()) {
+            list.add(trip);
+        }
         return list;
     }
 
-    public void saveTrip(Trip trip){
-    	tripRepository.save(trip);
+    public void saveTrip(Trip trip) {
+        tripRepository.save(trip);
     }
 
-    public void updateTrip(Trip trip){
-    	tripRepository.save(trip);
+    public void updateTrip(Trip trip) {
+        tripRepository.save(trip);
 
     }
 
-    public void deleteTrip(int id){
-    	tripRepository.deleteById(id);
+    public void deleteTrip(int id) {
+        tripRepository.deleteById(id);
     }
 
 }

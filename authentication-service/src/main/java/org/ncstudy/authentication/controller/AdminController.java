@@ -32,11 +32,12 @@ public class AdminController {
     }
 
     @GetMapping("/card/get/all")
-    public List getAllUsers(){
+    public List getAllUsers() {
         return service.getAll();
     }
+
     @GetMapping("/card/get/all/id")
-    public List getAllUsersId(){
+    public List getAllUsersId() {
         return service.getAllCardId();
     }
 
@@ -51,7 +52,7 @@ public class AdminController {
 
     @PutMapping("card/update")
     public void updateUser(@RequestParam boolean resetPassword, UserData userData
-            ) throws AuthChangesException {
+    ) throws AuthChangesException {
         service.updateUser(userData, resetPassword);
     }
 

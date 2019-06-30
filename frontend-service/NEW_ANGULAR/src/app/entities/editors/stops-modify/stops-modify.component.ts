@@ -49,6 +49,9 @@ export class StopsModifyComponent implements OnInit {
       this.busStopExist = false;
     }
     map.updateFormOnClickOn(this.busForm);
+    this.resService.getBusStops().subscribe(res=>{
+      map.setHelpMarkers(res);
+    })
   }
 
   get f() {
@@ -72,7 +75,8 @@ export class StopsModifyComponent implements OnInit {
         this.message = err;
         return throwError(err);
       })).subscribe(()=>{
-        this.message = 'Остановка обновлена';
+        // this.message = 'Остановка обновлена';
+        this.router.navigate(['/admin/entities']);
       });
     } else {
       this.resService.addBusStop(currentVer)
@@ -80,7 +84,8 @@ export class StopsModifyComponent implements OnInit {
         this.message = err;
         return throwError(err);
       })).subscribe(()=>{
-        this.message = 'Остановка создана';
+        // this.message = 'Остановка создана';
+        this.router.navigate(['/admin/entities']);
       });
     }
   }

@@ -43,7 +43,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .accessTokenConverter(accessTokenConverter)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
-        .allowedTokenEndpointRequestMethods()
+                .allowedTokenEndpointRequestMethods()
         ;
     }
 

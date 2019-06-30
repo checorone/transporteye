@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="api/v1/data")
+@RequestMapping(value = "api/v1/data")
 public class ValidationController {
     private static final Logger logger = LoggerFactory.getLogger(ValidationController.class);
 
     @Autowired
     private ValidationService validationService;
 
-    @RequestMapping(value="/validation",method = RequestMethod.GET)
+    @RequestMapping(value = "/validation", method = RequestMethod.GET)
     public List<Validation> getAllValidations() {
         logger.debug("Looking up data for validations...");
         List<Validation> list = validationService.getAllValidations();
@@ -26,21 +26,21 @@ public class ValidationController {
         return list;
     }
 
-    @RequestMapping(value="/validation",method = RequestMethod.POST)
+    @RequestMapping(value = "/validation", method = RequestMethod.POST)
     public void saveValidation(@RequestBody Validation validation) {
         validationService.saveValidation(validation);
     }
 
-    @RequestMapping(value="/validation",method = RequestMethod.PUT)
+    @RequestMapping(value = "/validation", method = RequestMethod.PUT)
     public void updateValidation(@RequestBody Validation validation) {
         validationService.updateValidation(validation);
 
     }
 
-    @RequestMapping(value="/validation/{validation_id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/validation/{validation_id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteValidation( @PathVariable("validation_id") int bus_stop_id) {
-        validationService.deleteValidation( bus_stop_id );
+    public void deleteValidation(@PathVariable("validation_id") int bus_stop_id) {
+        validationService.deleteValidation(bus_stop_id);
     }
 
 }

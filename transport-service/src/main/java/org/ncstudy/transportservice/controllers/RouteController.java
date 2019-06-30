@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="api/v1/data")
+@RequestMapping(value = "api/v1/data")
 public class RouteController {
     private static final Logger logger = LoggerFactory.getLogger(RouteController.class);
 
     @Autowired
     private RouteService routeService;
 
-    @RequestMapping(value="/route",method = RequestMethod.GET)
+    @RequestMapping(value = "/route", method = RequestMethod.GET)
     public List<Route> getAllRoutes() {
         logger.debug("Looking up data for routes...");
         List<Route> list = routeService.getAllRoutes();
@@ -27,19 +27,19 @@ public class RouteController {
     }
 
 
-    @RequestMapping(value="/route",method = RequestMethod.POST)
+    @RequestMapping(value = "/route", method = RequestMethod.POST)
     public void saveRoute(@RequestBody Route route) {
         routeService.saveRoute(route);
     }
 
-    @RequestMapping(value="/route",method = RequestMethod.PUT)
+    @RequestMapping(value = "/route", method = RequestMethod.PUT)
     public void updateRoute(@RequestBody Route route) {
         routeService.updateRoute(route);
     }
 
-    @RequestMapping(value="/route/{route_id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/route/{route_id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRoute( @PathVariable("route_id") int route_id) {
-        routeService.deleteRoute( route_id );
+    public void deleteRoute(@PathVariable("route_id") int route_id) {
+        routeService.deleteRoute(route_id);
     }
 }

@@ -15,23 +15,23 @@ public class PassengerStreamService {
 
 
     public List<PassengerStream> getAllPassengerStreams() {
-    	ArrayList<PassengerStream> list = new ArrayList<PassengerStream>();
-    	for (PassengerStream ps : passengerStreamRepository.findAll()) {
-			list.add(ps);
-		}
+        ArrayList<PassengerStream> list = new ArrayList<PassengerStream>();
+        for (PassengerStream ps : passengerStreamRepository.findAll()) {
+            list.add(ps);
+        }
         return list;
     }
 
-    public void savePassengerStream(PassengerStream ps){
-    	passengerStreamRepository.save(ps);
+    public void savePassengerStream(PassengerStream ps) {
+        passengerStreamRepository.save(ps);
     }
 
-    public void updatePassengerStream(PassengerStream ps){
-    	passengerStreamRepository.save(ps);
+    public void updatePassengerStream(PassengerStream ps) {
+        passengerStreamRepository.save(ps);
 
     }
 
-    public void deletePassengerStream(int id){
-    	passengerStreamRepository.deleteById(id);
+    public void deletePassengerStream(int id) {
+        passengerStreamRepository.deleteById(id);
     }
 }

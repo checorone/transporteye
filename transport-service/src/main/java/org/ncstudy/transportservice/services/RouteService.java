@@ -22,16 +22,16 @@ public class RouteService {
         return list;
     }
 
-    public void saveRoute(Route route){
+    public void saveRoute(Route route) {
         routeRepository.save(route);
     }
 
-    public void updateRoute(Route route){
+    public void updateRoute(Route route) {
         routeRepository.save(route);
 
     }
 
-    public void deleteRoute(int id){
+    public void deleteRoute(int id) {
         routeRepository.deleteById(id);
     }
 }

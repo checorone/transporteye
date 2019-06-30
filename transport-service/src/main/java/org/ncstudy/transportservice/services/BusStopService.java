@@ -21,21 +21,25 @@ public class BusStopService {
         }
         return list;
     }
-    
+
+    public List<BusStop> getBusStopsByIds(List<Integer> ids) {
+        return busStopRepository.findByIdIn(ids);
+    }
+
     public BusStop getBusStopById(int busStopId) {
         return busStopRepository.findById(busStopId).get();
     }
 
-    public void saveBusStop(BusStop busStop){
+    public void saveBusStop(BusStop busStop) {
         busStopRepository.save(busStop);
     }
 
-    public void updateBusStop(BusStop busStop){
+    public void updateBusStop(BusStop busStop) {
         busStopRepository.save(busStop);
 
     }
 
-    public void deleteBusStop(int id){
+    public void deleteBusStop(int id) {
         busStopRepository.deleteById(id);
     }
 }

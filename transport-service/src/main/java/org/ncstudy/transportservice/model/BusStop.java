@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Table(name = "bus_stop")
 public class BusStop {
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "bus_stop_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bus_stop_id", nullable = false)
     private int id;
 
     @Column(name = "bus_stop_name", nullable = false)
@@ -19,9 +19,6 @@ public class BusStop {
     @Column(name = "bus_stop_longitude", nullable = false)
     private float longitude;
 
-//	@OneToMany(mappedBy = "busStop", orphanRemoval = true)
-//	private Set<UsersTrip> trip;
-
     public BusStop() {
     }
 
@@ -32,43 +29,35 @@ public class BusStop {
         this.setLongitude(longitude);
     }
 
-//	public void setTripsKeyNull() {
-//		for (UsersTrip usersTrip : trip) {
-//			usersTrip.set
-//		}
-//
-//
-//	}
+    public int getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public float getLatitude() {
+        return latitude;
+    }
 
-	public float getLatitude() {
-		return latitude;
-	}
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
+    public float getLongitude() {
+        return longitude;
+    }
 
-	public float getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
 }

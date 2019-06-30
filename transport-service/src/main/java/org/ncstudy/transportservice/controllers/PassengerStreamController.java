@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="api/v1/data")
+@RequestMapping(value = "api/v1/data")
 public class PassengerStreamController {
     private static final Logger logger = LoggerFactory.getLogger(PassengerStreamController.class);
 
     @Autowired
     private PassengerStreamService passengerStreamService;
 
-    @RequestMapping(value="/passengers",method = RequestMethod.GET)
+    @RequestMapping(value = "/passengers", method = RequestMethod.GET)
     public List<PassengerStream> getAllPassengersStreams() {
         logger.debug("Looking up data for passenger stream...");
         List<PassengerStream> list = passengerStreamService.getAllPassengerStreams();
@@ -28,20 +28,20 @@ public class PassengerStreamController {
     }
 
 
-    @RequestMapping(value="/passengers",method = RequestMethod.POST)
+    @RequestMapping(value = "/passengers", method = RequestMethod.POST)
     public void saveStream(@RequestBody PassengerStream stream) {
         passengerStreamService.savePassengerStream(stream);
     }
 
-    @RequestMapping(value="/passengers",method = RequestMethod.PUT)
+    @RequestMapping(value = "/passengers", method = RequestMethod.PUT)
     public void updateStream(@RequestBody PassengerStream stream) {
         passengerStreamService.updatePassengerStream(stream);
     }
 
-    @RequestMapping(value="/passengers/{streamId}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/passengers/{streamId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteStream( @PathVariable("streamId") int streamId) {
-        passengerStreamService.deletePassengerStream( streamId );
+    public void deleteStream(@PathVariable("streamId") int streamId) {
+        passengerStreamService.deletePassengerStream(streamId);
     }
 
 

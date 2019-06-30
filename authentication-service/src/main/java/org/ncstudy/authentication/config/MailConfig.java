@@ -23,7 +23,7 @@ public class MailConfig {
     String protocol;
 
     @Bean
-    public JavaMailSender javaMailSenderBean(){
+    public JavaMailSender javaMailSenderBean() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
         sender.setHost(host);
         sender.setPort(port);

@@ -13,4 +13,8 @@ export interface TripModel {
   transport_latitude: number;
   transport_longitude: number;
   seats: number;
+
+  route_id: number;
+  route_number: string;
+  bus_stop_list: string;
 }

@@ -69,5 +69,6 @@ create table users_trip
     bus_stop_id  integer,
     card_id      varchar(255) not null,
     date         timestamp    not null,
-    transport_id integer
+    transport_id integer,
+    route_id integer
 );

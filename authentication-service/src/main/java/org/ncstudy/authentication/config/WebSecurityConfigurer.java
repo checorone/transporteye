@@ -48,7 +48,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-                .csrf().disable()//todo: delete after debugging
+                .csrf().disable()
                 .httpBasic()
                 .realmName(securityRealm)
         ;

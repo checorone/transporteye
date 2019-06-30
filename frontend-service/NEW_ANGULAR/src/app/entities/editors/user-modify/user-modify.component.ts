@@ -74,7 +74,8 @@ export class UserModifyComponent implements OnInit {
           return EMPTY;
         }))
         .subscribe(() => {
-          this.message = 'Пользователь был обновлен';
+          // this.message = 'Пользователь был обновлен';
+          this.router.navigate(['/admin/entities']);
         });
 
   }
@@ -93,7 +94,6 @@ export class UserModifyComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.adminService.deleteUser(this.userInfo.cardId)
             .pipe(catchError(err => {

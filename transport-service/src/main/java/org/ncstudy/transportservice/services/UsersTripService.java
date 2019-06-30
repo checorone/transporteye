@@ -14,14 +14,7 @@ public class UsersTripService {
         this.usersTripRepository = usersTripRepository;
     }
 
-    public List<Map> getAllTripsByCardId(String cardId){
-//        List<Map> res = usersTripRepository.getAllByCardId(cardId);
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-//        for (Map re : res) {
-//            re = new HashMap(re);
-//            re.put("date", format.format((Date)re.get("date")));
-//        }
-//        return res;
+    public List<Map> getAllTripsByCardId(String cardId) {
         return usersTripRepository.getAllByCardId(cardId);
     }
 }

@@ -2,14 +2,14 @@ security:
   oauth2:
     resource:
       jwt:
-          key-value: MaYzkSjmkzPC57L
+        key-value: MaYzkSjmkzPC57L
 
 spring:
   datasource:
     #url: jdbc:postgresql://localhost:5432/transport_eye_v1?currentSchema=transporteye_v1
     # username: postgres
     # password: 1002199Ti
-#    url: jdbc:postgresql://database:5432/postgres
+    #    url: jdbc:postgresql://database:5432/postgres
     url: jdbc:postgresql://localhost:5432/postgres
 
     username: postgres
@@ -19,7 +19,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        ddl-auto: create-drop
+        #        ddl-auto: create-drop
         temp:
           use_jdbc_metadata_defaults: false
     generate-ddl: true

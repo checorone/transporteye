@@ -11,6 +11,8 @@ import java.util.List;
 public interface TripRepository extends CrudRepository<Trip, Integer> {
 
     long countByRouteId(int routeId);
+
     List<Trip> getTripByRouteId(int routeId);
+
     List<Trip> getTripByTransportId(int transportId);
 }

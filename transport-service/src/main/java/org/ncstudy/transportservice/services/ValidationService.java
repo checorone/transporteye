@@ -23,16 +23,16 @@ public class ValidationService {
         return list;
     }
 
-    public void saveValidation(Validation validation){
+    public void saveValidation(Validation validation) {
         validationRepository.save(validation);
     }
 
-    public void updateValidation(Validation validation){
+    public void updateValidation(Validation validation) {
         validationRepository.save(validation);
 
     }
 
-    public void deleteValidation(int id){
+    public void deleteValidation(int id) {
         validationRepository.deleteById(id);
     }
 }

@@ -11,10 +11,8 @@ import java.util.Map;
 
 @Repository
 public interface UsersTripRepository extends CrudRepository<UsersTrip, Integer> {
-//    List<UsersTrip> getAllByCardId(String cardId);
 
     @Query(value = "select * from users_trip natural left join transport natural left " +
-            "join bus_stop where card_id=:card_id", nativeQuery = true)
+            "join bus_stop natural left join route where card_id=:card_id", nativeQuery = true)
     List<Map> getAllByCardId(@Param("card_id") String cardId);
-
 }

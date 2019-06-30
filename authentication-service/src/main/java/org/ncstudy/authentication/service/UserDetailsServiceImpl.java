@@ -109,17 +109,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void delete(UserData userData) {
         userRepository.delete(userData);
     }
+
     public void delete(String cardId) {
         userRepository.deleteByCardId(cardId);
     }
-    public List<UserData> getAll(){
+
+    public List<UserData> getAll() {
         return userRepository.findAll();
     }
 
     public void updateUser(UserData userData, boolean resetPassword) throws AuthChangesException {
         if (userRepository.existsByEmailAndCardIdNot(userData.getEmail(), userData.getCardId()))
             throw new AuthChangesException(AuthChangesException.EMAIL_ALREADY_USED);
-        if (!resetPassword){
+        if (!resetPassword) {
             UserData oldData = userRepository.findByCardId(userData.getCardId());
             if (oldData == null)
                 throw new AuthChangesException(AuthChangesException.CARD_NOT_EXIST);
@@ -130,7 +132,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userRepository.save(userData);
     }
 
-    public List<String> getAllCardId(){
+    public List<String> getAllCardId() {
         return userRepository.getAllCardId();
     }
 }

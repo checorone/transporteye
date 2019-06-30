@@ -34,11 +34,11 @@ public class AnalyticsService {
     private TransportRepository transportRepository;
     @Autowired
     private RouteRepository routeRepository;
-    
+
     /**
      * Возвращает хешмап с количеством пустых сидений и количеством всех сидений.
      *
-     * @return Map[("empty" : int) ("all": int)]
+     * @return Map[(" empty " : int) ("all": int)]
      */
     public Map<String, Integer> getAllSeatsTypesCount() {
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -46,11 +46,11 @@ public class AnalyticsService {
         map.put("second", getAllSeats());
         return map;
     }
-    
+
     /**
      * Возвращает хешмап с количеством ТС на маршруте и количеством всех ТС в автопарке.
      *
-     * @return Map[("ontrip" : int) ("all": int)]
+     * @return Map[(" ontrip " : int) ("all": int)]
      */
     public Map<String, Integer> getAllTransportsTypesCount() {
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -58,11 +58,11 @@ public class AnalyticsService {
         map.put("second", getTransportCount());
         return map;
     }
-    
+
     /**
      * Возвращает хешмап со средней загрузкой маршрутов и максимальным количеством машин на маршруте.
      *
-     * @return Map[("avg" : float) ("max": float)]
+     * @return Map[(" avg " : float) ("max": float)]
      */
     public Map<String, Double> getAverageRouteLoad() {
         Map<String, Double> map = new HashMap<String, Double>();
@@ -70,11 +70,11 @@ public class AnalyticsService {
         map.put("second", 5.0);
         return map;
     }
-    
+
     /**
      * Возвращает хешмап со средней загрузкой транспорта и максимальным количеством занятых мест в транспорте.
      *
-     * @return Map[("avg" : float) ("max": float)]
+     * @return Map[(" avg " : float) ("max": float)]
      */
     public Map<String, Double> getAverageTransportLoad() {
         Map<String, Double> map = new HashMap<String, Double>();
@@ -82,31 +82,31 @@ public class AnalyticsService {
         map.put("second", 55.0);
         return map;
     }
-    
-    
+
+
     /**
      * Возвращает хешмап со всеми ТС в пути вместе с количеством пустых мест в них.
      *
-     * @return 
+     * @return
      */
     public List<TransportExt> getMapDataTransport() {
-    	//TODO: impl
-    	Random random = new Random();
-    	List<TransportExt> transportExts = new ArrayList<TransportExt>();
-    	List<Transport> tr = transportService.getAllTransports();
-    	for (Transport transport : tr) {
-    		TransportExt tempExt = new TransportExt();
-			tempExt.transportId = transport.getId();
-			tempExt.name = transport.getName();
-			tempExt.seats = transport.getSeats();
-			tempExt.longitude = transport.getLongitude();
-			tempExt.latitude = transport.getLatitude();
-			tempExt.emptySeats = random.nextInt(30);
-			transportExts.add(tempExt);
-		}
+        //TODO: impl
+        Random random = new Random();
+        List<TransportExt> transportExts = new ArrayList<TransportExt>();
+        List<Transport> tr = transportService.getAllTransports();
+        for (Transport transport : tr) {
+            TransportExt tempExt = new TransportExt();
+            tempExt.transportId = transport.getId();
+            tempExt.name = transport.getName();
+            tempExt.seats = transport.getSeats();
+            tempExt.longitude = transport.getLongitude();
+            tempExt.latitude = transport.getLatitude();
+            tempExt.emptySeats = random.nextInt(30);
+            transportExts.add(tempExt);
+        }
         return transportExts;
     }
-    
+
     /**
      * Возвращает хешмап с количеством всех вошедших пассажиров, всех вышедших и тех, кто прошел валидацию.
      *

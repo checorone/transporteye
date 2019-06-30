@@ -11,7 +11,7 @@ export class MapPicker {
   constructor(docElement: HTMLElement, latitude = 55.75120559644067, longitude = 37.613815508323114) {
     let myLatlng = new google.maps.LatLng(latitude, longitude);
     let mapOptions: MapOptions = {
-      zoom: 13,
+      zoom: 20,
       center: myLatlng,
       styles: [{
         "featureType": "water",
@@ -161,6 +161,17 @@ export class MapPicker {
     }));
   }
 
+  setHelpMarkers(elements: any[]): void {
+    elements.forEach(el=>{
+    this.nonUniqueMarkers.push(new google.maps.Marker({
+      position: new google.maps.LatLng(el.latitude, el.longitude),
+      title: name,
+      map: this.map,
+      icon: this.pinSymbol('#FFFF00')
+    }));
+  });
+  }
+
   clearMarkers(){
     this.nonUniqueMarkers.forEach((el)=>{
       el.setMap(null);
@@ -173,9 +184,11 @@ export class MapPicker {
       path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
       fillColor: color,
       fillOpacity: 1,
-      strokeColor: '#000',
+      strokeColor: '#FFF',
       strokeWeight: 2,
       scale: 1,
     };
   }
+  
+
 }

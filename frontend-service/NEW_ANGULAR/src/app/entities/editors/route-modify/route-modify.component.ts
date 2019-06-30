@@ -27,8 +27,7 @@ export class RouteModifyComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-  ) {
-  }
+  ){}
 
   ngOnInit() {
     if (this.adminService.choosenToModifyInfo != null) {
@@ -72,7 +71,8 @@ export class RouteModifyComponent implements OnInit {
           this.message = err;
           return throwError(err);
         })).subscribe(()=>{
-        this.message = 'Путь обновлен';
+        // this.message = 'Путь обновлен';
+        this.router.navigate(['/admin/entities']);
       });
     } else {
       this.resService.addRoute(this.routeForm.getRawValue())
@@ -80,7 +80,8 @@ export class RouteModifyComponent implements OnInit {
           this.message = err;
           return throwError(err);
         })).subscribe(()=>{
-        this.message = 'Путь создан';
+        // this.message = 'Путь создан';
+        this.router.navigate(['/admin/entities']);
       });
     }
   }

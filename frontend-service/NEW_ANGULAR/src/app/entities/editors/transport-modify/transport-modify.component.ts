@@ -67,7 +67,8 @@ export class TransportModifyComponent implements OnInit{
           this.message = err;
           return throwError(err);
         })).subscribe(()=>{
-        this.message = 'Транспорт обновлен';
+        // this.message = 'Транспорт обновлен';
+        this.router.navigate(['/admin/entities']);
       });
     } else {
       this.resService.addTransport(this.transportForm.getRawValue())
@@ -75,7 +76,8 @@ export class TransportModifyComponent implements OnInit{
           this.message = err;
           return throwError(err);
         })).subscribe(()=>{
-        this.message = 'Транспорт создан';
+        // this.message = 'Транспорт создан';
+        this.router.navigate(['/admin/entities']);
       });
     }
   }

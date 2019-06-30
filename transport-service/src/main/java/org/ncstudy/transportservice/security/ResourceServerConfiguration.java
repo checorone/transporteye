@@ -15,6 +15,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/api/v1/data/bus_stop/part").permitAll()
                 .antMatchers("/api/v1/data/trip").authenticated()
                 .antMatchers(HttpMethod.DELETE).hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST).hasAuthority("ADMIN")

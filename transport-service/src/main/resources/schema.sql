@@ -5,7 +5,8 @@ CREATE TABLE if not exists transport
     transport_name      VARCHAR(155)              NOT NULL,
     transport_latitude  FLOAT                     NOT NULL,
     transport_longitude FLOAT                     NOT NULL,
-    seats               INTEGER                   NOT NULL
+    seats               INTEGER                   NOT NULL,
+    empty_seats         INTEGER                   NOT NULL
 );
 
 DROP TABLE IF EXISTS bus_stop;

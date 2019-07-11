@@ -1,28 +1,11 @@
-package org.ncstudy.transportservice.model;
+package org.ncstudy.faketransport;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "transport")
 public class Transport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transport_id", nullable = false)
     private int id;
-
-    @Column(name = "transport_name", nullable = false)
     private String name;
-
-    @Column(name = "transport_latitude", nullable = false)
     private double latitude;
-
-    @Column(name = "transport_longitude", nullable = false)
     private double longitude;
-
-    @Column(name = "seats", nullable = false)
     private int seats;
-
-    @Column(name = "empty_seats", nullable = false)
     private int emptySeats;
 
 

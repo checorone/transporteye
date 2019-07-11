@@ -5,7 +5,6 @@ import org.ncstudy.transportservice.repository.ValidationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +16,11 @@ public class ValidationService {
 
 
     public List<Validation> getAllValidations() {
-        ArrayList<Validation> list = new ArrayList<Validation>();
-        for (Validation validation : validationRepository.findAll()) {
-            list.add(validation);
-        }
-        return list;
+//        ArrayList<Validation> list = new ArrayList<Validation>();
+//        for (Validation validation : ) {
+//            list.add(validation);
+//        }
+        return validationRepository.findAll();
     }
 
     public void saveValidation(Validation validation) {

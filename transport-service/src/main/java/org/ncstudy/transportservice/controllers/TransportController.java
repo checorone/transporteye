@@ -1,6 +1,7 @@
 package org.ncstudy.transportservice.controllers;
 
 import org.ncstudy.transportservice.model.Transport;
+import org.ncstudy.transportservice.services.EmitterService;
 import org.ncstudy.transportservice.services.TransportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import java.util.List;
 public class TransportController {
     @Autowired
     private TransportService transportService;
+    @Autowired
+    private EmitterService emitterService;
     private static final Logger logger = LoggerFactory.getLogger(TransportController.class);
 
 
@@ -34,12 +37,17 @@ public class TransportController {
     @RequestMapping(value = "/transport", method = RequestMethod.PUT)
     public void updateTransport(@RequestBody Transport transport) {
         transportService.updateTransport(transport);
-
+        emitterService.sendTransportEvent(transport);
     }
 
     @RequestMapping(value = "/transport/{transportId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTransport(@PathVariable("transportId") int transportId) {
         transportService.deleteTransport(transportId);
+    }
+
+    @RequestMapping(value = "/transport/{transportId}", method = RequestMethod.GET)
+    public Transport getTransport(@PathVariable("transportId") int transportId) {
+        return transportService.getTransport(transportId);
     }
 }

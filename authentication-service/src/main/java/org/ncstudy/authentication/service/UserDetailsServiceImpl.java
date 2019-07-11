@@ -77,25 +77,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userData;
     }
 
-    @PostConstruct
-    private void setupDefaultUsers() {
-        if (userRepository.count() == 0) {
-            userRepository.save(new UserData(
-                    "0000000000000002",
-                    passwordEncoder.encode("userpass"),
-                    Collections.singletonList(Role.USER),
-                    true,
-                    "transport_eye_fake@mail.ru"));
-            userRepository.save(new UserData(
-                    "0000000000000001",
-                    passwordEncoder.encode("adminpass"),
-                    Arrays.asList(Role.USER, Role.ADMIN),
-                    true,
-                    "test@mail.ru"));
-        }
-    }
-
-
     public void savePassword(UUID uuid, String password) throws AuthChangesException {
         UserData userData = userRepository.findByResetPasswordCode(uuid);
         if (userData == null)
@@ -135,4 +116,29 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public List<String> getAllCardId() {
         return userRepository.getAllCardId();
     }
+
+    @PostConstruct
+    private void setupDefaultUsers() {
+        if (userRepository.count() == 0) {
+            userRepository.save(new UserData(
+                    "0000000000000002",
+                    passwordEncoder.encode("userpass"),
+                    Collections.singletonList(Role.USER),
+                    true,
+                    "transport_eye_fake@mail.ru"));
+            userRepository.save(new UserData(
+                    "0000000000000001",
+                    passwordEncoder.encode("adminpass"),
+                    Arrays.asList(Role.USER, Role.ADMIN),
+                    true,
+                    "test@mail.ru"));
+            userRepository.save(new UserData(
+                    "0000000000000000",
+                    passwordEncoder.encode("busadmin"),
+                    Collections.singletonList(Role.ADMIN),
+                    true,
+                    "tester@mail.ru"));
+        }
+    }
+
 }

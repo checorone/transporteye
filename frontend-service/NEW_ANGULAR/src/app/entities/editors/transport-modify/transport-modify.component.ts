@@ -37,11 +37,12 @@ export class TransportModifyComponent implements OnInit{
         latitude: [this.adminService.choosenToModifyInfo.latitude],
         longitude: [this.adminService.choosenToModifyInfo.longitude],
         seats: [this.adminService.choosenToModifyInfo.seats,[Validators.required, Validators.max(200)]],
+        emptySeats: [this.adminService.choosenToModifyInfo.emptySeats],
       });
     } else {
       this.transportForm = this.formBuilder.group({
         name: ['', Validators.required],
-        seats: ['', [Validators.required, Validators.max(200)]],
+        seats: ['', [Validators.required, Validators.max(200)]]
       });
       this.transportExist = false;
     }

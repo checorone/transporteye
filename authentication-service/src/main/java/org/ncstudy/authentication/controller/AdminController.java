@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/v1/admin")
+@RequestMapping("api/v1/admin/card")
 @Validated
 public class AdminController {
 
@@ -31,17 +31,17 @@ public class AdminController {
         this.service = service;
     }
 
-    @GetMapping("/card/get/all")
+    @GetMapping
     public List getAllUsers() {
         return service.getAll();
     }
 
-    @GetMapping("/card/get/all/id")
-    public List getAllUsersId() {
-        return service.getAllCardId();
-    }
+//    @GetMapping("/card/get/all/id")
+//    public List getAllUsersId() {
+//        return service.getAllCardId();
+//    }
 
-    @DeleteMapping("/card/delete")
+    @DeleteMapping
     @Transactional
     public void deleteUser(
             @RequestParam("card_id")
@@ -50,7 +50,7 @@ public class AdminController {
         service.delete(cardId);
     }
 
-    @PutMapping("card/update")
+    @PutMapping
     public void updateUser(@RequestParam boolean resetPassword, UserData userData
     ) throws AuthChangesException {
         service.updateUser(userData, resetPassword);

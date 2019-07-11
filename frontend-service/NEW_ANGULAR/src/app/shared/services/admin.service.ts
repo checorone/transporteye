@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserInfo} from '../models/user-info.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  private adminUrl = 'http://localhost:8901/api/v1/admin/';
+  private adminUrl = environment.AUTHSERVERURI+'api/v1/admin/card';
   choosenToModifyInfo: any = null;
   selectedTable: string = '';
 
@@ -15,7 +16,7 @@ export class AdminService {
   }
 
   getUsersData() {
-    return this.http.get<UserInfo[]>(this.adminUrl + 'card/get/all');
+    return this.http.get<UserInfo[]>(this.adminUrl);
   }
 
   updateUser(userInfo: UserInfo, resetPassword: boolean) {
@@ -27,12 +28,12 @@ export class AdminService {
     userInfo.roles.forEach(role => {
       bbody.append('roles', role);
     });
-    return this.http.put(this.adminUrl + 'card/update', bbody);
+    return this.http.put(this.adminUrl, bbody);
   }
 
   deleteUser(cardId: string) {
     const bbody = new FormData();
     bbody.set('card_id', cardId);
-    return this.http.request('DELETE', this.adminUrl + 'card/delete', {body: bbody});
+    return this.http.request('DELETE', this.adminUrl, {body: bbody});
   }
 }

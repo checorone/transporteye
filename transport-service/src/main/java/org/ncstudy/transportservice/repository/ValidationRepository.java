@@ -15,11 +15,17 @@ public interface ValidationRepository extends CrudRepository<Validation, Integer
 
     long countByBusStopId(int busStopId);
 
-    List<Validation> getValidationByBusStopId(int bysStopId);
+    List<Validation> getValidationByBusStopId(int busStopId);
 
-    List<Validation> getValidationByCardId(int cardId);
+    List<Validation> getValidationByCardId(String cardId);
 
     @Query(value = "select * from validation natural left join transport natural left " +
             "join bus_stop natural left join route where card_id=:card_id", nativeQuery = true)
     List<Map> getAllByCardId(@Param("card_id") String cardId);
+
+    List<Validation> getValidationByRouteId(int routeId);
+
+    long countByRouteId(int routeId);
+
+    List<Validation> findAll();
 }

@@ -1,12 +1,18 @@
 package org.ncstudy.transportservice.services;
 
 import org.ncstudy.transportservice.model.*;
-import org.ncstudy.transportservice.repository.*;
+import org.ncstudy.transportservice.repository.PassengerStreamRepository;
+import org.ncstudy.transportservice.repository.RouteRepository;
+import org.ncstudy.transportservice.repository.TransportRepository;
+import org.ncstudy.transportservice.repository.ValidationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -17,15 +23,15 @@ public class AnalyticsService {
     private ValidationService validationService;
     @Autowired
     private TransportService transportService;
-    @Autowired
-    private TripService tripService;
+//    @Autowired
+//    private TripService tripService;
     @Autowired
     private RouteService routeService;
     @Autowired
     private BusStopService busStopService;
 
-    @Autowired
-    private TripRepository tripRepository;
+//    @Autowired
+//    private TripRepository tripRepository;
     @Autowired
     private ValidationRepository validationRepository;
     @Autowired
@@ -89,23 +95,23 @@ public class AnalyticsService {
      *
      * @return
      */
-    public List<TransportExt> getMapDataTransport() {
-        //TODO: impl
-        Random random = new Random();
-        List<TransportExt> transportExts = new ArrayList<TransportExt>();
-        List<Transport> tr = transportService.getAllTransports();
-        for (Transport transport : tr) {
-            TransportExt tempExt = new TransportExt();
-            tempExt.transportId = transport.getId();
-            tempExt.name = transport.getName();
-            tempExt.seats = transport.getSeats();
-            tempExt.longitude = transport.getLongitude();
-            tempExt.latitude = transport.getLatitude();
-            tempExt.emptySeats = random.nextInt(30);
-            transportExts.add(tempExt);
-        }
-        return transportExts;
-    }
+//    public List<Transport> getMapDataTransport() {
+//        //TODO: impl
+//        Random random = new Random();
+//        List<TransportExt> transportExts = new ArrayList<TransportExt>();
+//        List<Transport> tr = transportService.getAllTransports();
+//        for (Transport transport : tr) {
+//            TransportExt tempExt = new TransportExt();
+//            tempExt.transportId = transport.getId();
+//            tempExt.name = transport.getName();
+//            tempExt.seats = transport.getSeats();
+//            tempExt.longitude = transport.getLongitude();
+//            tempExt.latitude = transport.getLatitude();
+//            tempExt.emptySeats = random.nextInt(30);
+//            transportExts.add(tempExt);
+//        }
+//        return transportExts;
+//    }
 
     /**
      * Возвращает хешмап с количеством всех вошедших пассажиров, всех вышедших и тех, кто прошел валидацию.
@@ -148,9 +154,12 @@ public class AnalyticsService {
      *
      * @return Количество ТС
      */
+//    public int getTransportCountOnTrip() {
+//        List<Trip> trips = tripService.getAllTrips();
+//        return trips.size();
+//    }
     public int getTransportCountOnTrip() {
-        List<Trip> trips = tripService.getAllTrips();
-        return trips.size();
+        return validationService.getAllValidations().size();
     }
 
     /**
@@ -161,8 +170,12 @@ public class AnalyticsService {
      * @return Количество ТС
      */
 
+//    public long getTransportCountOnRoute(int routeId) {
+//        long countOnRoute = tripRepository.countByRouteId(routeId);
+//        return countOnRoute;
+//    }
     public long getTransportCountOnRoute(int routeId) {
-        long countOnRoute = tripRepository.countByRouteId(routeId);
+        long countOnRoute = validationRepository.countByRouteId(routeId);
         return countOnRoute;
     }
 
@@ -306,12 +319,26 @@ public class AnalyticsService {
      * @param routeId идентификатор маршрута
      * @return Количество пассажиров
      */
+//    public int getAllPassengersOnRoute(int routeId) {
+//        int onTrip = 0;
+//        List<Trip> trips = tripRepository.getTripByRouteId(routeId);
+//        List<PassengerStream> passengerStreams = passengerStreamService.getAllPassengerStreams();
+//        for (PassengerStream passengerStream : passengerStreams) {
+//            for (Trip trip : trips) {
+//                if (passengerStream.getTransportId() == trip.getTransportId()) {
+//                    onTrip += passengerStream.getInCount() - passengerStream.getOutCount();
+//                }
+//            }
+//        }
+//        return onTrip;
+//    }
+
     public int getAllPassengersOnRoute(int routeId) {
         int onTrip = 0;
-        List<Trip> trips = tripRepository.getTripByRouteId(routeId);
+        List<Validation> trips = validationRepository.getValidationByRouteId(routeId);
         List<PassengerStream> passengerStreams = passengerStreamService.getAllPassengerStreams();
         for (PassengerStream passengerStream : passengerStreams) {
-            for (Trip trip : trips) {
+            for (Validation trip : trips) {
                 if (passengerStream.getTransportId() == trip.getTransportId()) {
                     onTrip += passengerStream.getInCount() - passengerStream.getOutCount();
                 }
@@ -345,10 +372,19 @@ public class AnalyticsService {
      * @param routeId идентификатор маршрута
      * @return Количество мест
      */
+//    public int getEmptySeatsOnRoute(int routeId) {
+//        List<Trip> trips = tripRepository.getTripByRouteId(routeId);
+//        int emptySeats = 0;
+//        for (Trip trip : trips) {
+//            emptySeats += getEmptySeatsOnTransport(trip.getTransportId());
+//        }
+//        return emptySeats;
+//    }
+
     public int getEmptySeatsOnRoute(int routeId) {
-        List<Trip> trips = tripRepository.getTripByRouteId(routeId);
+        List<Validation> trips = validationRepository.getValidationByRouteId(routeId);
         int emptySeats = 0;
-        for (Trip trip : trips) {
+        for (Validation trip : trips) {
             emptySeats += getEmptySeatsOnTransport(trip.getTransportId());
         }
         return emptySeats;
@@ -370,11 +406,28 @@ public class AnalyticsService {
      *
      * @return Количество мест
      */
+//    public int getAllSeats() {
+//        int seatsCount = 0;
+//        List<Trip> trips = tripService.getAllTrips();
+//        List<Integer> transportIds = new ArrayList<>();
+//        for (Trip trip : trips) {
+//            transportIds.add(trip.getTransportId());
+//        }
+//        List<Transport> transports = transportService.getAllTransports();
+//        for (Transport transport : transports) {
+//            for (Integer integer : transportIds) {
+//                if (transport.getId() == integer) {
+//                    seatsCount += transport.getSeats();
+//                }
+//            }
+//        }
+//        return seatsCount;
+//    }
     public int getAllSeats() {
         int seatsCount = 0;
-        List<Trip> trips = tripService.getAllTrips();
+        List<Validation> trips = validationService.getAllValidations();
         List<Integer> transportIds = new ArrayList<>();
-        for (Trip trip : trips) {
+        for (Validation trip : trips) {
             transportIds.add(trip.getTransportId());
         }
         List<Transport> transports = transportService.getAllTransports();

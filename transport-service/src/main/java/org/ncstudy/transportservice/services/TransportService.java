@@ -23,6 +23,7 @@ public class TransportService {
     }
 
     public void saveTransport(Transport transport) {
+        transport.setEmptySeats(transport.getSeats());
         transportRepository.save(transport);
     }
 
@@ -35,4 +36,7 @@ public class TransportService {
         transportRepository.deleteById(id);
     }
 
+    public Transport getTransport(int transportId) {
+        return transportRepository.getTransportById(transportId);
+    }
 }

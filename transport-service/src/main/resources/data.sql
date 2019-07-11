@@ -1,7 +1,7 @@
-INSERT INTO transport (transport_name, transport_longitude, transport_latitude, seats)
-values ('LIAZ4450', 37.55946572661742, 55.696239928979296, 50),
-       ('LIAZ4230', 37.60914828794898, 55.76168589497363, 40),
-       ('LIAZ7250', 37.60021945891799, 55.7425776394189, 30);
+INSERT INTO transport (transport_name, transport_longitude, transport_latitude, seats, empty_seats)
+values ('LIAZ4450', 37.55946572661742, 55.696239928979296, 50, 25),
+       ('LIAZ4230', 37.60914828794898, 55.76168589497363, 40, 24),
+       ('LIAZ7250', 37.60021945891799, 55.7425776394189, 30, 21);
 
 INSERT INTO bus_stop (bus_stop_name,bus_stop_latitude,bus_stop_longitude) VALUES 
 ('Ленинский проспект',55.708763122558594,37.58293914794922)

@@ -45,6 +45,7 @@ import {EntityModule} from './entity/entity.module';
 import {TripsTableComponent} from './user/trips-table/trips-table.component';
 import {RouteTableComponent} from './entities/tables/route-table.component';
 import {RouteModifyComponent} from './entities/editors/route-modify/route-modify.component';
+import { TransportFakeRouteComponent } from './transport-fake-route/transport-fake-route.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import {RouteModifyComponent} from './entities/editors/route-modify/route-modify
     TripsTableComponent,
     RouteTableComponent,
     RouteModifyComponent,
+    TransportFakeRouteComponent,
 
   ],
   imports: [

@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AdminService} from "../../../shared/services/admin.service";
-import {AuthService} from "../../../shared/services/auth.service";
-import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material";
-import {ResourceService} from "../../../shared/services/resource.service";
-import {catchError} from "rxjs/operators";
-import {EMPTY, throwError} from "rxjs";
-import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
-import {MapPicker} from "../../map-picker";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AdminService } from "../../../shared/services/admin.service";
+import { AuthService } from "../../../shared/services/auth.service";
+import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material";
+import { ResourceService } from "../../../shared/services/resource.service";
+import { catchError } from "rxjs/operators";
+import { EMPTY, throwError } from "rxjs";
+import { ConfirmDialogComponent } from "../../confirm-dialog/confirm-dialog.component";
+import { MapPicker } from "../../map-picker";
 
 @Component({
   selector: 'app-stops-modify',
@@ -49,7 +49,25 @@ export class StopsModifyComponent implements OnInit {
       this.busStopExist = false;
     }
     map.updateFormOnClickOn(this.busForm);
-    this.resService.getBusStops().subscribe(res=>{
+    this.resService.getBusStops().subscribe(res => {
+      if (this.adminService.choosenToModifyInfo) {
+        let currentId = this.adminService.choosenToModifyInfo.id
+        for (let index = 0; index < res.length; index++) {
+          if (res[index].id == currentId) {
+            res.splice(index, 1);   
+          }
+        }this.resService.getBusStops().subscribe(res => {
+          if (this.adminService.choosenToModifyInfo) {
+            let currentId = this.adminService.choosenToModifyInfo.id
+            for (let index = 0; index < res.length; index++) {
+              if (res[index].id == currentId) {
+                res.splice(index, 1);   
+              }
+            }
+          }
+          map.setHelpMarkers(res);
+        });
+      }
       map.setHelpMarkers(res);
     })
   }
@@ -66,27 +84,27 @@ export class StopsModifyComponent implements OnInit {
 
     let currentVer = this.busForm.getRawValue();
     if (this.busStopExist) {
-      if (this.busForm.pristine || JSON.stringify(currentVer) == JSON.stringify(this.adminService.choosenToModifyInfo)){
+      if (this.busForm.pristine || JSON.stringify(currentVer) == JSON.stringify(this.adminService.choosenToModifyInfo)) {
         this.message = 'Нет изменений';
         return;
       }
       this.resService.updateBusStop(currentVer)
         .pipe(catchError(err => {
-        this.message = err;
-        return throwError(err);
-      })).subscribe(()=>{
-        // this.message = 'Остановка обновлена';
-        this.router.navigate(['/admin/entities']);
-      });
+          this.message = err;
+          return throwError(err);
+        })).subscribe(() => {
+          // this.message = 'Остановка обновлена';
+          this.router.navigate(['/admin/entities']);
+        });
     } else {
       this.resService.addBusStop(currentVer)
         .pipe(catchError(err => {
-        this.message = err;
-        return throwError(err);
-      })).subscribe(()=>{
-        // this.message = 'Остановка создана';
-        this.router.navigate(['/admin/entities']);
-      });
+          this.message = err;
+          return throwError(err);
+        })).subscribe(() => {
+          // this.message = 'Остановка создана';
+          this.router.navigate(['/admin/entities']);
+        });
     }
   }
 
@@ -97,7 +115,7 @@ export class StopsModifyComponent implements OnInit {
   openDialog(): void {
     let id = this.adminService.choosenToModifyInfo.id;
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {message: 'остановку ' + id}
+      data: { message: 'остановку ' + id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,8 +126,8 @@ export class StopsModifyComponent implements OnInit {
             console.log(err);
             return EMPTY;
           })).subscribe(() => {
-          this.router.navigate(['/admin/entities']);
-        });
+            this.router.navigate(['/admin/entities']);
+          });
       }
     });
   }

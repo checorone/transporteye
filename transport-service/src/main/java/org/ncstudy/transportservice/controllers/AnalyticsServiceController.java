@@ -1,6 +1,5 @@
 package org.ncstudy.transportservice.controllers;
 
-import org.ncstudy.transportservice.model.TransportExt;
 import org.ncstudy.transportservice.services.AnalyticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,13 +18,13 @@ public class AnalyticsServiceController {
     private AnalyticsService analyticsService;
     private static final Logger logger = LoggerFactory.getLogger(AnalyticsServiceController.class);
 
-    @RequestMapping(value = "/map/transport", method = RequestMethod.GET)
-    public List<TransportExt> getMapData() {
-        logger.debug("Looking up data for map...");
-        List<TransportExt> fr = analyticsService.getMapDataTransport();
-        logger.debug("Found {} transport entries.", fr);
-        return fr;
-    }
+//    @RequestMapping(value = "/map/transport", method = RequestMethod.GET)
+//    public List<Transport> getMapData() {
+//        logger.debug("Looking up data for map...");
+//        List<Transport> fr = analyticsService.getMapDataTransport();
+//        logger.debug("Found {} transport entries.", fr);
+//        return fr;
+//    }
 
     @RequestMapping(value = "/passengers/free/{busStopId}", method = RequestMethod.GET)
     public double getFreeRiders(@PathVariable("busStopId") int busStopID) {

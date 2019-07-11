@@ -13,6 +13,7 @@ export interface TripModel {
   transport_latitude: number;
   transport_longitude: number;
   seats: number;
+  empty_seats: number;
 
   route_id: number;
   route_number: string;

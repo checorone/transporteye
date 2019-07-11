@@ -27,12 +27,31 @@
           </span>
         </div>
         <agm-map [latitude]="element.bus_stop_latitude" [zoom]="15" [longitude]="element.bus_stop_longitude">
-          <agm-marker  [latitude]="element.bus_stop_latitude" [longitude]="element.bus_stop_longitude" [label]="'BS'"></agm-marker>
-          <agm-marker  [latitude]="element.transport_latitude" [longitude]="element.transport_longitude" [label]="'T'"></agm-marker>
+          <agm-marker  [latitude]="element.bus_stop_latitude" [longitude]="element.bus_stop_longitude"
+          [iconUrl]="
+            {
+              url: '../../assets/svg/marker_blue.svg',
+              scaledSize: {
+                  width: 25,
+                  height: 40
+              }
+            }
+            " ></agm-marker>
+          <agm-marker  [latitude]="element.transport_latitude" [longitude]="element.transport_longitude"
+          [iconUrl]="
+            {
+              url: '../../assets/svg/bus.svg',
+              scaledSize: {
+                  width: 25,
+                  height: 25
+              }
+            }
+            " 
+            ></agm-marker>
           <agm-marker  *ngFor="let routeBus of routeBuses"
             [iconUrl]="
             {
-              url: '../../assets/img/bullet_blue_10.png',
+              url: '../../assets/svg/point_blue.svg',
               scaledSize: {
                   width: 15,
                   height: 15

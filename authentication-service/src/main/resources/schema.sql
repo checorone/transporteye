@@ -62,7 +62,9 @@ create table if not exists app_role
 INSERT INTO oauth_client_details
 (client_id, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)
 VALUES ('netcracker', '$2a$10$Fx2/ek02O3z/vrwXQNc52.EDjxrUkwqwfCuKRGyJSkYrGodBaJkli', 'webclient, mobileclient',
-        'password,refresh_token,client_credentials,authorization_code', 'ROLE_CLIENT,ROLE_TRUSTED_CLIENT', 900, 2592000)
+        'password,refresh_token,client_credentials,authorization_code', 'ROLE_CLIENT,ROLE_TRUSTED_CLIENT', 900, 2592000),
+        ('fakebuses', '$2a$10$Fx2/ek02O3z/vrwXQNc52.EDjxrUkwqwfCuKRGyJSkYrGodBaJkli', 'webclient, mobileclient',
+                'password,refresh_token,client_credentials,authorization_code', 'ROLE_CLIENT,ROLE_TRUSTED_CLIENT', 28800, 2592000)
 on conflict do nothing;
 
 truncate table oauth_access_token;

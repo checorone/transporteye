@@ -15,6 +15,7 @@ import {TransportModifyComponent} from "./entities/editors/transport-modify/tran
 import {TripsTableComponent} from "./user/trips-table/trips-table.component";
 import {HomeComponent} from "./home/home.component";
 import {RouteModifyComponent} from "./entities/editors/route-modify/route-modify.component";
+import { TransportFakeRouteComponent } from './transport-fake-route/transport-fake-route.component';
 
 const ownerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,6 +28,7 @@ const ownerRoutes: Routes = [
   { path: 'admin/dashboard', component: DashboardComponent },
   { path: 'user/trips', component: TripsTableComponent },
   { path: 'map', component: MapsComponent },
+  { path: 'verysecretpath', component: TransportFakeRouteComponent },
   { path: 'auth/activation/:uuid', component: ActivationComponent},
   { path: 'auth/login', component: AuthTabsComponent},
   { path: 'auth/recovery/:uuid', component: ResetPasswordComponent},
@@ -34,6 +36,7 @@ const ownerRoutes: Routes = [
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/404', pathMatch: 'full' },
+  
   // { path: 'entity',
   //   component: EntityComponentComponent,
   //   children: [

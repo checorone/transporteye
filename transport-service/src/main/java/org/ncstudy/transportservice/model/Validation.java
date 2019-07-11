@@ -20,13 +20,13 @@ public class Validation {
     private int busStopId;
 
     @Column(name = "card_id", nullable = false)
-    private int cardId;
+    private String cardId;
 
     @Column(name = "transport_id", nullable = false)
     private int transportId;
 
     @Column
-    Integer routeId;
+    private Integer routeId;
 
     public int getTransportId() {
         return transportId;
@@ -52,11 +52,19 @@ public class Validation {
         this.busStopId = busStopId;
     }
 
-    public int getCardId() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCardId() {
         return cardId;
     }
 
-    public void setCardId(int cardId) {
+    public void setCardId(String cardId) {
         this.cardId = cardId;
     }
 

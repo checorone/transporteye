@@ -4,9 +4,36 @@
 * Сервис авторизации/аутентификации (authentication service)
 * Сервис с бизнес логикой (transport service)
 * База данных (Postgres)
-* API тестер (Frontend service)
+* Клиент сервис (Frontend service (Angular))
+* Сервис симуляции данных транспорта (FakeTransport Service)
 
-## Инструкции
+И предоставляет следующий функционал:
+
+* Отслеживания движения транспорта  
+![](gifs/map.gif)
+
+* И статистических данных  
+![](gifs/analit.gif)
+
+* Просмотр поездок пользователя  
+![](gifs/trips.gif)
+
+* Модификация остановок админом  
+![](gifs/stops.gif)
+
+* И других сущностей  
+![](gifs/modify.gif)
+
+* Регистрация  
+![](gifs/register.gif)
+
+* Сброс пароля  
+![](gifs/reset.gif)
+
+* Боковое меню для маленьких экранов  
+![](gifs/mini.gif)
+
+## Инструкции для разработчиков
 
 Внимательно прочитайте все что описано ниже, это поможет избежать лишних вопросов.
 
@@ -101,82 +128,4 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8085 \
 ```
     docker-compose -f docker/common/docker-compose.yml rm
     docker-compose -f docker/common/docker-compose.yml up
-```
-
-## Использование
-
-### Через Апи тестер
-
-[localhost (порт 80)](http://localhost)
-
-### Работа с токенами через postman
-Получить токен на доступ
-```
-    У http://localhost:8901/oauth/token. 
-    При этом выбрать авторизацию Basic Auth c логином netcracker и паролем ncpassword. 
-    Метод POST и тип body установить как form-data, поля:
-    * grant_type : password
-    * username : john.doe
-    * password : userpass
-```
-
-Отправить GET к transport service
-```
-    На http://localhost:8085/api/v1/transport. 
-    При этом выбрать авторизацию Bearer и вставить полученный access_token.
-```
-
-Проверка access токена
-```
-    GET http://localhost:8901/oauth/check_token?token=токен
-```
-
-Обновить access по refresh токену
-```
-    POST http://localhost:8901/oauth/token
-    * grant_type : refresh_token
-    * refresh_token : токен
-```
-
- Удалить токены из базы (альтернатива logout при stateless)
-```
-    DELETE http://localhost:8901/token/revoke
-    * access_token : токен (опционально)
-    * refresh_token : токен (опционально, также удаляет access токен)
-```
-
-### Работа с пользоваелями через postman
-Регистрация нового пользователя. Для завершения регистрации нужно перейти по ссылке на почте. По умолчанию права USER.
-```
-    POST http://localhost:8901/users/register
-    * username (логин для входа)
-    * password 
-    * email
-```
-Изменение прав пользователя. Требуются права ADMIN.
-```
-    PUT http://localhost:8901/admin/modify/roles
-    Authorization: Bearer токен
-    * username: изменяемый юзер
-    * roles: права юзера 
-    * ...
-    * roles: (произвольное количество, но пока только USER И ADMIN)
-```
-Изменение пароля. На почту пользователя будет отправлена ссылка на страницу(в процессе)
-```
-    PUT http://localhost:8901/users/password/recovery
-    * username: изменяемый юзер
-```
-Изменение пароля. 
-```
-    PUT http://localhost:8901/users/password/change
-    * new_password: новый пароль
-    * repeat_password: еще раз
-    * uuid: последняя часть ссылки с почты (обрабатывается страницей)
-```
-
-## Описание структуры
-
-```
-    WORK IN PROGRESS
 ```

@@ -175,8 +175,9 @@ public class AnalyticsService {
 //        return countOnRoute;
 //    }
     public long getTransportCountOnRoute(int routeId) {
-        long countOnRoute = validationRepository.countByRouteId(routeId);
-        return countOnRoute;
+        // TODO: transport active boolean
+//        long countOnRoute = validationRepository.countByRouteId(routeId);
+        return transportService.getAllTransports().size();
     }
 
     /**
